@@ -89,8 +89,10 @@
            padding-bottom:6px; margin-bottom:9px; border-bottom:1px solid rgba(255,255,255,.18); }
   .contact a, .contact span{ color:var(--side-ink); text-decoration:none; }
   .contact .c-row{ display:flex; gap:8px; margin-bottom:7px; align-items:baseline; }
-  .contact .c-lab{ color:var(--side-muted); width:42px; flex:none; font-size:8.4px; text-transform:uppercase; letter-spacing:1px; }
-  .contact .c-val{ word-break:break-word; }
+  .contact .c-lab{ color:var(--side-muted); width:36px; flex:none; font-size:8.4px; text-transform:uppercase; letter-spacing:1px; }
+  /* Values are URLs and an email — never break them mid-token; 9.6px keeps the
+     longest (the email) inside the 2.55in sidebar column. */
+  .contact .c-val{ font-size:9.6px; white-space:nowrap; }
 
   .chips{ display:flex; flex-wrap:wrap; gap:5px; }
   .chip{ background:var(--navy-soft); color:var(--side-ink); border-radius:3px; padding:3px 7px; font-size:8.6px; }
@@ -148,6 +150,17 @@
   /* scale-to-fit: JS sets --scale; the paper shrinks on narrow viewports, never grows past 1 */
   .paper-wrap{ overflow:hidden; }
   .scaler{ transform-origin:top center; transform:scale(var(--scale, 1)); }
+
+  /* Printing / PDF export: just the paper, at true size, with the dark sidebar intact. */
+  @page { size: 8.5in 11in; margin: 0; }
+  @media print {
+    .chrome, .sitehead, .tabs, .dl, .lede { display:none !important; }
+    html, body { background:#fff; margin:0; padding:0; }
+    .paper-wrap{ padding:0 !important; height:auto !important; overflow:visible; display:block; }
+    .scaler{ transform:none !important; }
+    .paper{ box-shadow:none; margin:0; }
+    *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  }
 </style>
 </head>
 <body>
@@ -173,9 +186,9 @@
       <div class="s-head">Contact</div>
       <div class="c-row"><span class="c-lab">Loc</span><span class="c-val">San Francisco, CA</span></div>
       <div class="c-row"><span class="c-lab">Email</span><span class="c-val">yusufamani108@gmail.com</span></div>
-      <div class="c-row"><span class="c-lab">Site</span><span class="c-val">yusufamani.myportfolio.com</span></div>
+      <div class="c-row"><span class="c-lab">Site</span><span class="c-val">yusufamani.com</span></div>
       <div class="c-row"><span class="c-lab">In</span><span class="c-val">linkedin.com/in/yusufamani</span></div>
-      <div class="c-row"><span class="c-lab">Git</span><span class="c-val">github.com/yusuf-amani</span></div>
+      <div class="c-row"><span class="c-lab">Git</span><span class="c-val">github.com/yusufamani</span></div>
     </div>
 
     <div class="s-block">
@@ -223,7 +236,7 @@
   <main class="main">
     <div class="m-head"><span class="bar"></span>Profile</div>
     <div class="rule"></div>
-    <p class="summary">Product designer with ~5 years designing complex, workflow-critical enterprise software end-to-end — research through validated delivery. Sole or lead designer on <strong>six internal products at LinkedIn</strong> across Talent Acquisition, People-tech, Finance, and Marketing. Strong in research, information architecture, interaction design, and emerging AI-assisted UX patterns. Known for a fast co-design method that turns stakeholders into collaborators and ships designs with alignment already baked in.</p>
+    <p class="summary">Sr. Product Designer with ~5 years designing complex, workflow-critical enterprise software end-to-end — research through validated delivery. Sole or lead designer on <strong>six internal products at LinkedIn</strong> across Talent Acquisition, People Tech, Finance, and Marketing. Strong in research, information architecture, interaction design, and emerging AI-assisted UX patterns. Known for a fast co-design method that turns stakeholders into collaborators and ships designs with alignment already baked in.</p>
 
     <div class="impact">
       <div class="stat"><div class="num">6</div><div class="lab">Enterprise<br>products</div></div>
@@ -245,17 +258,17 @@
         <div class="role-block">
           <div class="role-row"><span class="rt">Senior Product Designer</span><span class="rm">Full-time · Apr 2025 – Present · Remote</span></div>
           <ul class="bullets">
-            <li><span class="proj">Talent Development &amp; Evaluation (People-tech)</span> — Sole designer on LinkedIn's performance-review and calibration system — usability revamp, 0→1 calibration, and AI-assisted drafting. Projected to cut calibration-session time <strong>80%</strong> with 100% developmental-feedback coverage. Ran a 4-day HR co-design intensive — cited by leadership as an internal best practice — plus 8 manager usability sessions and 6 HRBP interviews. Adopted beyond Engineering into the Product and Global Talent orgs.</li>
+            <li><span class="proj">Talent Development &amp; Evaluation (People-tech)</span> — Sole designer on LinkedIn's performance-review and calibration system — usability revamp, 0→1 calibration, and AI-assisted drafting. Projected to cut calibration-session time <strong>80%</strong> with 100% developmental-feedback coverage. Ran a 4-day HR co-design intensive — cited by leadership as an internal best practice — plus 8 manager usability sessions and 6 HRBP interviews. Contracted to expand beyond Engineering into the Product and Global Talent orgs.</li>
             <li><span class="proj">Email Validation Agent (Finance)</span> — Sole designer of an AI-assisted validation system protecting ~1.1M invoice emails from data-leak incidents at LinkedIn Receivables. Delivered the MVP in 6 weeks as the first designer embedded with the finance-engineering team.</li>
-            <li><span class="proj">Recruit Portal 2.0 (Talent Acquisition)</span> — Returned to lead the AI re-imagining of interview scheduling; defined a three-tier AI interaction framework (activity / suggestion / assistant) and ran a week-long stakeholder intensive to set direction before design.</li>
+            <li><span class="proj">Recruit Portal AI (Talent Acquisition)</span> — Returned to lead the AI re-imagining of interview scheduling; defined a two-tier AI framework (activity / assistant) and ran a week-long stakeholder intensive to set direction before design.</li>
           </ul>
         </div>
 
         <div class="role-block">
           <div class="role-row"><span class="rt">Product Designer</span><span class="rm">Full-time · Apr 2022 – Apr 2025 · San Francisco, CA</span></div>
           <ul class="bullets">
-            <li><span class="proj">Recruit Portal (Talent Acquisition)</span> — Sole designer building and shipping the end-to-end hiring system now used daily across Engineering R&amp;D — a search-and-filter redesign (card sort → 7 validated filters), a new homepage IA validated by A/B test and usability testing, and a full scheduling-and-evaluation flow spanning <strong>10 defined personas</strong>. Demoed to the VP of Engineering Recruiting and SteerCo.</li>
-            <li><span class="proj">Template Management System (HR Ops)</span> — Lead designer (with one teammate) consolidating three separate HR letter tools into one self-service platform — 4 personas, 3 UAT rounds, 12+ research-driven design changes.</li>
+            <li><span class="proj">Recruit Portal (Talent Acquisition)</span> — Sole designer building and shipping the end-to-end hiring system now used daily across Engineering R&amp;D — a search-and-filter redesign (card sort → 7 validated filters), a new homepage IA validated by A/B test and usability testing, and a full scheduling-and-evaluation flow spanning <strong>7 personas</strong>. Demoed to the VP of Engineering Recruiting and SteerCo.</li>
+            <li><span class="proj">Template Management System (HR Ops)</span> — Lead designer (with one teammate) consolidating three separate HR letter tools into one self-service platform — 4 personas, 3 UAT sessions, 12+ research-driven design changes.</li>
             <li>Also led <span class="proj">0→1 LinkedIn Brand Insights</span> (Premium brand analytics) and a <span class="proj">Campaign Central</span> redesign (marketing technology).</li>
           </ul>
         </div>
