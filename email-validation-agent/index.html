@@ -474,6 +474,34 @@ h2.hl { margin-top: 44px; }
   .cbtn { padding: 13px 22px; }
   .arch-btn { padding: 15px 16px; }
 }
+
+/* ---------- Mobile menu ----------
+   Below 760px the five links no longer fit beside the wordmark (they need
+   ~643px on their own), so they collapse behind a toggle and open as a
+   full-screen panel. This block sits after the `pointer: coarse` rules above
+   on purpose: both set `.tabs`, and on a touch phone this one has to win. */
+.navtoggle { display: none; background: none; border: 0; padding: 10px; margin: -10px;
+  cursor: pointer; flex-direction: column; gap: 5px; z-index: 101; }
+.navtoggle span { display: block; width: 23px; height: 2px; background: var(--fg); border-radius: 2px;
+  transition: transform .22s ease, opacity .16s ease; }
+
+@media (max-width: 760px) {
+  .navtoggle { display: inline-flex; }
+  /* flex-wrap must be reset: the base .tabs rule sets `wrap`, and with
+     column direction a short viewport pushes the last link into a second
+     column instead of scrolling. */
+  .tabs { position: fixed; inset: 0; z-index: 100; background: var(--bg); display: none;
+    flex-direction: column; flex-wrap: nowrap; justify-content: center; align-items: center;
+    gap: 30px; margin: 0; padding: 72px 24px; overflow-y: auto; }
+  .tabs a { font-size: 19px; letter-spacing: 1.7px; padding: 10px 14px; }
+  body.nav-open { overflow: hidden; }
+  body.nav-open .tabs { display: flex; }
+  body.nav-open .navtoggle { position: fixed; top: 30px; right: 24px; }
+  /* bars are 2px with a 5px gap, so each end bar travels 7px to meet in the middle */
+  body.nav-open .navtoggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  body.nav-open .navtoggle span:nth-child(2) { opacity: 0; }
+  body.nav-open .navtoggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
 .archive { margin: 40px 0 0; }
 .arch-btn { font: inherit; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 9px; width: 100%; text-align: left; padding: 13px 16px; border: 1px solid var(--rule); border-radius: 10px; background: #f6f7f8; color: var(--fg); cursor: pointer; transition: background .12s ease, border-color .12s ease; }
 .arch-btn:hover { background: #eef0f2; border-color: #d7d7d7; }
@@ -1087,6 +1115,36 @@ lb.addEventListener('click', function () { lb.classList.remove('on'); });
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') lb.classList.remove('on');
 });
+
+/* Mobile menu. Below 760px the links live behind the toggle and open as a
+   full-screen panel; above it this code never fires because the button is
+   display:none and cannot be clicked. */
+(function () {
+  const btn = document.querySelector('.navtoggle');
+  const nav = document.getElementById('sitenav');
+  if (!btn || !nav) return;
+  function setOpen(open) {
+    document.body.classList.toggle('nav-open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  btn.addEventListener('click', function () {
+    setOpen(!document.body.classList.contains('nav-open'));
+  });
+  /* Any link closes it, including the in-page About/Contact anchors, which
+     would otherwise scroll behind a panel that is still covering the screen. */
+  nav.addEventListener('click', function (e) {
+    if (e.target.closest('a')) setOpen(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  /* Rotating to landscape can cross the breakpoint while the panel is open,
+     which would leave the scroll lock on a desktop-width layout. */
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 760) setOpen(false);
+  });
+})();
 </script>
 </body>
 </html>
