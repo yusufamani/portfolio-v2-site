@@ -45,8 +45,10 @@
   /* Wordmark: must mirror the template's rule, since this page has its own CSS.
      Colour is hard-coded to the template's --fg, not this page's --ink (#1c2230,
      faintly navy) - a logo has to be the same colour on every page. */
-  .wordmark{ font-size:20px; font-weight:800; letter-spacing:.4px; text-transform:uppercase;
+  .wordmark{ display:inline-flex; align-items:center; gap:10px;
+    font-size:20px; font-weight:800; letter-spacing:.4px; text-transform:uppercase;
     color:#1a1a1a; text-decoration:none; line-height:1; white-space:nowrap; margin-right:8px; }
+  .wm-planet{ width:31px; height:auto; display:block; flex:none; }
   .wordmark:hover{ text-decoration:none; color:#1a1a1a; opacity:.72; }
   .tabs{ display:flex; flex-wrap:wrap; gap:34px; border-bottom:none; margin:0; }
   .tabs a{ padding:0; margin:0; font-size:15px; font-weight:500; letter-spacing:1.1px;
@@ -186,7 +188,7 @@
 <body>
 
 <div class="chrome">
-  <div class="sitehead"><div class="navrow"><a class="wordmark" href="/">Yusuf Amani</a><button class="navtoggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sitenav"><span></span><span></span><span></span></button><div class="tabs" id="sitenav"><a href="/">UX Work</a><a href="/3d-work/">3D Work</a><a href="/#about">About</a><a href="/#contact">Contact</a><a href="/resume/" class="active">Résumé</a></div></div></div>
+  <div class="sitehead"><div class="navrow"><a class="wordmark" href="/"><img class="wm-planet" src="/images/logo-planet.png" alt="" aria-hidden="true"><span>Yusuf Amani</span></a><button class="navtoggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sitenav"><span></span><span></span><span></span></button><div class="tabs" id="sitenav"><a href="/">UX Work</a><a href="/3d-work/">3D Work</a><a href="/#about">About</a><a href="/#contact">Contact</a><a href="/resume/" class="active">Résumé</a></div></div></div>
   <div class="toolbar">
     <span class="hint">One-page product-designer resume</span>
     <a class="dl" href="Yusuf-Amani-Resume.pdf" download>↓ Download PDF</a>
