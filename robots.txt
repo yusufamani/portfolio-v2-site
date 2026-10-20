@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /campaign-central/
+Disallow: /email-validation-agent/
+Disallow: /linkedin-brand-insights/
+Disallow: /recruit-portal-ai/
+Disallow: /recruit-portal/
+Disallow: /talent-development-evaluation/
+Disallow: /template-management-system/
+
+Sitemap: https://yusufamani.com/sitemap.xml
