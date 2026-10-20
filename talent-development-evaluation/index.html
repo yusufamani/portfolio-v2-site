@@ -39,10 +39,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system
 .tabs a { padding: 0; margin: 0; font-size: 15px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: #aaa; border-bottom: none; text-decoration: none; transition: color .14s ease; }
 .tabs a:hover { text-decoration: none; color: var(--fg); }
 .tabs a.active { color: var(--fg); border-bottom: none; }
-.socials { display: flex; align-items: center; gap: 19px; margin-left: auto; }
-.socials a { display: inline-flex; color: #b9b9b9; transition: color .14s ease; }
-.socials a:hover { color: var(--fg); }
-.socials svg { display: block; width: 17px; height: 17px; fill: currentColor; }
 .crumbs { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
 .crumbs a { color: var(--muted); }
 a { color: var(--link); text-decoration: none; }
@@ -460,9 +456,9 @@ h2.hl { margin-top: 44px; }
 @media (pointer: coarse) {
   .tabs { gap: 26px 30px; }
   .tabs a { padding: 10px 0; }
-  .socials { gap: 26px; }
-  .socials svg { width: 21px; height: 21px; }
-  .socials a { padding: 11px; margin: -11px; }
+  /* 14.5px text is ~22px tall; 6px padding clears the 24px tap target without
+     the boxes meeting, since the flex row gap is 12px. */
+  .about-links a { padding: 6px 0; }
   .car-dots { gap: 20px; }
   .car-dot { position: relative; }
   .car-dot::after { content: ""; position: absolute; inset: -13px -9px; }
@@ -536,6 +532,13 @@ h2.hl { margin-top: 44px; }
 .about-facts p { margin: 0 0 8px; font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .about-facts ul { margin: 0; padding-left: 18px; }
 .about-facts li { font-size: 14px; line-height: 1.5; margin: 0 0 5px; }
+/* Social links: they live with the bio now, so they carry labels rather than
+   being icon-only the way they were in the header. */
+.about-links { display: flex; flex-wrap: wrap; gap: 12px 26px; margin: 28px 0 0; }
+.about-links a { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px;
+  color: var(--muted); text-decoration: none; transition: color .14s ease; }
+.about-links a:hover { color: var(--fg); }
+.about-links svg { display: block; width: 16px; height: 16px; fill: currentColor; flex: none; }
 
 .contact { margin: 0 0 40px; }
 .contact-lede { font-size: 17px; line-height: 1.6; color: #3a3a3a; margin: 0 0 22px; max-width: 560px; }
