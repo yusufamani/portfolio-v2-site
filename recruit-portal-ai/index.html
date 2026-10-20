@@ -4,7 +4,19 @@
 <meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>case-study</title>
+<title>Recruit Portal AI — Yusuf Amani</title>
+<meta name="description" content="Enhancing enterprise interview scheduling with AI and automation.">
+<link rel="canonical" href="https://yusufamani.com/recruit-portal-ai/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Yusuf Amani">
+<meta property="og:title" content="Recruit Portal AI — Yusuf Amani">
+<meta property="og:description" content="Enhancing enterprise interview scheduling with AI and automation.">
+<meta property="og:url" content="https://yusufamani.com/recruit-portal-ai/">
+<meta property="og:image" content="https://yusufamani.com/images/hero-art.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Recruit Portal AI — Yusuf Amani">
+<meta name="twitter:description" content="Enhancing enterprise interview scheduling with AI and automation.">
+<meta name="twitter:image" content="https://yusufamani.com/images/hero-art.jpg">
 <style>
 :root {
   --fg: #1a1a1a;
@@ -592,7 +604,7 @@ function show(v) {
     b.classList.toggle('on', b.dataset.v === v);
     b.setAttribute('aria-selected', b.dataset.v === v ? 'true' : 'false');
   });
-  document.title = (document.querySelector('h1')?.textContent || fallbackTitle) + ' — Portfolio';
+  /* title is set statically at build time */
   if (sources.v2) {
     history.replaceState(null, '', location.pathname + (v === 'v1' ? '#v1' : ''));
   }

@@ -4,7 +4,19 @@
 <meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>case-study</title>
+<title>Email Validation Agent — Yusuf Amani</title>
+<meta name="description" content="Designing the AI-assisted validation and reply system that protects 1.1 million invoice emails from data leaks at LinkedIn Receivables — across three phases, one design language…">
+<link rel="canonical" href="https://yusufamani.com/email-validation-agent/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Yusuf Amani">
+<meta property="og:title" content="Email Validation Agent — Yusuf Amani">
+<meta property="og:description" content="Designing the AI-assisted validation and reply system that protects 1.1 million invoice emails from data leaks at LinkedIn Receivables — across three phases, one design language…">
+<meta property="og:url" content="https://yusufamani.com/email-validation-agent/">
+<meta property="og:image" content="https://yusufamani.com/images/hero-art.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Email Validation Agent — Yusuf Amani">
+<meta name="twitter:description" content="Designing the AI-assisted validation and reply system that protects 1.1 million invoice emails from data leaks at LinkedIn Receivables — across three phases, one design language…">
+<meta name="twitter:image" content="https://yusufamani.com/images/hero-art.jpg">
 <style>
 :root {
   --fg: #1a1a1a;
@@ -592,7 +604,7 @@ function show(v) {
     b.classList.toggle('on', b.dataset.v === v);
     b.setAttribute('aria-selected', b.dataset.v === v ? 'true' : 'false');
   });
-  document.title = (document.querySelector('h1')?.textContent || fallbackTitle) + ' — Portfolio';
+  /* title is set statically at build time */
   if (sources.v2) {
     history.replaceState(null, '', location.pathname + (v === 'v1' ? '#v1' : ''));
   }
