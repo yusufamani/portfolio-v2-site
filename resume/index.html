@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yusuf Amani — Resume</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root{
+    --navy:#16243f;
+    --navy-soft:#23365c;
+    --accent:#2f6fdb;
+    --ink:#1c2230;
+    --muted:#5b6473;
+    --line:#e3e7ee;
+    --side-ink:#e8edf6;
+    --side-muted:#9fb0cc;
+    --link:#0a66c2;
+    --rule:#e6e6e6;
+  }
+  html,body{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body{
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+    color:var(--ink);
+    background:#fff;
+    line-height:1.5;
+  }
+
+  /* ---------- SITE CHROME ---------- */
+  .chrome{ max-width:1120px; margin:0 auto; padding:48px 24px 0; }
+  .sitehead{ margin:0 0 30px; }
+  .navrow{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:18px 34px; }
+  .tabs{ display:flex; flex-wrap:wrap; gap:34px; border-bottom:none; margin:0; }
+  .tabs a{ padding:0; margin:0; font-size:15px; font-weight:500; letter-spacing:1.1px;
+           text-transform:uppercase; color:#aaa; border-bottom:none; text-decoration:none; }
+  .tabs a:hover{ color:var(--ink); }
+  .tabs a.active{ color:var(--ink); border-bottom:none; }
+  .socials{ display:flex; align-items:center; gap:19px; margin-left:auto; }
+  .socials a{ display:inline-flex; color:#b9b9b9; }
+  .socials a:hover{ color:var(--ink); }
+  .socials svg{ display:block; width:17px; height:17px; fill:currentColor; }
+  /* Touch devices only — match the template's WCAG 2.5.8 tap targets. */
+  @media (pointer: coarse){
+    .tabs{ gap:26px 30px; }
+    .tabs a{ padding:10px 0; }
+    .socials{ gap:26px; }
+    .socials svg{ width:21px; height:21px; }
+    .socials a{ padding:11px; margin:-11px; }
+    .dl{ padding:13px 20px; }
+  }
+  .toolbar{ display:flex; justify-content:space-between; align-items:center; margin:4px 0 20px; }
+  .toolbar .hint{ font-size:13px; color:var(--muted); }
+  .dl{ display:inline-flex; align-items:center; gap:7px; background:var(--link); color:#fff;
+       font-size:13px; font-weight:600; padding:8px 16px; border-radius:6px; text-decoration:none; }
+  .dl:hover{ background:#085196; }
+
+  /* ---------- PAPER ---------- */
+  .paper-wrap{ padding:0 24px 56px; display:flex; justify-content:center; }
+  .page{
+    width:8.5in; height:11in;
+    display:grid; grid-template-columns:2.55in 1fr;
+    overflow:hidden;
+    background:#fff;
+    box-shadow:0 8px 30px rgba(16,36,63,.18), 0 2px 8px rgba(16,36,63,.10);
+    border-radius:4px;
+    font-size:10.2px;
+  }
+
+  /* ---------- SIDEBAR ---------- */
+  .side{ background:var(--navy); color:var(--side-ink); padding:0.52in 0.34in; }
+  .name{ font-size:25px; font-weight:700; letter-spacing:.5px; line-height:1.05; color:#fff; }
+  .role{ margin-top:6px; font-size:10.5px; font-weight:600; letter-spacing:2.4px; text-transform:uppercase; color:var(--accent); }
+  .role .accent2{ color:var(--side-muted); }
+
+  .s-block{ margin-top:30px; }
+  .s-head{ font-size:9.5px; font-weight:700; letter-spacing:2.2px; text-transform:uppercase; color:#fff;
+           padding-bottom:6px; margin-bottom:9px; border-bottom:1px solid rgba(255,255,255,.18); }
+  .contact a, .contact span{ color:var(--side-ink); text-decoration:none; }
+  .contact .c-row{ display:flex; gap:8px; margin-bottom:7px; align-items:baseline; }
+  .contact .c-lab{ color:var(--side-muted); width:42px; flex:none; font-size:8.4px; text-transform:uppercase; letter-spacing:1px; }
+  .contact .c-val{ word-break:break-word; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:5px; }
+  .chip{ background:var(--navy-soft); color:var(--side-ink); border-radius:3px; padding:3px 7px; font-size:8.6px; }
+  .tool-line{ color:var(--side-ink); font-size:9px; line-height:1.7; }
+
+  .edu-item{ margin-bottom:16px; }
+  .edu-deg{ color:#fff; font-weight:700; font-size:9.6px; }
+  .edu-sch{ color:var(--side-muted); font-size:8.8px; margin-top:2px; }
+  .edu-meta{ color:var(--side-muted); font-size:8.4px; margin-top:1px; }
+
+  /* ---------- MAIN ---------- */
+  .main{ padding:0.52in 0.45in 0.45in 0.42in; }
+  .m-head{ font-size:11px; font-weight:700; letter-spacing:2.4px; text-transform:uppercase; color:var(--navy); }
+  .m-head .bar{ display:inline-block; width:22px; height:2px; background:var(--accent); vertical-align:middle; margin-right:8px; position:relative; top:-2px;}
+  .rule{ height:1px; background:var(--line); margin:8px 0 12px; }
+
+  .summary{ color:var(--ink); font-size:9.7px; line-height:1.5; }
+
+  .section{ margin-top:22px; }
+
+  .job{ margin-bottom:15px; }
+  .job-top{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .job-title{ font-size:10.6px; font-weight:700; color:var(--ink); }
+  .job-title .co{ color:var(--accent); }
+  .job-dates{ font-size:8.6px; color:var(--muted); white-space:nowrap; flex:none; font-weight:600; }
+  .job-sub{ font-size:8.7px; color:var(--muted); margin:1px 0 4px; font-style:italic; }
+  .job-lead{ font-size:9.4px; color:var(--ink); margin-bottom:4px; }
+
+  .roles{ margin:4px 0 7px; }
+  .role-block{ margin-bottom:8px; }
+  .role-block:last-child{ margin-bottom:0; }
+  .role-block .role-row{ margin-bottom:3px; }
+  .role-block ul.bullets{ margin-top:3px; }
+  .role-block ul.bullets li{ margin-bottom:4px; }
+  .role-row{ margin-bottom:5px; }
+  .role-row .rt{ font-size:9.9px; font-weight:700; color:var(--ink); }
+  .role-row .rm{ display:block; font-size:8.5px; color:var(--muted); margin-top:1px; }
+
+  ul.bullets{ list-style:none; }
+  ul.bullets li{ position:relative; padding-left:12px; margin-bottom:5.5px; font-size:9.9px; line-height:1.5; }
+  ul.bullets li::before{ content:""; position:absolute; left:0; top:5px; width:4px; height:4px; border-radius:50%; background:var(--accent); }
+  .proj{ font-weight:700; color:var(--navy); }
+
+  .mini{ margin-bottom:12px; }
+  .mini .job-title{ font-size:9.9px; }
+  .mini .job-lead{ margin-bottom:0; }
+
+  /* impact strip */
+  .impact{ display:flex; gap:0; margin-top:16px; border:1px solid var(--line); border-radius:5px; overflow:hidden; }
+  .impact .stat{ flex:1; padding:10px 8px; text-align:center; border-right:1px solid var(--line); }
+  .impact .stat:last-child{ border-right:none; }
+  .impact .num{ font-size:14px; font-weight:700; color:var(--accent); line-height:1.05; }
+  .impact .lab{ font-size:7.6px; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; margin-top:3px; line-height:1.25; }
+
+  /* scale-to-fit: JS sets --scale; the paper shrinks on narrow viewports, never grows past 1 */
+  .paper-wrap{ overflow:hidden; }
+  .scaler{ transform-origin:top center; transform:scale(var(--scale, 1)); }
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <div class="sitehead"><div class="navrow"><div class="tabs"><a href="/">UX Work</a><a href="/3d-work/">3D Work</a><a href="/#about">About</a><a href="/#contact">Contact</a><a href="/resume/" class="active">Résumé</a></div><div class="socials"><a href="https://www.linkedin.com/in/yusufamani/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM.22 8h4.56V24H.22V8zm7.4 0h4.37v2.19h.06c.61-1.16 2.1-2.38 4.32-2.38 4.62 0 5.47 3.04 5.47 7V24h-4.56v-8.15c0-1.94-.03-4.44-2.7-4.44-2.71 0-3.12 2.12-3.12 4.3V24H7.62V8z"/></svg></a><a href="https://medium.com/@yusufamani108" target="_blank" rel="noopener" aria-label="Medium" title="Medium"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.846 6.887c.03-.295-.083-.586-.303-.784l-2.24-2.7v-.403h6.958l5.378 11.795 4.728-11.795h6.633v.403l-1.916 1.837c-.165.126-.247.333-.213.538v13.498c-.034.204.048.411.213.537l1.871 1.837v.403h-9.412v-.403l1.939-1.882c.19-.19.19-.246.19-.537v-10.91l-5.389 13.688h-.728l-6.275-13.688v9.174c-.052.385.076.774.347 1.052l2.521 3.058v.404H0v-.404l2.521-3.058c.27-.279.39-.67.325-1.052v-10.609z"/></svg></a><a href="https://www.artstation.com/yusufamani108" target="_blank" rel="noopener" aria-label="ArtStation" title="ArtStation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 17.72l2.03 3.51a2.42 2.42 0 002.16 1.33h13.46l-2.79-4.84H0zm24 .03c0-.48-.14-.94-.39-1.31L15.73 2.73a2.42 2.42 0 00-2.14-1.29H9.42L21.6 22.54l1.92-3.33c.38-.64.48-.92.48-1.46zm-11.13-3.46L7.43 4.86l-5.45 9.43h10.89z"/></svg></a><a href="https://github.com/yusuf-amani" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82c.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div></div></div>
+  <div class="toolbar">
+    <span class="hint">One-page product-designer resume</span>
+    <a class="dl" href="Yusuf-Amani-Resume.pdf" download>↓ Download PDF</a>
+  </div>
+</div>
+
+<div class="paper-wrap">
+<div class="scaler">
+<div class="page">
+
+  <!-- SIDEBAR -->
+  <aside class="side">
+    <div class="name">YUSUF<br>AMANI</div>
+    <div class="role">Product Designer<br><span class="accent2">Senior · Enterprise</span></div>
+
+    <div class="s-block contact">
+      <div class="s-head">Contact</div>
+      <div class="c-row"><span class="c-lab">Loc</span><span class="c-val">San Francisco, CA</span></div>
+      <div class="c-row"><span class="c-lab">Email</span><span class="c-val">yusufamani108@gmail.com</span></div>
+      <div class="c-row"><span class="c-lab">Site</span><span class="c-val">yusufamani.myportfolio.com</span></div>
+      <div class="c-row"><span class="c-lab">In</span><span class="c-val">linkedin.com/in/yusufamani</span></div>
+      <div class="c-row"><span class="c-lab">Git</span><span class="c-val">github.com/yusuf-amani</span></div>
+    </div>
+
+    <div class="s-block">
+      <div class="s-head">Core Skills</div>
+      <div class="chips">
+        <span class="chip">UX Research</span>
+        <span class="chip">Usability Testing</span>
+        <span class="chip">Information Architecture</span>
+        <span class="chip">Interaction Design</span>
+        <span class="chip">Prototyping</span>
+        <span class="chip">Design Systems</span>
+        <span class="chip">AI / Agentic UX</span>
+        <span class="chip">Design Thinking</span>
+        <span class="chip">Product Strategy</span>
+        <span class="chip">Accessibility</span>
+      </div>
+    </div>
+
+    <div class="s-block">
+      <div class="s-head">Tools</div>
+      <div class="tool-line">Figma · Figma Make · Adobe XD · Cursor · Claude · GitHub · Maze · UserTesting · Optimal Workshop</div>
+    </div>
+
+    <div class="s-block">
+      <div class="s-head">Education</div>
+      <div class="edu-item">
+        <div class="edu-deg">Master's, Human-Computer Interaction &amp; Design</div>
+        <div class="edu-sch">University of California, Irvine</div>
+        <div class="edu-meta">2021 · GPA 4.0</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-deg">B.S., Computer Science</div>
+        <div class="edu-sch">California State University, Sacramento</div>
+        <div class="edu-meta">2020</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-deg">A.S., Computer Science</div>
+        <div class="edu-sch">Folsom Lake College</div>
+        <div class="edu-meta">2017</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="m-head"><span class="bar"></span>Profile</div>
+    <div class="rule"></div>
+    <p class="summary">Product designer with ~5 years designing complex, workflow-critical enterprise software end-to-end — research through validated delivery. Sole or lead designer on <strong>six internal products at LinkedIn</strong> across Talent Acquisition, People-tech, Finance, and Marketing. Strong in research, information architecture, interaction design, and emerging AI-assisted UX patterns. Known for a fast co-design method that turns stakeholders into collaborators and ships designs with alignment already baked in.</p>
+
+    <div class="impact">
+      <div class="stat"><div class="num">6</div><div class="lab">Enterprise<br>products</div></div>
+      <div class="stat"><div class="num">~5 yrs</div><div class="lab">Sole / lead<br>designer</div></div>
+      <div class="stat"><div class="num">~1.1M</div><div class="lab">Invoice emails<br>protected</div></div>
+      <div class="stat"><div class="num">2,000+</div><div class="lab">Hrs/yr saved<br>(TDE)</div></div>
+      <div class="stat"><div class="num">1,000s</div><div class="lab">Users on<br>AR2026 cycle</div></div>
+    </div>
+
+    <div class="section">
+      <div class="m-head"><span class="bar"></span>Experience</div>
+      <div class="rule"></div>
+
+      <div class="job">
+        <div class="job-top">
+          <div class="job-title"><span class="co">LinkedIn</span></div>
+          <div class="job-dates">Oct 2021 – Present</div>
+        </div>
+        <div class="role-block">
+          <div class="role-row"><span class="rt">Senior Product Designer</span><span class="rm">Full-time · Apr 2025 – Present · Remote</span></div>
+          <ul class="bullets">
+            <li><span class="proj">Talent Development &amp; Evaluation (People-tech)</span> — Sole designer on LinkedIn's performance-review and calibration system — usability revamp, 0→1 calibration, and AI-assisted drafting. Projected to cut calibration-session time <strong>80%</strong> with 100% developmental-feedback coverage. Ran a 4-day HR co-design intensive — cited by leadership as an internal best practice — plus 8 manager usability sessions and 6 HRBP interviews. Adopted beyond Engineering into the Product and Global Talent orgs.</li>
+            <li><span class="proj">Email Validation Agent (Finance)</span> — Sole designer of an AI-assisted validation system protecting ~1.1M invoice emails from data-leak incidents at LinkedIn Receivables. Delivered the MVP in 6 weeks as the first designer embedded with the finance-engineering team.</li>
+            <li><span class="proj">Recruit Portal 2.0 (Talent Acquisition)</span> — Returned to lead the AI re-imagining of interview scheduling; defined a three-tier AI interaction framework (activity / suggestion / assistant) and ran a week-long stakeholder intensive to set direction before design.</li>
+          </ul>
+        </div>
+
+        <div class="role-block">
+          <div class="role-row"><span class="rt">Product Designer</span><span class="rm">Full-time · Apr 2022 – Apr 2025 · San Francisco, CA</span></div>
+          <ul class="bullets">
+            <li><span class="proj">Recruit Portal (Talent Acquisition)</span> — Sole designer building and shipping the end-to-end hiring system now used daily across Engineering R&amp;D — a search-and-filter redesign (card sort → 7 validated filters), a new homepage IA validated by A/B test and usability testing, and a full scheduling-and-evaluation flow spanning <strong>10 defined personas</strong>. Demoed to the VP of Engineering Recruiting and SteerCo.</li>
+            <li><span class="proj">Template Management System (HR Ops)</span> — Lead designer (with one teammate) consolidating three separate HR letter tools into one self-service platform — 4 personas, 3 UAT rounds, 12+ research-driven design changes.</li>
+            <li>Also led <span class="proj">0→1 LinkedIn Brand Insights</span> (Premium brand analytics) and a <span class="proj">Campaign Central</span> redesign (marketing technology).</li>
+          </ul>
+        </div>
+
+        <div class="role-block">
+          <div class="role-row"><span class="rt">Product Designer</span><span class="rm">Contract · Oct 2021 – Apr 2022 · Sunnyvale, CA</span></div>
+          <ul class="bullets">
+            <li><span class="proj">Recruit Portal (Talent Acquisition)</span> — Embedded as sole designer: three months of contextual inquiry across every persona in the hiring workflow, plus a competitive evaluation of two legacy ATSs. The research reframed a planned tool enhancement into a full two-ATS consolidation — the direction the product followed for the next three years.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job mini">
+        <div class="job-top">
+          <div class="job-title">UX Consultant <span class="co">· InstaMed, a J.P. Morgan Company</span></div>
+          <div class="job-dates">Mar – Aug 2021</div>
+        </div>
+        <div class="job-sub">Internship · UC Irvine MHCID capstone</div>
+        <div class="job-lead">User research and usability testing for a redesign of InstaMed Online for Providers; user flows, wireframes, and prototypes with developers.</div>
+      </div>
+
+      <div class="job mini">
+        <div class="job-top">
+          <div class="job-title">UX Consultant <span class="co">· ZamQuests</span></div>
+          <div class="job-dates">Oct 2019 – Jul 2020</div>
+        </div>
+        <div class="job-sub">Freelance · Sacramento, CA</div>
+        <div class="job-lead">Revamped the ZamQuests website and mobile app: stakeholder and user research, low- to high-fidelity prototyping in Adobe XD, interface and visual design.</div>
+      </div>
+
+      <div class="job mini">
+        <div class="job-top">
+          <div class="job-title">UX Consultant <span class="co">· CHEERS, California Energy Registry</span></div>
+          <div class="job-dates">Jun – Aug 2019</div>
+        </div>
+        <div class="job-sub">Internship · Sacramento, CA</div>
+        <div class="job-lead">Customer interviews to diagnose pain points and surface new product opportunities; user flows, wireframes, and prototypes for new features.</div>
+      </div>
+
+    </div>
+  </main>
+</div>
+</div>
+</div>
+
+<script>
+  // Scale the fixed 8.5in paper down to fit the viewport width (never scale up past 1).
+  (function () {
+    var PAGE_W = 8.5 * 96, PAGE_H = 11 * 96, SIDE_PAD = 48; // px
+    var wrap = document.querySelector('.paper-wrap');
+    var scaler = document.querySelector('.scaler');
+    function fit() {
+      var avail = wrap.clientWidth - SIDE_PAD;
+      var scale = Math.min(1, avail / PAGE_W);
+      scaler.style.setProperty('--scale', scale);
+      // transform doesn't affect layout box, so reserve the scaled height + breathing room
+      wrap.style.height = (PAGE_H * scale + 56) + 'px';
+    }
+    window.addEventListener('resize', fit);
+    fit();
+  })();
+</script>
+
+</body>
+</html>
