@@ -31,15 +31,16 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif; line-height: 1.6; }
-.shell { max-width: 760px; margin: 0 auto; padding: 48px 24px 96px; }
+.shell { max-width: 760px; margin: 0 auto; padding: 0 24px 96px; }
+/* The header sits outside .shell so it keeps one width everywhere. The shell
+   narrows to 760px for reading on case studies; the nav should not narrow with
+   it. The 48px that used to be .shell's top padding lives here now. */
+.sitehead-wrap { max-width: 1120px; margin: 0 auto; padding: 48px 24px 0; }
 .sitehead { margin: 0 0 54px; }
 /* Hero greeting. Sentence case, so the tracking goes slightly negative;
    the +.6px it had was there to open up all-caps. */
 .intro-greeting { font-size: 42px; font-weight: 800; line-height: 1.1; letter-spacing: -.5px; margin: 0 0 18px; padding: 0; border: none; }
-/* gap is only a minimum here: `space-between` spreads the two children on wide
-   pages. It is kept tight so the header still fits on one line inside the
-   760px reading shell that case studies use. */
-.navrow { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px 24px; }
+.navrow { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px 34px; }
 /* Wordmark: the hero treatment at nav scale. Text rather than an image so it
    stays crisp at any density and remains selectable and translatable. */
 .wordmark { display: inline-flex; align-items: center; gap: 10px;
@@ -49,7 +50,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system
    way. Decorative only: the wordmark text carries the meaning. */
 .wm-planet { width: 31px; height: auto; display: block; flex: none; }
 .wordmark:hover { text-decoration: none; color: var(--fg); opacity: .72; }
-.tabs { display: flex; flex-wrap: wrap; gap: 30px; margin: 0; border-bottom: none; }
+.tabs { display: flex; flex-wrap: wrap; gap: 34px; margin: 0; border-bottom: none; }
 .tabs a { padding: 0; margin: 0; font-size: 15px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: #aaa; border-bottom: none; text-decoration: none; transition: color .14s ease; }
 .tabs a:hover { text-decoration: none; color: var(--fg); }
 .tabs a.active { color: var(--fg); border-bottom: none; }
@@ -623,8 +624,10 @@ h2.hl { margin-top: 44px; }
 </style>
 </head>
 <body>
-<div class="shell">
+<div class="sitehead-wrap">
 <div class="sitehead"><div class="navrow"><a class="wordmark" href="/"><img class="wm-planet" src="/images/logo-planet.png" alt="" aria-hidden="true"><span>Yusuf Amani</span></a><button class="navtoggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sitenav"><span></span><span></span><span></span></button><div class="tabs" id="sitenav"><a href="/" class="active">UX Work</a><a href="/3d-work/">3D Work</a><a href="/#about">About</a><a href="/#contact">Contact</a><a href="/resume/">Résumé</a></div></div></div>
+</div>
+<div class="shell">
 
 
 <div id="content">Loading…</div>
