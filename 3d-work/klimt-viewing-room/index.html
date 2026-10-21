@@ -578,7 +578,7 @@ h2.hl { margin-top: 44px; }
 .wcard-cta { font-size: 13.5px; font-weight: 600; color: var(--link); margin-top: auto; }
 .wcard:hover .wcard-cta { text-decoration: underline; }
 
-.about { display: grid; grid-template-columns: 1fr 330px; gap: 48px; align-items: start; margin: 0 0 72px; }
+.about { position: relative; display: grid; grid-template-columns: 1fr 330px; gap: 48px; align-items: start; margin: 0 0 72px; }
 .about p { font-size: 15.5px; line-height: 1.68; }
 .about p:first-child { margin-top: 0; }
 .about-photo img { display: block; width: 100%; border-radius: 14px; margin: 0; }
@@ -602,6 +602,25 @@ h2.hl { margin-top: 44px; }
   color: var(--muted); text-decoration: none; transition: color .14s ease; }
 .about-links a:hover { color: var(--fg); }
 .about-links svg { display: block; width: 16px; height: 16px; fill: currentColor; flex: none; }
+/* Objects lifted from the hero render, scattered in the margins beside About.
+   Purely decorative: aria-hidden and pointer-events none, so they are invisible
+   to assistive tech and never intercept a click. They sit outside .about, so
+   they only appear once the viewport is wide enough to hold them without
+   causing a horizontal scrollbar. */
+.deco { position: absolute; display: block; pointer-events: none; user-select: none; z-index: 0; }
+.deco img { display: block; width: 100%; height: auto; margin: 0; animation: decoFloat 7s ease-in-out infinite; }
+.deco-rocket { width: 70px; top: -22px; right: -96px; transform: rotate(-10deg); }
+.deco-cross  { width: 44px; top: 62px; left: -92px; transform: rotate(10deg); }
+.deco-ring   { width: 58px; top: 268px; left: -96px; transform: rotate(-7deg); }
+.deco-pencil { width: 52px; top: 322px; right: -92px; transform: rotate(7deg); }
+.deco-plant  { width: 58px; bottom: 0; left: -94px; }
+.deco-cross img  { animation-delay: -1.4s; }
+.deco-ring img   { animation-delay: -2.8s; }
+.deco-pencil img { animation-delay: -4.2s; }
+.deco-plant img  { animation-delay: -5.6s; }
+@keyframes decoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@media (prefers-reduced-motion: reduce) { .deco img { animation: none; } }
+@media (max-width: 1279px) { .deco { display: none; } }
 
 .contact { margin: 0 0 40px; }
 .contact-lede { font-size: 17px; line-height: 1.6; color: #3a3a3a; margin: 0 0 22px; max-width: 560px; }
