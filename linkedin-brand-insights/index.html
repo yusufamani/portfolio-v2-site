@@ -545,8 +545,15 @@ h2.hl { margin-top: 44px; }
    The 105% size crops the art slightly top and bottom rather than letterboxing
    it, which also hides the seam where the image meets the band colour. 110% is
    the ceiling: past that the copy starts overlapping the artwork at 1265px,
-   the narrowest width that still uses this overlapping layout. */
-.hero-band { margin: -22px calc(50% - 50vw) 64px; padding: 76px 0; background: #fceee3 url("/images/hero-art.jpg") right center / auto 105% no-repeat; display: flex; align-items: center; min-height: clamp(540px, 40vw, 920px); }
+   the narrowest width that still uses this overlapping layout.
+   The art is served from a 2560x1440 WebP. At 105% of the band a retina screen
+   needs up to ~1930 device pixels of height, so the 900px original was being
+   upscaled up to 2.1x by the browser. The @2x asset is the same render resized
+   with Lanczos and unsharp-masked, which is sharper than the browser's runtime
+   upscale. The 1600px JPEG stays as the fallback for browsers without
+   image-set, and index.md uses a <picture> so the stacked layout below 1260px
+   pulls the same WebP rather than a second file. */
+.hero-band { margin: -22px calc(50% - 50vw) 64px; padding: 76px 0; background: #fceee3 url("/images/hero-art.jpg") right center / auto 105% no-repeat; background-image: image-set(url("/images/hero-art@2x.webp") type("image/webp"), url("/images/hero-art.jpg") type("image/jpeg")); display: flex; align-items: center; min-height: clamp(540px, 40vw, 920px); }
 .hero-inner { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 .hero-copy { max-width: 540px; }
 .hero-art { display: none; border-radius: 14px; }
