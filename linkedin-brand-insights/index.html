@@ -621,7 +621,21 @@ h2.hl { margin-top: 44px; }
 .deco-plant img  { animation-delay: -5.6s; }
 @keyframes decoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
 @media (prefers-reduced-motion: reduce) { .deco img { animation: none; } }
-@media (max-width: 1279px) { .deco { display: none; } }
+/* Below 1280px the page margins are too narrow to hold anything (the content
+   box is 1072px, so a 1150px viewport leaves only 39px a side). Rather than
+   hide the objects there, they regroup into the empty space under Fast Facts,
+   which exists at every desktop width because the text column is always the
+   taller of the two. */
+@media (max-width: 1279px) {
+  .deco { top: auto; left: auto; bottom: 0; }
+  .deco-plant  { width: 40px; right: 268px; bottom: 0; }
+  .deco-rocket { width: 50px; right: 188px; bottom: 34px; transform: rotate(-10deg); }
+  .deco-ring   { width: 40px; right: 128px; bottom: 6px; transform: rotate(-7deg); }
+  .deco-pencil { width: 36px; right: 68px; bottom: 10px; transform: rotate(7deg); }
+  .deco-cross  { width: 32px; right: 14px; bottom: 44px; transform: rotate(10deg); }
+}
+/* Single column: the right-hand column is gone, so there is nowhere to put them. */
+@media (max-width: 880px) { .deco { display: none; } }
 
 .contact { margin: 0 0 40px; }
 .contact-lede { font-size: 17px; line-height: 1.6; color: #3a3a3a; margin: 0 0 22px; max-width: 560px; }
