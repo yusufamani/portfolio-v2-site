@@ -565,7 +565,7 @@ h2.hl { margin-top: 44px; }
 
 .sech { font-size: 12px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin: 0 0 22px; padding: 0 0 12px; border-bottom: 1px solid var(--rule); }
 
-.work { display: flex; flex-direction: column; gap: 56px; margin: 0 0 88px; }
+.work { display: flex; flex-direction: column; gap: 96px; margin: 0 0 120px; }
 .wcard { display: grid; grid-template-columns: 1.08fr 1fr; border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; text-decoration: none; color: inherit; background: var(--bg); transition: box-shadow .22s ease, transform .22s ease, border-color .22s ease; }
 .wcard:hover { border-color: #d4d4d4; box-shadow: 0 12px 34px rgba(0,0,0,.10); transform: translateY(-3px); }
 .wcard-alt { grid-template-columns: 1fr 1.08fr; }
@@ -650,6 +650,9 @@ h2.hl { margin-top: 44px; }
 @media (max-width: 880px) {
   .wcard, .wcard-alt { grid-template-columns: 1fr; }
   .wcard-alt .wcard-img { order: 0; }
+  /* Stacked cards are already tall, so the desktop gap would read as a break
+     between sections rather than spacing within one. */
+  .work { gap: 64px; margin: 0 0 88px; }
   .about { grid-template-columns: 1fr; gap: 30px; }
   .about-photo { max-width: 300px; }
   .intro-greeting { font-size: 34px; }
