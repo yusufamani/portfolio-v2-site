@@ -39,8 +39,11 @@
   }
 
   /* ---------- SITE CHROME ---------- */
-  .chrome{ max-width:1120px; margin:0 auto; padding:48px 24px 0; }
-  .sitehead{ margin:0 0 30px; }
+  /* Spacing is margin rather than padding so that only the nav pins when the
+     bar is sticky, not the whitespace around it. Mirrors the template. */
+  .chrome{ max-width:1120px; margin:36px auto 18px; padding:12px 24px;
+    position:sticky; top:0; z-index:50; background:#fff; }
+  .sitehead{ margin:0; }
   .navrow{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:18px 34px; }
   /* Wordmark: must mirror the template's rule, since this page has its own CSS.
      Colour is hard-coded to the template's --fg, not this page's --ink (#1c2230,

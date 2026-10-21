@@ -33,9 +33,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system
 .shell { max-width: 760px; margin: 0 auto; padding: 0 24px 96px; }
 /* The header sits outside .shell so it keeps one width everywhere. The shell
    narrows to 760px for reading on case studies; the nav should not narrow with
-   it. The 48px that used to be .shell's top padding lives here now. */
-.sitehead-wrap { max-width: 1120px; margin: 0 auto; padding: 48px 24px 0; }
-.sitehead { margin: 0 0 54px; }
+   it. Spacing is margin, not padding, so that when the bar is sticky only the
+   nav itself pins rather than ~146px of surrounding whitespace. */
+/* 36 + 12 = the 48px of top space the shell used to provide; 12 + 42 = the
+   54px that used to sit below the nav. Same rhythm, split so the sticky
+   bar is only 68px tall. */
+.sitehead-wrap { max-width: 1120px; margin: 36px auto 42px; padding: 12px 24px; }
+.sitehead { margin: 0; }
+/* Sticky everywhere except pages with h2 section headings, which are themselves
+   `position: sticky; top: 0` and would collide. See has_sticky_sections(). */
+body.sticky-nav .sitehead-wrap { position: sticky; top: 0; z-index: 50; background: var(--bg); }
 /* Hero greeting. Sentence case, so the tracking goes slightly negative;
    the +.6px it had was there to open up all-caps. */
 .intro-greeting { font-size: 42px; font-weight: 800; line-height: 1.1; letter-spacing: -.5px; margin: 0 0 18px; padding: 0; border: none; }
@@ -622,7 +629,7 @@ h2.hl { margin-top: 44px; }
 @media (max-width: 880px) { .pgal { grid-template-columns: 1fr; } }
 </style>
 </head>
-<body>
+<body class="sticky-nav">
 <div class="sitehead-wrap">
 <div class="sitehead"><div class="navrow"><a class="wordmark" href="/"><img class="wm-planet" src="/images/logo-planet.png" alt="" aria-hidden="true"><span>Yusuf Amani</span></a><button class="navtoggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sitenav"><span></span><span></span><span></span></button><div class="tabs" id="sitenav"><a href="/">UX Work</a><a href="/3d-work/" class="active">3D Work</a><a href="/#about">About</a><a href="/#contact">Contact</a><a href="/resume/">Résumé</a></div></div></div>
 </div>
