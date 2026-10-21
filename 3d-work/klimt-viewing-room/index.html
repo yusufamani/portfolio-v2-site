@@ -610,14 +610,10 @@ h2.hl { margin-top: 44px; }
 .deco { position: absolute; display: block; pointer-events: none; user-select: none; z-index: 0; }
 .deco img { display: block; width: 100%; height: auto; margin: 0; animation: decoFloat 7s ease-in-out infinite; }
 .deco-rocket { width: 70px; top: -22px; right: -96px; transform: rotate(-10deg); }
-.deco-cross  { width: 44px; top: 62px; left: -92px; transform: rotate(10deg); }
-.deco-ring   { width: 58px; top: 268px; left: -96px; transform: rotate(-7deg); }
-.deco-pencil { width: 52px; top: 322px; right: -92px; transform: rotate(7deg); }
-.deco-plant  { width: 58px; bottom: 0; left: -94px; }
-.deco-cross img  { animation-delay: -1.4s; }
-.deco-ring img   { animation-delay: -2.8s; }
-.deco-pencil img { animation-delay: -4.2s; }
-.deco-plant img  { animation-delay: -5.6s; }
+.deco-cross  { width: 44px; top: 76px; left: -92px; transform: rotate(10deg); }
+.deco-ring   { width: 58px; top: 330px; left: -96px; transform: rotate(-7deg); }
+.deco-cross img { animation-delay: -2.3s; }
+.deco-ring img  { animation-delay: -4.6s; }
 @keyframes decoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
 @media (prefers-reduced-motion: reduce) { .deco img { animation: none; } }
 /* Below 1280px the page margins are too narrow to hold anything (the content
@@ -627,11 +623,9 @@ h2.hl { margin-top: 44px; }
    taller of the two. */
 @media (max-width: 1279px) {
   .deco { top: auto; left: auto; bottom: 0; }
-  .deco-plant  { width: 40px; right: 268px; bottom: 0; }
-  .deco-rocket { width: 50px; right: 188px; bottom: 34px; transform: rotate(-10deg); }
-  .deco-ring   { width: 40px; right: 128px; bottom: 6px; transform: rotate(-7deg); }
-  .deco-pencil { width: 36px; right: 68px; bottom: 10px; transform: rotate(7deg); }
-  .deco-cross  { width: 32px; right: 14px; bottom: 44px; transform: rotate(10deg); }
+  .deco-rocket { width: 54px; right: 208px; bottom: 16px; transform: rotate(-10deg); }
+  .deco-ring   { width: 44px; right: 120px; bottom: 0; transform: rotate(-7deg); }
+  .deco-cross  { width: 36px; right: 42px; bottom: 26px; transform: rotate(10deg); }
 }
 /* Single column: the right-hand column is gone, so there is nowhere to put them. */
 @media (max-width: 880px) { .deco { display: none; } }
