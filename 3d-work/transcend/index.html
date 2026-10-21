@@ -541,11 +541,14 @@ h2.hl { margin-top: 44px; }
    that zone and the band's background-color continues it seamlessly to the
    viewport edge. Below 1260px the art can no longer clear the copy, so the two
    stack instead of overlapping.
-   The 105% size crops the art slightly top and bottom rather than letterboxing
-   it, which also hides the seam where the image meets the band colour. 110% is
-   the ceiling: past that the copy starts overlapping the artwork at 1265px,
-   the narrowest width that still uses this overlapping layout. */
-.hero-band { margin: -22px calc(50% - 50vw) 64px; padding: 76px 0; background: #fceee3 url("/images/hero-art.jpg") right center / auto 105% no-repeat; display: flex; align-items: center; min-height: clamp(540px, 40vw, 920px); }
+   The 105% size overfills the band rather than letterboxing it, which also
+   hides the seam where the image meets the band colour. Anchored to `bottom`,
+   not `center`: the artwork runs flush to the bottom edge of the render with
+   no clear space, while the top third is empty, so the whole overflow has to
+   be taken off the top or the desk gets clipped. 110% is the ceiling: past
+   that the copy starts overlapping the artwork at 1265px, the narrowest width
+   that still uses this overlapping layout. */
+.hero-band { margin: -22px calc(50% - 50vw) 64px; padding: 76px 0; background: #fceee3 url("/images/hero-art.jpg") right bottom / auto 105% no-repeat; display: flex; align-items: center; min-height: clamp(540px, 40vw, 920px); }
 .hero-inner { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 .hero-copy { max-width: 540px; }
 .hero-art { display: none; border-radius: 14px; }
