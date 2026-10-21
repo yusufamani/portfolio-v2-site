@@ -1111,6 +1111,9 @@ const lbImg = lb.querySelector('img');
 content.addEventListener('click', function (e) {
   const t = e.target.closest('img[data-zoom]');
   if (!t) return;
+  /* An image inside a link is a thumbnail for that link, not something to
+     zoom. Opening the lightbox here would fire alongside the navigation. */
+  if (t.closest('a')) return;
   lbImg.src = t.dataset.zoom;
   lbImg.alt = t.alt || '';
   lb.classList.add('on');
