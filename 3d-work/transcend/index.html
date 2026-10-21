@@ -537,11 +537,15 @@ h2.hl { margin-top: 44px; }
 .internal a { color: var(--muted); }
 .internal a:hover { color: var(--link); }/* ---------- Home page: intro, work cards, about, contact ---------- */
 .shell:has(.work) { max-width: 1120px; }
-/* Full-bleed hero. The artwork's left ~36% is flat cream, so the copy sits in
+/* Full-bleed hero. The artwork's left third is flat cream, so the copy sits in
    that zone and the band's background-color continues it seamlessly to the
-   viewport edge. Below 1200px the art can no longer clear the copy, so the two
-   stack instead of overlapping. */
-.hero-band { margin: -22px calc(50% - 50vw) 64px; padding: 76px 0; background: #fceee3 url("/images/hero-art.jpg") right center / auto 95% no-repeat; display: flex; align-items: center; min-height: clamp(540px, 40vw, 920px); }
+   viewport edge. Below 1260px the art can no longer clear the copy, so the two
+   stack instead of overlapping.
+   The 105% size crops the art slightly top and bottom rather than letterboxing
+   it, which also hides the seam where the image meets the band colour. 110% is
+   the ceiling: past that the copy starts overlapping the artwork at 1265px,
+   the narrowest width that still uses this overlapping layout. */
+.hero-band { margin: -22px calc(50% - 50vw) 64px; padding: 76px 0; background: #fceee3 url("/images/hero-art.jpg") right center / auto 105% no-repeat; display: flex; align-items: center; min-height: clamp(540px, 40vw, 920px); }
 .hero-inner { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 .hero-copy { max-width: 540px; }
 .hero-art { display: none; border-radius: 14px; }
