@@ -537,6 +537,10 @@ h2.hl { margin-top: 44px; }
 .internal a { color: var(--muted); }
 .internal a:hover { color: var(--link); }/* ---------- Home page: intro, work cards, about, contact ---------- */
 .shell:has(.work) { max-width: 1120px; }
+/* About moved to its own page; it uses the same two-column grid as the
+   home page's section did, so it needs the same width to hold the
+   portrait column and keep the margin decorations outside the text. */
+.shell:has(.about) { max-width: 1120px; }
 /* Full-bleed hero. The artwork's left third is flat cream, so the copy sits in
    that zone and the band's background-color continues it seamlessly to the
    viewport edge. Below 1260px the art can no longer clear the copy, so the two
@@ -672,7 +676,7 @@ h2.hl { margin-top: 44px; }
 </head>
 <body class="sticky-nav">
 <div class="sitehead-wrap">
-<div class="sitehead"><div class="navrow"><a class="wordmark" href="/"><img class="wm-planet" src="/images/logo-planet.png" alt="" aria-hidden="true"><span>Yusuf Amani</span></a><button class="navtoggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sitenav"><span></span><span></span><span></span></button><div class="tabs" id="sitenav"><a href="/">UX Work</a><a href="/3d-work/" class="active">3D Work</a><a href="/#about">About</a><a href="/#contact">Contact</a><a href="/resume/">Resume</a></div></div></div>
+<div class="sitehead"><div class="navrow"><a class="wordmark" href="/"><img class="wm-planet" src="/images/logo-planet.png" alt="" aria-hidden="true"><span>Yusuf Amani</span></a><button class="navtoggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sitenav"><span></span><span></span><span></span></button><div class="tabs" id="sitenav"><a href="/">UX Work</a><a href="/3d-work/" class="active">3D Work</a><a href="/about/">About</a><a href="/#contact">Contact</a><a href="/resume/">Resume</a></div></div></div>
 </div>
 <div class="shell">
 
