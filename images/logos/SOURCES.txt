@@ -9,5 +9,6 @@ to identify the products, which is nominative use.
   linkedin.svg   File:LinkedIn icon.svg
   microsoft.svg  File:Microsoft logo.svg
   workday.svg    File:Workday logo.svg
+  figma.svg      File:Figma-logo.svg
 
 Retrieved 2026-10-23 from commons.wikimedia.org, unmodified.
