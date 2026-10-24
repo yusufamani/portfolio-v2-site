@@ -773,6 +773,11 @@ body:has(.deck) .rail { display: none; }
 .slide.s-split { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5em;
   align-items: center; }
 .slide.s-split.wide-right { grid-template-columns: 0.8fr 1.2fr; }
+/* Title slide: the product shot carries the slide, so it takes a wider column,
+   a tighter gutter and a bleed into the right padding. The text column stays
+   wide enough to keep the headline at three lines. */
+.slide.s-split.hero-right { grid-template-columns: 0.87fr 1.13fr; gap: 2em; }
+.slide.s-split.hero-right .slide-fig { margin-right: -3.25em; }
 .slide.s-full { padding: 0; display: block; position: relative; }
 .slide.s-full img { width: 100%; height: 100%; object-fit: cover; margin: 0;
   border: none; border-radius: 0; }
