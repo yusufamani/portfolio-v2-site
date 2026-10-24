@@ -775,6 +775,9 @@ body:has(.deck) .rail { display: none; }
 .slide-fig img { width: 100%; display: block; margin: 0; border: 1px solid var(--rule);
   border-radius: .5em; }
 .slide-fig.plain img { border: 0; }
+/* Two screenshots stacked in one figure column, for before/after or two
+   views of the same legacy tool. */
+.slide-fig.stack { display: flex; flex-direction: column; gap: .85em; }
 .slide-fig .s-cap { font-size: .875em; color: var(--muted); margin: .75em 0 0; }
 
 /* Stat blocks, for the outcome slides. */
