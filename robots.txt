@@ -8,7 +8,6 @@ Disallow: /recruit-portal/
 Disallow: /roblox/
 Disallow: /roblox/deck-rpai/
 Disallow: /roblox/deck-tde/
-Disallow: /roblox/deck-test/
 Disallow: /roblox/jd-analysis/
 Disallow: /roblox/presentation/
 Disallow: /site-guide/
