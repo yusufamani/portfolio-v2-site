@@ -1,0 +1,13 @@
+Vendor logos used on TDE deck slide 2 to identify the tools in the workflow.
+
+All four are from Wikimedia Commons and tagged Public domain, because these
+marks fall below the threshold of originality and so carry no copyright. The
+trademarks remain the property of their owners; they are reproduced here only
+to identify the products, which is nominative use.
+
+  google.svg     File:Google "G" logo.svg
+  linkedin.svg   File:LinkedIn icon.svg
+  microsoft.svg  File:Microsoft logo.svg
+  workday.svg    File:Workday logo.svg
+
+Retrieved 2026-10-23 from commons.wikimedia.org, unmodified.
