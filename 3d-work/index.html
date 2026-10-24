@@ -752,6 +752,11 @@ body:has(.deck) .rail { display: none; }
 /* Modifier is namespaced because a bare .work is the homepage work-card rule,
    whose flex gap and bottom margin would otherwise pull this box apart. */
 .s-diag .lyr.is-work { background: #eef5fb; border-color: #cbdff0; }
+/* The record layer holds one line, so it would otherwise read as a thin strip
+   under a tall box. Given a floor it reads as a base, without the dead space
+   that matching the work layer's height would create. */
+.s-diag .lyr:not(.is-work) { min-height: 7.4em; display: flex;
+  flex-direction: column; justify-content: center; }
 .s-diag .lbl { font-size: .6875em; font-weight: 700; letter-spacing: .12em;
   text-transform: uppercase; color: var(--muted); margin: 0 0 .5em; }
 .s-diag .nm { font-size: 1.125em; font-weight: 700; line-height: 1.15; }
