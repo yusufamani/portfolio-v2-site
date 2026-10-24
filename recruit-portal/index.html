@@ -848,6 +848,15 @@ body:has(.deck) .rail { display: none; }
 .slide ul.s-list li::before { content: ""; position: absolute; left: 0; top: .6em;
   width: .45em; height: .45em; border-radius: 50%; background: var(--link); }
 .slide ul.s-list li b { font-weight: 700; }
+.slide ul.s-usecase-list { margin: 1.25em 0 0; padding: 0; list-style: none; }
+.slide .s-usecase-list li { display: flex; align-items: flex-start; gap: .7em;
+  margin: 0 0 .65em; font-size: 1.125em; line-height: 1.5; }
+.s-usecase-list .sq { flex: none; width: .62em; height: .62em; margin-top: .42em;
+  border-radius: .08em; }
+.s-usecase-list .info { background: #e3b341; }
+.s-usecase-list .action { background: #d94b4b; }
+.s-usecase-list .promo { background: #32865a; }
+.s-usecase-list .insights { background: #30343b; }
 
 /* Deck chrome: slide number and progress. Deliberately quiet. */
 /* Chrome sits on top of white slides, so it is dark rather than light. */
