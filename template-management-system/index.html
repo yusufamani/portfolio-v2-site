@@ -756,6 +756,11 @@ body:has(.deck) .rail { display: none; }
   font-size: .75em; color: var(--muted); }
 .s-diag .join::before { content: ""; width: 2px; height: 1.3em; background: #cfd6dc;
   border-radius: 1px; }
+/* In a split the diagram sits in a narrower column, so it reads as two cards
+   rather than two full-width bars. Deeper padding keeps the record layer from
+   collapsing into a sliver. */
+.slide-fig .s-diag { margin: 0 auto; max-width: 19em; }
+.slide-fig .s-diag .lyr { padding: 1.15em 1.25em; }
 .slide.s-split { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5em;
   align-items: center; }
 .slide.s-split.wide-right { grid-template-columns: 0.8fr 1.2fr; }
