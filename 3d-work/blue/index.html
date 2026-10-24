@@ -740,6 +740,13 @@ body:has(.deck) .rail { display: none; }
 .s-cards .d { display: block; font-size: .9375em; line-height: 1.45; color: #4a5056; }
 /* Cards are a diagram, so they take the full stage rather than the text measure. */
 .slide.s-title > ul.s-cards { max-width: 100%; }
+/* Equation line. The operators are muted so the three phrases read as the
+   content and the plus and equals read as structure, not words. */
+/* Full width, because an equation that wraps mid-statement stops reading as
+   one. */
+.slide p.s-eq { max-width: none; }
+.s-eq i { font-style: normal; font-weight: 400; color: var(--muted);
+  padding: 0 .2em; }
 
 /* Structure diagram. Two stacked layers with a labelled connector: what the
    workflow layer holds, and what the record layer underneath it is. */
