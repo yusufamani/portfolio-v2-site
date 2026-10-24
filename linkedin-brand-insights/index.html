@@ -741,6 +741,19 @@ body:has(.deck) .rail { display: none; }
 .s-cards .d { display: block; font-size: .9375em; line-height: 1.45; color: #4a5056; }
 /* Cards are a diagram, so they take the full stage rather than the text measure. */
 .slide.s-title > ul.s-cards { max-width: 100%; }
+/* Cycle timeline. Offsets and widths are the real AR2026 dates to scale
+   against a 119-day span, June 1 to September 28, so the bars are data rather
+   than decoration. */
+.s-tl { margin: 1.5em 0 0; width: 100%; }
+.s-tl .r { display: grid; grid-template-columns: 17em 1fr 9.5em;
+  align-items: center; gap: 1.1em; margin: 0 0 .55em; }
+.s-tl .nm { font-size: .9375em; color: #2b3137; }
+.s-tl .trk { position: relative; height: 1.25em; background: #eef1f3;
+  border-radius: .3em; }
+.s-tl .fil { position: absolute; top: 0; bottom: 0; background: #bccbd7;
+  border-radius: .3em; }
+.s-tl .fil.hot { background: var(--link); }
+.s-tl .dt { font-size: .875em; color: var(--muted); }
 /* Equation line. The operators are muted so the three phrases read as the
    content and the plus and equals read as structure, not words. */
 /* Full width, because an equation that wraps mid-statement stops reading as
