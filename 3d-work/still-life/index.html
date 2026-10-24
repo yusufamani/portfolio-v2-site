@@ -734,9 +734,17 @@ body:has(.deck) .rail { display: none; }
 .slide.s-split { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5em;
   align-items: center; }
 .slide.s-split.wide-right { grid-template-columns: 0.8fr 1.2fr; }
-.slide.s-full { padding: 0; display: block; }
+.slide.s-full { padding: 0; display: block; position: relative; }
 .slide.s-full img { width: 100%; height: 100%; object-fit: cover; margin: 0;
   border: none; border-radius: 0; }
+/* Caption panel for a full-bleed slide. Sits on an opaque card rather than a
+   scrim, so contrast is guaranteed regardless of what is behind it. */
+.s-over { position: absolute; left: 3.5em; bottom: 3.5em; max-width: 30em;
+  background: #fff; border-radius: .6em; padding: 1.6em 1.8em;
+  box-shadow: 0 .5em 2em rgba(15,20,25,.18); }
+.s-over .s-kick { margin: 0 0 .6em; }
+.s-over h3 { margin: 0; }
+.s-over p { margin: .6em 0 0; max-width: none; }
 .slide-body { min-width: 0; }
 .slide-fig { min-width: 0; }
 .slide-fig img { width: 100%; display: block; margin: 0; border: 1px solid var(--rule);
