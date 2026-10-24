@@ -291,7 +291,7 @@ img[data-zoom] { cursor: zoom-in; }
 /* Lightbox */
 .lb { position: fixed; inset: 0; background: rgba(12,12,14,.93); display: none; align-items: center; justify-content: center; z-index: 999; cursor: zoom-out; padding: 24px; }
 .lb.on { display: flex; }
-.lb img { max-width: 97vw; max-height: 94vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; background: #fff; cursor: default; }
+.lb img { max-width: 97vw; max-height: 94vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; background: #fff; cursor: zoom-out; }
 .lb .x { position: absolute; top: 18px; right: 24px; color: #fff; font-size: 26px; line-height: 1; opacity: .75; background: none; border: 0; padding: 12px; cursor: pointer; }
 .lb .x:hover, .lb .x:focus-visible { opacity: 1; }
 /* Feature carousel */
@@ -1413,7 +1413,7 @@ content.addEventListener('click', function (e) {
 lb.addEventListener('click', function (e) {
   if (e.target === lb || e.target === lbClose) closeZoom();
 });
-lbImg.addEventListener('click', function (e) { e.stopPropagation(); });
+lbImg.addEventListener('click', closeZoom);
 lb.addEventListener('keydown', function (e) {
   if (e.key === 'Tab') {
     e.preventDefault();
