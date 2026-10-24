@@ -1467,6 +1467,7 @@ document.addEventListener('keydown', function (e) {
       openZoom(zoomTarget);
       return;
     }
+    if (e.target.closest && e.target.closest('.carousel')) return;
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(i + 1); }
     else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(i - 1); }
@@ -1474,7 +1475,7 @@ document.addEventListener('keydown', function (e) {
     else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
     else if (e.key === 'f') { if (!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
   });
-  deck.querySelectorAll('.slide-fig > img, .slide.s-full > img').forEach(function (image) {
+  deck.querySelectorAll('.slide-fig > img, .slide.s-full > img, .slide-fig .car-slide > img').forEach(function (image) {
     image.classList.add('deck-zoomable');
     image.tabIndex = 0;
     image.setAttribute('role', 'button');
@@ -1491,10 +1492,13 @@ document.addEventListener('keydown', function (e) {
       openZoom(zoomTarget);
       return;
     }
+    if (e.target.closest('.carousel')) return;
     go(e.clientX < window.innerWidth / 3 ? i - 1 : i + 1);
   });
   let x0 = null;
-  deck.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  deck.addEventListener('touchstart', function (e) {
+    x0 = e.target.closest('.carousel') ? null : e.touches[0].clientX;
+  }, { passive: true });
   deck.addEventListener('touchend', function (e) {
     if (lb.classList.contains('on')) { x0 = null; return; }
     if (x0 === null) return;
