@@ -732,6 +732,30 @@ body:has(.deck) .rail { display: none; }
 .s-cards .d { display: block; font-size: .9375em; line-height: 1.45; color: #4a5056; }
 /* Cards are a diagram, so they take the full stage rather than the text measure. */
 .slide.s-title > ul.s-cards { max-width: 100%; }
+
+/* Structure diagram. Two stacked layers with a labelled connector: what the
+   workflow layer holds, and what the record layer underneath it is. */
+.s-diag { margin: 1.3em 0 0; max-width: 100%; }
+/* Every p inside the diagram opts out of the slide's paragraph rhythm, which
+   would otherwise stack .85em gaps inside the boxes and overflow the stage. */
+.s-diag p { margin: 0; max-width: none; font-size: 1em; line-height: 1.3; }
+.s-diag .lyr { border: 1px solid var(--rule); border-radius: .55em; padding: .85em 1.1em;
+  background: #fff; }
+/* Modifier is namespaced because a bare .work is the homepage work-card rule,
+   whose flex gap and bottom margin would otherwise pull this box apart. */
+.s-diag .lyr.is-work { background: #eef5fb; border-color: #cbdff0; }
+.s-diag .lbl { font-size: .6875em; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin: 0 0 .5em; }
+.s-diag .nm { font-size: 1.125em; font-weight: 700; line-height: 1.15; }
+.s-diag .nm span { font-weight: 400; color: #4a5056; }
+.s-diag .chips { display: flex; flex-wrap: wrap; gap: .35em; margin: .65em 0 0; }
+.s-diag .chips i { font-style: normal; font-size: .75em; font-weight: 600;
+  padding: .3em .7em; border-radius: .3em; background: #dbe8f4; color: #2d4559;
+  line-height: 1.3; }
+.s-diag .join { display: flex; align-items: center; gap: .6em; margin: .45em 0 .45em 1.1em;
+  font-size: .75em; color: var(--muted); }
+.s-diag .join::before { content: ""; width: 2px; height: 1.3em; background: #cfd6dc;
+  border-radius: 1px; }
 .slide.s-split { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5em;
   align-items: center; }
 .slide.s-split.wide-right { grid-template-columns: 0.8fr 1.2fr; }
