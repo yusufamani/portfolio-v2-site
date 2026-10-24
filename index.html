@@ -290,9 +290,9 @@ img[data-zoom] { cursor: zoom-in; }
 /* Lightbox */
 .lb { position: fixed; inset: 0; background: rgba(12,12,14,.93); display: none; align-items: center; justify-content: center; z-index: 999; cursor: zoom-out; padding: 24px; }
 .lb.on { display: flex; }
-.lb img { max-width: 97vw; max-height: 94vh; border-radius: 4px; background: #fff; }
-.lb .x { position: absolute; top: 18px; right: 24px; color: #fff; font-size: 26px; line-height: 1; opacity: .75; }
-.lb .x:hover { opacity: 1; }
+.lb img { max-width: 97vw; max-height: 94vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; background: #fff; cursor: default; }
+.lb .x { position: absolute; top: 18px; right: 24px; color: #fff; font-size: 26px; line-height: 1; opacity: .75; background: none; border: 0; padding: 12px; cursor: pointer; }
+.lb .x:hover, .lb .x:focus-visible { opacity: 1; }
 /* Feature carousel */
 .carousel { margin: 18px 0 6px; }
 .car-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
@@ -826,6 +826,7 @@ body:has(.deck) .rail { display: none; }
 .slide-fig { min-width: 0; }
 .slide-fig img { width: 100%; display: block; margin: 0; border: 1px solid var(--rule);
   border-radius: .5em; }
+.slide-fig > img, .slide.s-full > img { cursor: zoom-in; }
 .slide-fig.plain img { border: 0; }
 /* Two screenshots stacked in one figure column, for before/after or two
    views of the same legacy tool. */
@@ -903,7 +904,7 @@ body:has(.deck) .deck-no, body:has(.deck) .deck-ui { display: block; }
 
 <div id="content">Loading…</div>
 </div>
-<div class="lb" id="lb"><span class="x">&times;</span><img alt=""></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true" tabindex="-1"><button class="x" type="button" aria-label="Close enlarged image">&times;</button><img alt=""></div>
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
 <script>
 const sources = {"v1": "<div class=\"hero-band\">\n<div class=\"hero-inner\">\n<div class=\"hero-copy\">\n<h1 class=\"intro-greeting\">Hi there, I'm&nbsp;Yusuf</h1>\n\n<p class=\"intro-lede\">A Sr. Product Designer at LinkedIn. I enjoy <b>solving</b> complex problems and <b>designing</b> easy-to-use enterprise software.</p>\n</div>\n<img class=\"hero-art\" src=\"images/hero-art.jpg?v=d160035c\" alt=\"My own 3D render. A monitor surrounded by floating design objects: a ruler, clipboard, planet, rocket, colour swatches, charts and smiling-face icons, on a soft cream background\">\n</div>\n</div>\n\n<div class=\"work\">\n\n<a class=\"wcard\" href=\"talent-development-evaluation/\">\n<div class=\"wcard-img\"><img src=\"images/card-tde.jpg?v=be0ea335\" alt=\"Talent Development & Evaluation: the calibration session screen on a laptop, showing a rating-by-potential matrix above a box grid of employees\"></div>\n<div class=\"wcard-body\">\n<p class=\"wcard-meta\">LinkedIn \u00b7 2025\u2013ongoing</p>\n<h3>Talent Development &amp; Evaluation</h3>\n<p class=\"wcard-line\">Launched an all-in-one performance management app for Engineering, now expanding company-wide.</p>\n<div class=\"wcard-tags\"><span class=\"wtag\">Design strategy</span><span class=\"wtag\">0\u21921 design</span><span class=\"wtag\">Usability revamp</span><span class=\"wtag\">Validation</span><span class=\"wtag\">Exec alignment</span></div>\n<span class=\"wcard-cta\">Read case study \u2192</span>\n</div>\n</a>\n\n<a class=\"wcard wcard-alt\" href=\"recruit-portal-ai/\">\n<div class=\"wcard-img\"><img src=\"images/card-rp-ai.jpg?v=360a3908\" alt=\"Recruit Portal AI: a candidate's interview schedule on a laptop with an AI suggestions panel proposing replacements and room changes\"></div>\n<div class=\"wcard-body\">\n<p class=\"wcard-meta\">LinkedIn \u00b7 2025</p>\n<h3>Recruit Portal AI</h3>\n<p class=\"wcard-line\">Automated interview scheduling with an AI agent for complex requests. Parked as a complete POC.</p>\n<div class=\"wcard-tags\"><span class=\"wtag\">AI design framework</span><span class=\"wtag\">AI interactions</span><span class=\"wtag\">Automation</span><span class=\"wtag\">Co-design</span></div>\n<span class=\"wcard-cta\">Read case study \u2192</span>\n</div>\n</a>\n\n<a class=\"wcard\" href=\"recruit-portal/\">\n<div class=\"wcard-img\"><img src=\"images/card-rp.jpg?v=c678e25d\" alt=\"Recruit Portal: the candidates table on a laptop, listing requisitions, interview stages, status and the next task for each candidate\"></div>\n<div class=\"wcard-body\">\n<p class=\"wcard-meta\">LinkedIn \u00b7 2021\u20132024</p>\n<h3>Recruit Portal</h3>\n<p class=\"wcard-line\">Designed how we hire Engineering talent at LinkedIn. Consolidated two systems into one easy-to-use flow.</p>\n<div class=\"wcard-tags\"><span class=\"wtag\">Contextual inquiry</span><span class=\"wtag\">Information architecture</span><span class=\"wtag\">End-to-end flow</span><span class=\"wtag\">Usability evaluation</span></div>\n<span class=\"wcard-cta\">Read case study \u2192</span>\n</div>\n</a>\n\n</div>\n\n<p class=\"sech\" id=\"contact\">Contact</p>\n\n<div class=\"contact\">\n<p class=\"contact-lede\">The quickest way to reach me is email, or LinkedIn. Happy to walk through any of this work in more detail.</p>\n<div class=\"cbtns\">\n<a class=\"cbtn cbtn-primary\" href=\"mailto:yusufamani108@gmail.com\">Email me</a>\n</div>\n</div>\n\n<div class=\"archive\" data-k=\"4169624191\">\n<button class=\"arch-btn\" type=\"button\" aria-expanded=\"false\"><span class=\"arch-ic\">\ud83d\udd12</span>Archive</button>\n<div class=\"arch-form\">\n<input class=\"arch-in\" type=\"password\" placeholder=\"Password\" aria-label=\"Archive password\" autocomplete=\"off\">\n<button class=\"arch-go\" type=\"button\">Unlock</button>\n</div>\n<p class=\"arch-err\">Not quite. Try again.</p>\n<div class=\"arch-body\">\n\n- [LinkedIn Brand Insights (LBI)](linkedin-brand-insights/): Premium Brand analytics \u00b7 2023\u20132025 \u00b7 0\u21921 \u00b7 *coming soon*\n- [Template Management System (TMS)](template-management-system/): HR communications, offer letters \u00b7 2024\u20132025 \u00b7 0\u21921 \u00b7 *(consolidation + POC + UAT round)*\n- [Email Validation Agent (EVA)](email-validation-agent/): Finance / billing \u00b7 2025 \u00b7 0\u21921 \u00b7 *(MVP + AI features + Admin App)*\n- [Campaign Central (CC)](campaign-central/): Marketing technology \u00b7 2023\u20132024 \u00b7 Redesign + new features \u00b7 *coming soon*\n\n*Site admin* \u00b7 [How to manage this site](site-guide/): hosting, publishing, and how to ask for changes.\n\n*Interview prep* \u00b7 [Roblox \u00b7 Product Designer, ROS](roblox/): the JD analysis, and planning for the hiring manager presentation.\n\n</div>\n</div>\n"};
@@ -1382,19 +1383,44 @@ show(location.hash === '#v1' ? 'v1' : 'v2');
 
 const lb = document.getElementById('lb');
 const lbImg = lb.querySelector('img');
+const lbClose = lb.querySelector('.x');
+let zoomOrigin = null;
+function openZoom(image) {
+  zoomOrigin = image;
+  lbImg.src = image.currentSrc || image.src;
+  lbImg.alt = image.alt || '';
+  lb.classList.add('on');
+  lb.setAttribute('aria-hidden', 'false');
+  lbClose.focus();
+}
+function closeZoom() {
+  if (!lb.classList.contains('on')) return;
+  lb.classList.remove('on');
+  lb.setAttribute('aria-hidden', 'true');
+  lbImg.removeAttribute('src');
+  if (zoomOrigin && zoomOrigin.isConnected) zoomOrigin.focus();
+  zoomOrigin = null;
+}
 content.addEventListener('click', function (e) {
   const t = e.target.closest('img[data-zoom]');
   if (!t) return;
   /* An image inside a link is a thumbnail for that link, not something to
      zoom. Opening the lightbox here would fire alongside the navigation. */
   if (t.closest('a')) return;
-  lbImg.src = t.dataset.zoom;
-  lbImg.alt = t.alt || '';
-  lb.classList.add('on');
+  openZoom(t);
 });
-lb.addEventListener('click', function () { lb.classList.remove('on'); });
+lb.addEventListener('click', function (e) {
+  if (e.target === lb || e.target === lbClose) closeZoom();
+});
+lbImg.addEventListener('click', function (e) { e.stopPropagation(); });
+lb.addEventListener('keydown', function (e) {
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    lbClose.focus();
+  }
+});
 document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') lb.classList.remove('on');
+  if (e.key === 'Escape') closeZoom();
 });
 
 /* Presentation decks. Arrow keys, space, click and swipe page through the
@@ -1426,6 +1452,13 @@ document.addEventListener('keydown', function (e) {
   go(i);
 
   document.addEventListener('keydown', function (e) {
+    if (lb.classList.contains('on')) return;
+    const zoomTarget = e.target.closest && e.target.closest('.deck-zoomable');
+    if (zoomTarget && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      openZoom(zoomTarget);
+      return;
+    }
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(i + 1); }
     else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(i - 1); }
@@ -1433,14 +1466,29 @@ document.addEventListener('keydown', function (e) {
     else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
     else if (e.key === 'f') { if (!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
   });
+  deck.querySelectorAll('.slide-fig > img, .slide.s-full > img').forEach(function (image) {
+    image.classList.add('deck-zoomable');
+    image.tabIndex = 0;
+    image.setAttribute('role', 'button');
+    image.setAttribute('aria-haspopup', 'dialog');
+    image.setAttribute('aria-label', 'Enlarge image: ' + (image.alt || 'slide image'));
+    image.title = 'Click to enlarge';
+  });
   /* Click the right two-thirds to advance, the left third to go back, so a
      mis-click during a presentation is recoverable rather than disruptive. */
   deck.addEventListener('click', function (e) {
+    const zoomTarget = e.target.closest('.deck-zoomable');
+    if (zoomTarget) {
+      e.preventDefault();
+      openZoom(zoomTarget);
+      return;
+    }
     go(e.clientX < window.innerWidth / 3 ? i - 1 : i + 1);
   });
   let x0 = null;
   deck.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
   deck.addEventListener('touchend', function (e) {
+    if (lb.classList.contains('on')) { x0 = null; return; }
     if (x0 === null) return;
     const dx = e.changedTouches[0].clientX - x0;
     if (Math.abs(dx) > 40) go(dx < 0 ? i + 1 : i - 1);

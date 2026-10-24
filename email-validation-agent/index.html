@@ -291,9 +291,9 @@ img[data-zoom] { cursor: zoom-in; }
 /* Lightbox */
 .lb { position: fixed; inset: 0; background: rgba(12,12,14,.93); display: none; align-items: center; justify-content: center; z-index: 999; cursor: zoom-out; padding: 24px; }
 .lb.on { display: flex; }
-.lb img { max-width: 97vw; max-height: 94vh; border-radius: 4px; background: #fff; }
-.lb .x { position: absolute; top: 18px; right: 24px; color: #fff; font-size: 26px; line-height: 1; opacity: .75; }
-.lb .x:hover { opacity: 1; }
+.lb img { max-width: 97vw; max-height: 94vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; background: #fff; cursor: default; }
+.lb .x { position: absolute; top: 18px; right: 24px; color: #fff; font-size: 26px; line-height: 1; opacity: .75; background: none; border: 0; padding: 12px; cursor: pointer; }
+.lb .x:hover, .lb .x:focus-visible { opacity: 1; }
 /* Feature carousel */
 .carousel { margin: 18px 0 6px; }
 .car-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
@@ -827,6 +827,7 @@ body:has(.deck) .rail { display: none; }
 .slide-fig { min-width: 0; }
 .slide-fig img { width: 100%; display: block; margin: 0; border: 1px solid var(--rule);
   border-radius: .5em; }
+.slide-fig > img, .slide.s-full > img { cursor: zoom-in; }
 .slide-fig.plain img { border: 0; }
 /* Two screenshots stacked in one figure column, for before/after or two
    views of the same legacy tool. */
@@ -904,7 +905,7 @@ body:has(.deck) .deck-no, body:has(.deck) .deck-ui { display: block; }
 
 <div id="content">Loading…</div>
 </div>
-<div class="lb" id="lb"><span class="x">&times;</span><img alt=""></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true" tabindex="-1"><button class="x" type="button" aria-label="Close enlarged image">&times;</button><img alt=""></div>
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
 <script>
 const sources = {"v1": "<!-- INTERNAL (not rendered): draft complete + trimmed + illustrated (4 visuals from Figma flow exports, anonymized) \u00b7 supporting. Pending \u2014 feedback quotes to source, usage data. -->\n\n---\n\n# Email Validation Agent\n\n**UX Designer (sole) \u00b7 LinkedIn \u00b7 Apr 2025 \u2013 Dec 2025**\n\n*Designing the AI-assisted validation and reply system that protects 1.1 million invoice emails from data leaks at LinkedIn Receivables \u2014 across three phases, one design language for AI, and a working partnership with an engineering team that had never had a designer.*\n\n![EVA's Validate panel catching four mismatches on a single outbound email \u2014 recipient, subject, attachment, and body each checked against the recipient as source of truth](images/eva-validate-mismatches.png?v=6a8f4fb6)\n\n*EVA at work: a single outbound email triggers four mismatches at once. The deliberately-wrong demo \u2014 a \"Meta Invoice\" carrying an Apple attachment, addressed to a Google recipient \u2014 is exactly the data-leak the tool exists to prevent. The panel overlays GetPaid (a third-party host we couldn't modify) and reads the email before send. (Demo data.)*\n\n**At a glance:** sole designer \u00b7 3 phases (MVP \u00b7 Expansion \u00b7 UX Audit) \u00b7 Chrome extension + Admin App \u00b7 6-week MVP turnaround \u00b7 Figma Make as first AI-in-process experiment \u00b7 ~1.1M invoice emails covered \u00b7 shipped to LinkedIn Receivables.\n\n---\n\n## Overview\n\nEVA (Email Validation Agent) is a Chrome extension used by LinkedIn Receivables to validate the ~1.1 million invoice emails sent through GetPaid \u2014 a third-party billing tool the Collections team relies on. It covers four validation surfaces (recipient, subject, attachment, body), two AI assist features (translation, smart reply), and a dedicated Admin App that manages users, validation rules, recipient domains, and reporting.\n\nI was the **sole designer** across all three phases \u2014 Apr 2025 through the post-launch UX audit in Dec 2025. My role was pure UX \u2014 partnership, product design, prototype, and post-build accountability \u2014 on a system with a real data-privacy risk at scale.\n\n## The brief\n\nLinkedIn's Receivables team uses GetPaid (FIS) to send dunning notices, payment reminders, and invoices. The tool has **no built-in validation** \u2014 recipients, subjects, attachments, and body content all live in editable fields with no checks. The cost of a single mistake \u2014 sending Google's invoice to Meta \u2014 is a data-privacy incident. Because GetPaid is third-party, the team couldn't add validation inside it; the solution was a browser-level **overlay extension** that reads the email before send and validates it against the recipient as source of truth.\n\n<img src=\"images/eva-entry-getpaid.png?v=a5c65f95\" alt=\"An outbound invoice email composed inside GetPaid, with the EVA entry point pinned to the send bar\" width=\"820\">\n\n*The starting point: an invoice composed in GetPaid, where recipient, subject, attachment, and body all live in freely editable fields with no checks. EVA pins itself to the send bar (bottom right) \u2014 present without altering the host tool. (Demo data.)*\n\n> **Working under:** sole designer \u00b7 partnering with a finance-engineering team that had never worked with a designer \u00b7 ~1.1M emails/year scale \u00b7 third-party host platform we couldn't modify \u00b7 speed-over-research mandate from leadership \u00b7 6 weeks to MVP.\n\n---\n\n## How I worked\n\nThe constraint that shaped this project was speed. Leadership wanted MVP fast \u2014 no user interviews, no formal usability testing. Validation came from the people who knew the workflow best: the BSA, eng manager, and lead front- and back-end engineers, in weekly iteration sessions with periodic demos to Receivables leadership.\n\nFor an enterprise tool with deep domain experts on the team and a sharp clock, that's a defensible tradeoff \u2014 sometimes the people building the product are the people who *do* the work. The discipline is being honest about which case you're in, and intentional about adding the user loop back in once the concept is grounded. The quieter thread: this engineering team had **never worked with a designer before**. The deliverables mattered; modeling the partnership mattered just as much.\n\n---\n\n## Phase 1 \u2014 MVP (Apr \u2013 May 2025)\n\nSix weeks, kickoff to handoff (May 15): kickoff \u2192 Q&A \u2192 user-flow alignment and low-fi wireframes \u2192 mid-fi mocks and feedback \u2192 validation and iteration \u2192 high-fi review and prototype \u2192 handoff.\n\n### UX strategy\n\nBecause the system handles data privacy, the UX had to focus on **clarity, speed, and feedback loops that reduce frustration.** Three goals shaped the work: make issues unmistakably clear; help users mentally map where to fix them; and reduce repetition by being explicit the first time.\n\n### The two flows\n\n**Flow 1 \u2014 Fix and resubmit.** User clicks Send \u2192 EVA appears with a list of mismatches \u2192 user closes the panel, fixes errors in GetPaid, clicks **Refresh error checker** \u2192 EVA confirms (*\"No mismatches. Good job!\"*) and the GetPaid Send button enables. The loop repeats until clean.\n\n**Flow 2 \u2014 Bypass with reason.** Sometimes the \"error\" isn't an error \u2014 Meta changed its name from Facebook, so a Facebook-named attachment going to a Meta address is correct. The user checks **Bypass mismatches and send anyway**, then **writes a Send Anyway reason** before the button enables.\n\nThe reason textbox was a deliberate call. The requirement was \"let users override\"; a checkbox alone would have satisfied it. The textbox creates a record \u2014 the user is on the hook for the override, and a future audit can see why each bypass happened. That accountability pattern came first on EVA; it later evolved into TDE's *type-your-full-name-to-confirm* submission ritual. One designed instinct, two products.\n\n---\n\n## Phase 2 \u2014 Expansion (Sep \u2013 Oct 2025)\n\nAfter Phase 1 shipped, the team rebuilt their roadmap and re-engaged in late summer. Phase 2 added two deliverables under one project: an **Admin App** to manage the system at scale, and three **AI-assisted features** in the user-facing extension.\n\n### The Admin App \u2014 designing with AI in the loop\n\nThe Admin App manages users, validation rules, recipient domains, and reporting \u2014 four feature areas, dozens of tables, role-gated permissions (Admin \u00b7 Manager \u00b7 Regular). Normally a careful month of static mocks before anyone could click anything.\n\nThis was the first project where I started my process with **AI assistance.** I wrote a detailed prompt for Figma Make \u2014 feature areas, column schemas, permission model, MUI and WCAG guidance \u2014 and got back a working prototype to iterate against. From there every decision stayed mine: I hand-shaped the components, IA, and interactions until the prototype reflected the design I wanted. What I learned:\n\n- **Figma Make is a concept-generator, not a finished design.** Its value is getting you to \"something to react to\" faster than static mocks.\n- **You iterate a lot to get it your way** \u2014 the cadence is generate \u2192 critique \u2192 reprompt \u2192 adjust.\n- **Branch from a base.** Build an MVP base first, then branch per feature so you can prototype each independently.\n\nIn late September I demoed all four feature areas and three role variants to the internal team and Collections leadership \u2014 framed as in-progress, oriented around *what's missing* rather than *what's perfect.* We got the go-ahead; the Admin App completed **September 30, 2025.**\n\n### The new AI features \u2014 one surface, three jobs\n\nThe extension grew from a single validation panel into a **three-tab surface**: Translate \u00b7 Smart Reply \u00b7 Validate. One extension, three jobs, same EVA identity.\n\n**Translate.** A language-pair selector, highlighted-text input, and a **Replace highlighted text** action \u2014 handling both read-mode (translate inbound text to understand it) and write-mode (translate outbound text to send it). One control, two intents.\n\n<img src=\"images/eva-translate.png?v=f28ff395\" alt=\"The Translate tab \u2014 an English-to-French language pair translating highlighted email text, with a Replace highlighted text action\" width=\"820\">\n\n*The Translate tab. A language-pair selector plus highlighted-text input; the same control serves reading an inbound message and rewriting an outbound one. (Demo data.)*\n\n**Smart Reply.** The AI flagship. EVA reads the incoming email context, generates a draft, and exposes a **Tone** dropdown, **Custom Instructions** (natural-language refinement \u2014 *\"Make this more formal, also suggest a payment plan\"*), and **Try Again** to regenerate. A **View AI Reasoning** disclosure shows Source \u00b7 Reasons \u00b7 Tone justification, and a thumbs-up/down captures signal for the team.\n\n<img src=\"images/eva-smart-reply.png?v=cf9d2027\" alt=\"The Smart Reply tab \u2014 an AI-drafted reply with a Tone dropdown, Custom Instructions field, Try Again, View AI Reasoning disclosure, and thumbs up/down feedback\" width=\"820\">\n\n*Smart Reply, the AI flagship. EVA drafts from the inbound context and exposes every lever \u2014 Tone, Custom Instructions, Try Again, View AI Reasoning, and a thumbs-up/down. The disclaimer \"AI has generated this response, there may be errors\" rides every reply: trust through transparency, not hidden automation. (Demo data.)*\n\n**Validate.** The original Phase 1 panel, now a sibling tab.\n\nThe pattern tying these together is **trust in an enterprise AI tool**: every response carries the disclaimer *\"AI has generated this response, there may be errors\"*; every AI action has an undo or regenerate path; every reasoning is inspectable; every interaction has feedback. These are the same principles I'd later codify on RP 2.0 as *Respect Human Nuance \u00b7 Dual Modes of Interaction \u00b7 Build Trust Through Transparency.* EVA is where the instinct first showed up; RP 2.0 is where it became framework.\n\n**A small iteration I'm proud of:** an earlier Smart Reply design had both a Custom Instructions textbox *and* an Apply Instructions button. On review I caught the redundancy \u2014 the textbox plus Try Again already covered the intent \u2014 and cut the button. Senior design isn't always adding the right thing; sometimes it's catching what you already added and removing it. Phase 2 handed off **October 27, 2025.**\n\n---\n\n## Phase 3 \u2014 UX Audit (Dec 2025)\n\nAfter release, I audited the built application against the approved designs. The purpose is straightforward: *implementation drifts.* Engineering teams under pressure make small calls \u2014 substitute a button style, adjust a label, drop a field \u2014 that individually feel like nothing and collectively feel like a different product.\n\nI built a **UX Audit Log** template, three fields per row: a screenshot of the issue, a one-line description of what's wrong, and the expected design (with a Figma link where needed). The log caught ~20 items across the Admin App \u2014 square buttons where MUI Mercado calls for rounded, missing labels on status switches, missing date fields in modals, naming and casing inconsistencies across CTAs, filter menus that should have been modals, missing multi-select in report filters. Some were polish; some were missing functionality. Engineering worked through the items before release.\n\nThe audit matters as a senior move not for the catches but for the assertion underneath them: *the design isn't done when it ships in Figma; it's done when the implementation matches the design intent.* Phase 1 set that expectation in the working relationship; Phase 3 institutionalized it.\n\n---\n\n## What designing EVA taught me\n\n**Accountability patterns start small.** Long before TDE's \"type your full name\" ritual, EVA's \"write your Send Anyway reason\" did the same job in a finance context. Design language travels across projects when you trust your instincts and let small patterns evolve.\n\n**Designing with AI is iteration with a faster collaborator.** Figma Make generates options; it doesn't make decisions. The discipline is still yours \u2014 what to keep, cut, reshape. The risk isn't that AI takes over; it's that designers stop iterating because the first output looks \"good enough.\"\n\n**The audit is the design's last mile.** Engineers build under pressure and small deviations accumulate. A structured post-build audit is the bridge between approved design and shipped product \u2014 not adversarial, but a partnership move that says *we're both responsible for the user seeing what we designed.*\n"};
@@ -1383,19 +1384,44 @@ show(location.hash === '#v1' ? 'v1' : 'v2');
 
 const lb = document.getElementById('lb');
 const lbImg = lb.querySelector('img');
+const lbClose = lb.querySelector('.x');
+let zoomOrigin = null;
+function openZoom(image) {
+  zoomOrigin = image;
+  lbImg.src = image.currentSrc || image.src;
+  lbImg.alt = image.alt || '';
+  lb.classList.add('on');
+  lb.setAttribute('aria-hidden', 'false');
+  lbClose.focus();
+}
+function closeZoom() {
+  if (!lb.classList.contains('on')) return;
+  lb.classList.remove('on');
+  lb.setAttribute('aria-hidden', 'true');
+  lbImg.removeAttribute('src');
+  if (zoomOrigin && zoomOrigin.isConnected) zoomOrigin.focus();
+  zoomOrigin = null;
+}
 content.addEventListener('click', function (e) {
   const t = e.target.closest('img[data-zoom]');
   if (!t) return;
   /* An image inside a link is a thumbnail for that link, not something to
      zoom. Opening the lightbox here would fire alongside the navigation. */
   if (t.closest('a')) return;
-  lbImg.src = t.dataset.zoom;
-  lbImg.alt = t.alt || '';
-  lb.classList.add('on');
+  openZoom(t);
 });
-lb.addEventListener('click', function () { lb.classList.remove('on'); });
+lb.addEventListener('click', function (e) {
+  if (e.target === lb || e.target === lbClose) closeZoom();
+});
+lbImg.addEventListener('click', function (e) { e.stopPropagation(); });
+lb.addEventListener('keydown', function (e) {
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    lbClose.focus();
+  }
+});
 document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') lb.classList.remove('on');
+  if (e.key === 'Escape') closeZoom();
 });
 
 /* Presentation decks. Arrow keys, space, click and swipe page through the
@@ -1427,6 +1453,13 @@ document.addEventListener('keydown', function (e) {
   go(i);
 
   document.addEventListener('keydown', function (e) {
+    if (lb.classList.contains('on')) return;
+    const zoomTarget = e.target.closest && e.target.closest('.deck-zoomable');
+    if (zoomTarget && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      openZoom(zoomTarget);
+      return;
+    }
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(i + 1); }
     else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(i - 1); }
@@ -1434,14 +1467,29 @@ document.addEventListener('keydown', function (e) {
     else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
     else if (e.key === 'f') { if (!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
   });
+  deck.querySelectorAll('.slide-fig > img, .slide.s-full > img').forEach(function (image) {
+    image.classList.add('deck-zoomable');
+    image.tabIndex = 0;
+    image.setAttribute('role', 'button');
+    image.setAttribute('aria-haspopup', 'dialog');
+    image.setAttribute('aria-label', 'Enlarge image: ' + (image.alt || 'slide image'));
+    image.title = 'Click to enlarge';
+  });
   /* Click the right two-thirds to advance, the left third to go back, so a
      mis-click during a presentation is recoverable rather than disruptive. */
   deck.addEventListener('click', function (e) {
+    const zoomTarget = e.target.closest('.deck-zoomable');
+    if (zoomTarget) {
+      e.preventDefault();
+      openZoom(zoomTarget);
+      return;
+    }
     go(e.clientX < window.innerWidth / 3 ? i - 1 : i + 1);
   });
   let x0 = null;
   deck.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
   deck.addEventListener('touchend', function (e) {
+    if (lb.classList.contains('on')) { x0 = null; return; }
     if (x0 === null) return;
     const dx = e.changedTouches[0].clientX - x0;
     if (Math.abs(dx) > 40) go(dx < 0 ? i + 1 : i - 1);
