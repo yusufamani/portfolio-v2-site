@@ -714,6 +714,11 @@ body:has(.deck) .rail { display: none; }
 
 /* Layouts. Title, split and full-bleed cover every slide in both decks. */
 .slide.s-title { display: flex; flex-direction: column; justify-content: center; }
+/* One measure for the whole block, so heading and body share a right edge and
+   the white space reads as composed rather than left over. */
+.slide.s-title > h2, .slide.s-title > h3,
+.slide.s-title > p, .slide.s-title > ul { max-width: 72%; }
+.slide.s-title > .s-lead { max-width: 62%; }
 .slide.s-split { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5em;
   align-items: center; }
 .slide.s-split.wide-right { grid-template-columns: 0.8fr 1.2fr; }
