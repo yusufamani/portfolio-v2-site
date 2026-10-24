@@ -729,6 +729,19 @@ body:has(.deck) .rail { display: none; }
   border-radius: .6em; }
 .s-cards .t { display: block; font-size: 1.125em; font-weight: 700; line-height: 1.25;
   margin: 0 0 .35em; }
+/* Monogram marks on the tool cards. These are a typographic device, not the
+   vendors' logos: redrawing those would reproduce their trademarked artwork.
+   Blue marks the two tools LinkedIn owns, grey the external vendors. */
+.s-cards .mk { display: flex; gap: .3em; margin: 0 0 .75em; }
+.s-cards .mk i { font-style: normal; display: flex; align-items: center;
+  justify-content: center; width: 2em; height: 2em; border-radius: .35em;
+  font-size: .8125em; font-weight: 700; letter-spacing: .02em;
+  background: #e0e4e7; color: #3d454c; }
+.s-cards .mk.own i { background: var(--link); color: #fff; }
+/* Same slot accepts a real image, so an official vendor logo can replace a
+   monogram one tag at a time without touching the layout. */
+.s-cards .mk img { width: 2em; height: 2em; border-radius: .35em;
+  object-fit: contain; display: block; }
 .s-cards .d { display: block; font-size: .9375em; line-height: 1.45; color: #4a5056; }
 /* Cards are a diagram, so they take the full stage rather than the text measure. */
 .slide.s-title > ul.s-cards { max-width: 100%; }
