@@ -910,16 +910,22 @@ body:has(.deck) .rail { display: none; }
 .deck-no { position: fixed; right: 1.4rem; bottom: 1.3rem; z-index: 6;
   font-size: 12px; font-weight: 600; letter-spacing: .08em; color: #9aa3ab; }
 body:has(.deck) .deck-no, body:has(.deck) .deck-ui { display: block; }
-body:has(.deck.tde-branded) .deck-no,
-body:has(.deck.tde-branded) .deck-ui { display: none; }
-.tde-footer { position: absolute; left: 1.75em; right: 2em; bottom: 1.15em;
+.deck-controls { position: fixed; right: 1.4rem; bottom: 1rem; z-index: 7;
+  display: flex; align-items: center; gap: .75rem; color: #0a3158; }
+.deck-controls button { display: grid; place-items: center; width: 1.8rem; height: 1.8rem;
+  border: 1px solid rgba(10,49,88,.22); border-radius: 50%; background: rgba(255,255,255,.9);
+  color: inherit; font: inherit; font-size: 1rem; line-height: 1; cursor: pointer; }
+.deck-controls button:hover { background: #eaf2f8; }
+.deck-controls button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.deck-controls button:disabled { opacity: .35; cursor: default; }
+.deck-controls .deck-no { position: static; min-width: 3.2em; text-align: center;
+  font-size: 12px; color: inherit; }
+.tde-footer { position: absolute; left: 1.75em; right: 8.5em; bottom: 1.15em;
   display: flex; align-items: center; justify-content: space-between; z-index: 4;
   color: #0a3158; }
-.tde-footer-logo { display: block; width: 2.75em; height: 2.75em; flex: none; }
+.tde-footer-logo { display: block; width: 1.5em; height: 1.5em; flex: none; }
 .tde-footer-right { display: flex; align-items: center; gap: 2.5em; }
-.tde-footer-note { font-size: .95em; line-height: 1.2; font-weight: 600; }
-.tde-footer-no { min-width: 1.25em; text-align: right; font-size: 1.5em;
-  line-height: 1; font-weight: 400; }
+.tde-footer-note { font-size: .65em; line-height: 1.2; font-weight: 600; }
 
 /* PDF export. One slide per landscape page, every slide visible, no chrome.
    Chrome's print-to-PDF at 1280x720 produces a deck that matches the screen. */
@@ -931,7 +937,8 @@ body:has(.deck.tde-branded) .deck-ui { display: none; }
     width: 1280px; height: 720px; font-size: 16px; page-break-after: always;
     break-after: page; }
   .slide:last-child { page-break-after: auto; break-after: auto; }
-  .deck-ui, .deck-no, .crumbs, .sitehead-wrap, .foot { display: none !important; }
+  .deck-ui, .deck-no, .deck-controls, .crumbs, .sitehead-wrap, .foot { display: none !important; }
+  .tde-footer { right: 2em; }
   /* The shell's own padding would otherwise add a trailing blank page. */
   .shell:has(.deck) { padding: 0 !important; margin: 0 !important; }
   html, body { margin: 0 !important; padding: 0 !important; }
@@ -1495,12 +1502,11 @@ document.addEventListener('keydown', function (e) {
   const slides = Array.from(deck.querySelectorAll('.slide'));
   if (!slides.length) return;
   if (deck.classList.contains('tde-branded')) {
-    slides.forEach(function (slide, index) {
+    slides.forEach(function (slide) {
       const footer = document.createElement('div');
       footer.className = 'tde-footer';
       footer.innerHTML = '<img class="tde-footer-logo" src="/images/logos/linkedin.svg" alt="LinkedIn">'
-        + '<div class="tde-footer-right"><span class="tde-footer-note">PROPRIETARY + CONFIDENTIAL</span>'
-        + '<span class="tde-footer-no">' + (index + 1) + '</span></div>';
+        + '<div class="tde-footer-right"><span class="tde-footer-note">PROPRIETARY + CONFIDENTIAL</span></div>';
       slide.appendChild(footer);
     });
   }
@@ -1509,7 +1515,24 @@ document.addEventListener('keydown', function (e) {
   bar.className = 'deck-ui'; bar.innerHTML = '<i></i>';
   const no = document.createElement('div');
   no.className = 'deck-no';
-  document.body.appendChild(bar); document.body.appendChild(no);
+  no.setAttribute('aria-live', 'polite');
+  let prevButton = null;
+  let nextButton = null;
+  if (deck.classList.contains('tde-branded')) {
+    const controls = document.createElement('div');
+    controls.className = 'deck-controls';
+    prevButton = document.createElement('button');
+    prevButton.type = 'button'; prevButton.setAttribute('aria-label', 'Previous slide');
+    prevButton.textContent = '‹';
+    nextButton = document.createElement('button');
+    nextButton.type = 'button'; nextButton.setAttribute('aria-label', 'Next slide');
+    nextButton.textContent = '›';
+    controls.append(prevButton, no, nextButton);
+    document.body.appendChild(controls);
+  } else {
+    document.body.appendChild(no);
+  }
+  document.body.appendChild(bar);
   const fill = bar.querySelector('i');
 
   let i = Math.max(0, Math.min(slides.length - 1,
@@ -1520,8 +1543,12 @@ document.addEventListener('keydown', function (e) {
     slides.forEach(function (s, k) { s.classList.toggle('on', k === i); });
     no.textContent = (i + 1) + ' / ' + slides.length;
     fill.style.width = ((i + 1) / slides.length * 100) + '%';
+    if (prevButton) prevButton.disabled = i === 0;
+    if (nextButton) nextButton.disabled = i === slides.length - 1;
     history.replaceState(null, '', location.pathname + '#s' + (i + 1));
   }
+  if (prevButton) prevButton.addEventListener('click', function () { go(i - 1); });
+  if (nextButton) nextButton.addEventListener('click', function () { go(i + 1); });
   go(i);
 
   document.addEventListener('keydown', function (e) {
@@ -1603,7 +1630,7 @@ document.addEventListener('keydown', function (e) {
   });
 })();
 </script>
-<meta name="portfolio-build" content="4e0082de7afa">
+<meta name="portfolio-build" content="e16f2d52cf6a">
 <script>
 (function () {
   const buildId = document.querySelector('meta[name="portfolio-build"]').content;
