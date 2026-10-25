@@ -876,6 +876,8 @@ body:has(.deck) .rail { display: none; }
    views of the same legacy tool. */
 .slide-fig.stack { display: flex; flex-direction: column; gap: .85em; }
 .slide-fig .s-cap { font-size: .875em; color: var(--muted); margin: .75em 0 0; }
+.workshop-carousel .car-slide img { aspect-ratio: 3 / 1; object-fit: contain;
+  background: #fff; }
 
 /* Stat blocks, for the outcome slides. */
 .s-stats { display: flex; gap: 3em; margin: 1.75em 0 0; padding: 0; list-style: none; }
@@ -1599,7 +1601,7 @@ document.addEventListener('keydown', function (e) {
   });
 })();
 </script>
-<meta name="portfolio-build" content="00cc8a070c22">
+<meta name="portfolio-build" content="e9e8ab0d3a16">
 <script>
 (function () {
   const buildId = document.querySelector('meta[name="portfolio-build"]').content;
