@@ -718,6 +718,7 @@ body:has(.deck) .rail { display: none; }
 .slide.s-title > h2, .slide.s-title > h3,
 .slide.s-title > p, .slide.s-title > ul { max-width: 72%; }
 .slide.s-title > .s-lead { max-width: 72%; }
+.slide.s-title.s-outcome-slide > h3 { max-width: 100%; }
 /* Numbered rollout milestones, with quiet numerals and a clear reading rhythm. */
 .slide.s-title > ol.s-rollout { max-width: 100%; }
 .s-rollout { display: grid; gap: 1.35em; margin: 1.25em 0 0; padding: 0;
@@ -909,16 +910,6 @@ body:has(.deck) .rail { display: none; }
 .deck-no { position: fixed; right: 1.4rem; bottom: 1.3rem; z-index: 6;
   font-size: 12px; font-weight: 600; letter-spacing: .08em; color: #9aa3ab; }
 body:has(.deck) .deck-no, body:has(.deck) .deck-ui { display: block; }
-.deck-controls { position: fixed; right: 1.4rem; bottom: 1rem; z-index: 7;
-  display: flex; align-items: center; gap: .75rem; color: #0a3158; }
-.deck-controls button { display: grid; place-items: center; width: 1.8rem; height: 1.8rem;
-  border: 1px solid rgba(10,49,88,.22); border-radius: 50%; background: rgba(255,255,255,.9);
-  color: inherit; font: inherit; font-size: 1rem; line-height: 1; cursor: pointer; }
-.deck-controls button:hover { background: #eaf2f8; }
-.deck-controls button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
-.deck-controls button:disabled { opacity: .35; cursor: default; }
-.deck-controls .deck-no { position: static; min-width: 3.2em; text-align: center;
-  font-size: 12px; color: inherit; }
 .tde-footer { position: absolute; left: 1.75em; right: 1.75em; bottom: 1.15em;
   display: flex; align-items: center; justify-content: flex-start; gap: .65em; z-index: 4;
   color: #0a3158; }
@@ -936,7 +927,7 @@ body:has(.deck) .deck-no, body:has(.deck) .deck-ui { display: block; }
     width: 1280px; height: 720px; font-size: 16px; page-break-after: always;
     break-after: page; }
   .slide:last-child { page-break-after: auto; break-after: auto; }
-  .deck-ui, .deck-no, .deck-controls, .crumbs, .sitehead-wrap, .foot { display: none !important; }
+  .deck-ui, .deck-no, .crumbs, .sitehead-wrap, .foot { display: none !important; }
   .tde-footer { right: 2em; }
   /* The shell's own padding would otherwise add a trailing blank page. */
   .shell:has(.deck) { padding: 0 !important; margin: 0 !important; }
@@ -1515,23 +1506,7 @@ document.addEventListener('keydown', function (e) {
   const no = document.createElement('div');
   no.className = 'deck-no';
   no.setAttribute('aria-live', 'polite');
-  let prevButton = null;
-  let nextButton = null;
-  if (deck.classList.contains('tde-branded')) {
-    const controls = document.createElement('div');
-    controls.className = 'deck-controls';
-    prevButton = document.createElement('button');
-    prevButton.type = 'button'; prevButton.setAttribute('aria-label', 'Previous slide');
-    prevButton.textContent = '‹';
-    nextButton = document.createElement('button');
-    nextButton.type = 'button'; nextButton.setAttribute('aria-label', 'Next slide');
-    nextButton.textContent = '›';
-    controls.append(prevButton, no, nextButton);
-    document.body.appendChild(controls);
-  } else {
-    document.body.appendChild(no);
-  }
-  document.body.appendChild(bar);
+  document.body.appendChild(bar); document.body.appendChild(no);
   const fill = bar.querySelector('i');
 
   let i = Math.max(0, Math.min(slides.length - 1,
@@ -1542,12 +1517,8 @@ document.addEventListener('keydown', function (e) {
     slides.forEach(function (s, k) { s.classList.toggle('on', k === i); });
     no.textContent = (i + 1) + ' / ' + slides.length;
     fill.style.width = ((i + 1) / slides.length * 100) + '%';
-    if (prevButton) prevButton.disabled = i === 0;
-    if (nextButton) nextButton.disabled = i === slides.length - 1;
     history.replaceState(null, '', location.pathname + '#s' + (i + 1));
   }
-  if (prevButton) prevButton.addEventListener('click', function () { go(i - 1); });
-  if (nextButton) nextButton.addEventListener('click', function () { go(i + 1); });
   go(i);
 
   document.addEventListener('keydown', function (e) {
