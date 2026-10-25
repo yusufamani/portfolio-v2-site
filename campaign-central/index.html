@@ -782,6 +782,9 @@ body:has(.deck) .rail { display: none; }
   justify-content: center; width: 2.46em; height: 2.46em; border-radius: .35em;
   font-size: .8125em; font-weight: 700; background: #e0e4e7; color: #3d454c; }
 .s-cards .d { display: block; font-size: .9375em; line-height: 1.45; color: #4a5056; }
+.s-cards.s-recipe { grid-template-columns: repeat(5, minmax(0, 1fr)); width: 100%; }
+.s-recipe .s-recipe-icon { display: block; font-size: 2.5em; line-height: 1.2;
+  margin-bottom: .5em; }
 /* Cards are a diagram, so they take the full stage rather than the text measure. */
 .slide.s-title > ul.s-cards { max-width: 100%; }
 /* Cycle timeline. Bars preserve the phases' relative timing and overlap;
