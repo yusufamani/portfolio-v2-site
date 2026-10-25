@@ -881,7 +881,8 @@ body:has(.deck) .rail { display: none; }
 .slide-fig .s-cap { font-size: .875em; color: var(--muted); margin: .75em 0 0; }
 .workshop-carousel .car-slide img { aspect-ratio: 3 / 1; object-fit: contain;
   background: #fff; }
-.availability-carousel .car-slide img { height: 27em; object-fit: contain; }
+.availability-carousel .car-slide img { width: auto; max-width: 100%; height: 27em;
+  object-fit: contain; margin: 0 auto; }
 .availability-carousel .car-ctrl { gap: .9em; margin-top: .75em; }
 .availability-carousel .car-btn { width: 2em; height: 2em; font-size: 1em;
   border-color: #b8bec4; }
@@ -1610,7 +1611,7 @@ document.addEventListener('keydown', function (e) {
   });
 })();
 </script>
-<meta name="portfolio-build" content="aba746f2aa22">
+<meta name="portfolio-build" content="c1401d00c556">
 <script>
 (function () {
   const buildId = document.querySelector('meta[name="portfolio-build"]').content;
