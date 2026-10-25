@@ -1550,7 +1550,7 @@ document.addEventListener('keydown', function (e) {
     else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
     else if (e.key === 'f') { if (!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
   });
-  deck.querySelectorAll('.slide-fig > img, .slide.s-full > img, .slide-fig .car-slide > img').forEach(function (image) {
+  deck.querySelectorAll('.slide-fig > img, .slide.s-full > img, .slide-fig .car-slide img').forEach(function (image) {
     image.classList.add('deck-zoomable');
     image.tabIndex = 0;
     image.setAttribute('role', 'button');
@@ -1613,7 +1613,7 @@ document.addEventListener('keydown', function (e) {
   });
 })();
 </script>
-<meta name="portfolio-build" content="10eb4be8cf6d">
+<meta name="portfolio-build" content="e284e5bbae14">
 <script>
 (function () {
   const buildId = document.querySelector('meta[name="portfolio-build"]').content;
