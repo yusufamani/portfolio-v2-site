@@ -718,6 +718,17 @@ body:has(.deck) .rail { display: none; }
 .slide.s-title > h2, .slide.s-title > h3,
 .slide.s-title > p, .slide.s-title > ul { max-width: 72%; }
 .slide.s-title > .s-lead { max-width: 72%; }
+/* Numbered rollout milestones, with quiet numerals and a clear reading rhythm. */
+.slide.s-title > ol.s-rollout { max-width: 100%; }
+.s-rollout { display: grid; gap: 1.35em; margin: 1.25em 0 0; padding: 0;
+  list-style: none; }
+.s-rollout li { display: grid; grid-template-columns: 2.2em minmax(0, 1fr);
+  align-items: start; gap: .65em; margin: 0; }
+.s-rollout .n { color: #b8bec4; font-size: 1.25em; font-weight: 700;
+  line-height: 1.4; }
+.slide .s-rollout .copy { max-width: none; margin: 0; font-size: 1.35em;
+  line-height: 1.45; color: #3a3a3a; }
+.s-rollout .copy b { color: var(--fg); }
 
 /* Cards, for when a list is really a set of separate things rather than a
    sequence. Reads as a diagram instead of prose. */
