@@ -740,7 +740,7 @@ body:has(.deck) .rail { display: none; }
 .slide .s-validation-phase ul.s-list li { font-size: .95em; margin-bottom: .55em; }
 .slide p.s-validation-note { max-width: 100%; margin-top: .85em; font-size: .9em; color: var(--muted); }
 .slide.s-title > .s-outcomes { max-width: 100%; }
-.s-outcomes { display: grid; grid-template-columns: .85fr .95fr 1.7fr;
+.s-outcomes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1em; width: 100%; margin: 1.1em 0 0; align-items: stretch; }
 .s-outcome-card { min-width: 0; padding: 1.1em 1.2em; background: #f4f6f7;
   border-radius: .6em; }
