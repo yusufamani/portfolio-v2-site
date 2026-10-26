@@ -726,12 +726,9 @@ body:has(.deck) .rail { display: none; }
 /* Layouts. Title, split and full-bleed cover every slide in both decks. */
 .slide.s-title { display: flex; flex-direction: column; justify-content: flex-start;
   gap: 1em; padding-top: 8em; }
-/* One measure for the whole block, so heading and body share a right edge and
-   the white space reads as composed rather than left over. */
-.slide.s-title > h2, .slide.s-title > h3,
-.slide.s-title > p, .slide.s-title > ul { max-width: 72%; }
-.slide.s-title > .s-lead { max-width: 72%; }
-.slide.s-title.s-outcome-slide > h3 { max-width: 100%; }
+.slide.s-title > p { max-width: 100%; }
+.slide.s-title > ul { max-width: 72%; }
+.slide.s-title > .s-lead { max-width: 100%; }
 /* Numbered rollout milestones, with quiet numerals and a clear reading rhythm. */
 .slide.s-title > ol.s-rollout { max-width: 100%; }
 .s-rollout { display: grid; gap: 1.35em; margin: 1.25em 0 0; padding: 0;
@@ -867,7 +864,6 @@ body:has(.deck) .rail { display: none; }
 .slide.s-split { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5em;
   align-items: center; }
 .slide.s-split.wide-right { grid-template-columns: 0.8fr 1.2fr; }
-.slide.s-split:not(.hero-right) h3 { max-width: 13em; }
 /* Title slide: the product shot carries the slide, so it takes a wider column,
    a tighter gutter and a bleed into the right padding. The text column stays
    wide enough to keep the headline at three lines. */
@@ -894,6 +890,7 @@ body:has(.deck) .rail { display: none; }
 /* Anchor every text group at y=128 on the 1280x720 stage, independent of its length.
    A shared flex gap also avoids different margin-collapsing behavior in split slides. */
 .slide.s-title > *, .slide.s-split .slide-body > * { margin-top: 0; margin-bottom: 0; }
+.slide.s-split .slide-body > * { max-width: 100%; }
 .slide-fig { min-width: 0; }
 .slide-fig img { width: 100%; display: block; margin: 0; border: 1px solid var(--rule);
   border-radius: .5em; }
