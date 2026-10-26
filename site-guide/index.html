@@ -294,6 +294,17 @@ img[data-zoom] { cursor: zoom-in; }
 .lb img { max-width: 97vw; max-height: 94vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; background: #fff; cursor: zoom-out; }
 .lb .x { position: absolute; top: 18px; right: 24px; color: #fff; font-size: 26px; line-height: 1; opacity: .75; background: none; border: 0; padding: 12px; cursor: pointer; }
 .lb .x:hover, .lb .x:focus-visible { opacity: 1; }
+.lb.has-gallery { flex-direction: column; gap: 16px; padding-top: 64px; }
+.lb.has-gallery img { max-width: 100%; max-height: calc(100vh - 160px); min-height: 0; }
+.lb-nav { flex-shrink: 0; width: 100%; display: flex; align-items: center;
+  justify-content: center; gap: 16px; cursor: default; }
+.lb-nav[hidden] { display: none; }
+.lb-nav button { flex-shrink: 0; width: 44px; height: 44px; border: 1px solid #a4a4a4;
+  border-radius: 50%; background: #252527; color: #fff; font-size: 26px; cursor: pointer; }
+.lb-nav button:disabled { opacity: .35; cursor: default; }
+.lb button:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.lb-status { max-width: 36em; color: #fff; font-size: 14px; line-height: 1.4;
+  text-align: center; margin: 0; }
 /* Feature carousel */
 .carousel { margin: 18px 0 6px; }
 .car-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
@@ -977,7 +988,15 @@ body:has(.deck) .deck-no, body:has(.deck) .deck-ui { display: block; }
 
 <div id="content">Loading…</div>
 </div>
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true" tabindex="-1"><button class="x" type="button" aria-label="Close enlarged image">&times;</button><img alt=""></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true" tabindex="-1">
+<button class="x" type="button" aria-label="Close enlarged image">&times;</button>
+<img alt="">
+<div class="lb-nav" hidden>
+<button class="lb-prev" type="button" aria-label="Previous carousel image">&lsaquo;</button>
+<p class="lb-status" role="status" aria-live="polite" aria-atomic="true"></p>
+<button class="lb-next" type="button" aria-label="Next carousel image">&rsaquo;</button>
+</div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
 <script>
 const sources = {"v1": "# How to manage this site\n\n*Site admin \u00b7 not portfolio content*\n\n**The short version:** if you want something changed, just tell me in plain\nlanguage and point at the page. I make the edit, check it, and publish it. You\nnever have to touch code or GitHub.\n\n\n## How the site is hosted\n\n| Piece | What it is |\n| --- | --- |\n| **yusufamani.com** | Bought through Squarespace \u2014 **domain only**. Squarespace does not host the site. |\n| **DNS** | Lives at Squarespace. Four `A` records + a `www` CNAME point the domain at GitHub. |\n| **Hosting** | GitHub Pages. Free. |\n| **HTTPS** | Let's Encrypt certificate, renews itself automatically. |\n\nThere are **two GitHub repositories**:\n\n- **`portfolio-v2`** \u2014 *private*. The real source: your markdown, images and the\n  build scripts.\n- **`portfolio-v2-site`** \u2014 *public*. Only compiled HTML, CSS and images. This\n  is the one GitHub Pages actually serves.\n\nThey are split because GitHub Pages cannot serve a private repository on a free\nplan. Splitting keeps your build scripts, file structure and history private\nwithout paying for GitHub Pro.\n\nOne honest caveat: page *content* is still readable in the published page\nsource. The split hides how the site is built, not the words on the page.\n\n\n## The iteration loop\n\nThis is the part that matters day to day.\n\n1. You spot something you want changed.\n2. **You tell me** \u2014 which page, what's wrong, what you'd rather it said.\n3. I make the edit and preview it.\n4. I run the safety checks and publish.\n5. **The live site updates about a minute later.**\n\n### Asking for a change\n\nThe more specific you are, the fewer rounds it takes.\n\n> \"On the TDE case study, the caption under the second carousel says *ratings*\n> \u2014 it should say *calibration*.\"\n\n> \"The cards on the home page feel too tight. More space between them.\"\n\nA screenshot works just as well as a description. If you say *\"fix the\nspacing\"* with no page, I'll have to come back and ask which one.\n\n### Asking me to publish\n\nAny of these work \u2014 *\"push it live\"*, *\"deploy that\"*, *\"recommit the code\"*.\n\nWhat I do when you say it:\n\n- Rebuild the site from your markdown\n- Run the safety gate (below)\n- Push **both** repositories\n- **Load the live page and confirm the change is actually there**\n\nThat last step matters. A successful push is not proof the site updated, so I\ncheck the real URL rather than assuming.\n\n### What happens automatically on every publish\n\n- `CNAME` and `.nojekyll` are rewritten, so **your domain survives every\n  deploy** \u2014 this is why publishing can't accidentally unhook yusufamani.com.\n- `robots.txt` and `sitemap.xml` regenerate.\n- Nothing ships if the safety gate fails.\n\n\n## The safety gate\n\nPublishing **stops completely** if the checks find:\n\n- a real colleague's name (case studies use pseudonyms throughout)\n- private content \u2014 `prep/`, `review/`, any `notes.md`\n- a broken image reference\n- a leftover draft placeholder\n- anything shaped like a password or API key\n\nThis runs on every single deploy rather than being left to memory. It's the\nreason your working notes and real names have never reached the internet.\n\n\n## What's public, and what isn't\n\n| | |\n| --- | --- |\n| **Public and searchable** | Home, Resume, 3D Work |\n| **Public but not searchable** | The seven case studies, and this page \u2014 reachable by link, excluded from Google |\n| **Never published** | `prep/`, `review/`, `notes.md` \u2014 these return 404 on the live site |\n\nThe case studies are hidden from search on purpose: they show internal LinkedIn\ntooling. Anyone you send a link to sees everything; they just won't surface in a\nweb search. If you'd rather publish them openly, say so \u2014 it's a one-line change.\n\n**The Archive password is tidiness, not security.** It's checked in the browser,\nand the content sits in the page source. Fine for keeping older work out of the\nway; not a place for anything genuinely confidential.\n\n\n## Things that can bite you\n\n**1. There are two copies of the content.**\n\n- `portfolio-v2/site/` \u2014 **this is the one that deploys**\n- `portfolio/linkedin/` \u2014 the older working copy, plus your private prep and\n  review notes\n\nThey currently match, apart from the private files. If you hand-edit the wrong\none, your change simply won't appear on the live site. When I make a change I\nkeep both in sync. **If you're editing by hand, edit `portfolio-v2/site/`.**\n\n**2. Both local servers use port 8770.** Whichever folder you launch from\ndecides which copy you're looking at.\n\n**3. Styling changes need a server restart.** Text edits show up on reload;\nchanges to the template or CSS don't, because it's loaded once at startup.\n\n**4. Leave the Squarespace DNS alone.** The four `A` records and the `www`\nCNAME are the only thing pointing your domain at GitHub. Also leave\n`_domainconnect` alone \u2014 it routes no traffic and removing it is just noise.\n\n\n## Doing it yourself, if you want to\n\nYou don't need this, but it's here.\n\n```\ncd portfolio-v2\npython3 serve.py            # preview at http://localhost:8770\n./deploy.sh \"what changed\"  # build, verify, publish\n```\n\nBody copy is plain markdown \u2014 editing text is genuinely just typing. Layout,\ncolours and interactions live in `serve.py`, which is less friendly.\n\n\n## If something looks broken\n\nTell me and I'll roll it back. Every publish is a git commit in both\nrepositories, so returning to the previous version is quick and safe.\n\nIf the whole site seems down, it's almost always one of:\n\n- **A cached old page** \u2014 hard-refresh with `\u2318\u21e7R`.\n- **DNS** \u2014 a changed record, or your computer still holding an old answer.\n- **GitHub Pages** \u2014 occasionally has an outage; nothing to fix on your end.\n\nWorth knowing: when the site first launched it appeared \"broken\" for hours.\nNothing was actually wrong \u2014 a stale DNS entry had to expire on its own. Before\nassuming the site is broken, check it on your phone with wifi off.\n\n\n## The whole thing in one line\n\n**Markdown in \u2192 build script makes the HTML \u2192 pushed to the public repo \u2192\nGitHub Pages serves it at yusufamani.com, about a minute later.**\n"};
@@ -1457,11 +1476,45 @@ show(location.hash === '#v1' ? 'v1' : 'v2');
 const lb = document.getElementById('lb');
 const lbImg = lb.querySelector('img');
 const lbClose = lb.querySelector('.x');
+const lbNav = lb.querySelector('.lb-nav');
+const lbPrev = lb.querySelector('.lb-prev');
+const lbNext = lb.querySelector('.lb-next');
+const lbStatus = lb.querySelector('.lb-status');
 let zoomOrigin = null;
-function openZoom(image) {
+let zoomImages = [];
+let zoomIndex = 0;
+function showZoomImage() {
+  const image = zoomImages[zoomIndex];
   zoomOrigin = image;
   lbImg.src = image.currentSrc || image.src;
   lbImg.alt = image.alt || '';
+  const caption = image.closest('.car-slide')?.querySelector('.car-cap');
+  lbStatus.textContent = zoomImages.length > 1
+    ? (zoomIndex + 1) + ' / ' + zoomImages.length + (caption ? ' · ' + caption.textContent.trim() : '')
+    : '';
+  lbPrev.disabled = zoomIndex === 0;
+  lbNext.disabled = zoomIndex === zoomImages.length - 1;
+}
+function moveZoom(step) {
+  const nextIndex = zoomIndex + step;
+  if (nextIndex < 0 || nextIndex >= zoomImages.length) return;
+  zoomIndex = nextIndex;
+  showZoomImage();
+  const track = zoomOrigin.closest('.car-track');
+  if (track) {
+    track.scrollTo({ left: zoomIndex * track.clientWidth, behavior: 'instant' });
+  }
+  if ((document.activeElement === lbPrev && lbPrev.disabled) ||
+      (document.activeElement === lbNext && lbNext.disabled)) lbClose.focus();
+}
+function openZoom(image) {
+  const carousel = image.closest('.deck .carousel');
+  zoomImages = carousel ? Array.from(carousel.querySelectorAll('.car-slide img')) : [image];
+  zoomIndex = zoomImages.indexOf(image);
+  const hasGallery = zoomImages.length > 1;
+  lbNav.hidden = !hasGallery;
+  lb.classList.toggle('has-gallery', hasGallery);
+  showZoomImage();
   lb.classList.add('on');
   lb.setAttribute('aria-hidden', 'false');
   lbClose.focus();
@@ -1473,7 +1526,11 @@ function closeZoom() {
   lbImg.removeAttribute('src');
   if (zoomOrigin && zoomOrigin.isConnected) zoomOrigin.focus();
   zoomOrigin = null;
+  zoomImages = [];
+  lbStatus.textContent = '';
 }
+lbPrev.addEventListener('click', function () { moveZoom(-1); });
+lbNext.addEventListener('click', function () { moveZoom(1); });
 content.addEventListener('click', function (e) {
   const t = e.target.closest('img[data-zoom]');
   if (!t) return;
@@ -1488,12 +1545,30 @@ lb.addEventListener('click', function (e) {
 lbImg.addEventListener('click', closeZoom);
 lb.addEventListener('keydown', function (e) {
   if (e.key === 'Tab') {
-    e.preventDefault();
-    lbClose.focus();
+    const buttons = Array.from(lb.querySelectorAll('button')).filter(function (button) {
+      return !button.disabled && !button.closest('[hidden]');
+    });
+    const first = buttons[0], last = buttons[buttons.length - 1];
+    if (e.shiftKey && (document.activeElement === first || document.activeElement === lb)) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && (document.activeElement === last || document.activeElement === lb)) {
+      e.preventDefault();
+      first.focus();
+    }
   }
 });
 document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') closeZoom();
+  if (!lb.classList.contains('on')) return;
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    closeZoom();
+  } else if (!e.metaKey && !e.ctrlKey && !e.altKey && zoomImages.length > 1) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      moveZoom(e.key === 'ArrowLeft' ? -1 : 1);
+    }
+  }
 });
 
 /* Presentation decks. Arrow keys, space, click and swipe page through the

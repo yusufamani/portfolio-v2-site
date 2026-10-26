@@ -293,6 +293,17 @@ img[data-zoom] { cursor: zoom-in; }
 .lb img { max-width: 97vw; max-height: 94vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; background: #fff; cursor: zoom-out; }
 .lb .x { position: absolute; top: 18px; right: 24px; color: #fff; font-size: 26px; line-height: 1; opacity: .75; background: none; border: 0; padding: 12px; cursor: pointer; }
 .lb .x:hover, .lb .x:focus-visible { opacity: 1; }
+.lb.has-gallery { flex-direction: column; gap: 16px; padding-top: 64px; }
+.lb.has-gallery img { max-width: 100%; max-height: calc(100vh - 160px); min-height: 0; }
+.lb-nav { flex-shrink: 0; width: 100%; display: flex; align-items: center;
+  justify-content: center; gap: 16px; cursor: default; }
+.lb-nav[hidden] { display: none; }
+.lb-nav button { flex-shrink: 0; width: 44px; height: 44px; border: 1px solid #a4a4a4;
+  border-radius: 50%; background: #252527; color: #fff; font-size: 26px; cursor: pointer; }
+.lb-nav button:disabled { opacity: .35; cursor: default; }
+.lb button:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.lb-status { max-width: 36em; color: #fff; font-size: 14px; line-height: 1.4;
+  text-align: center; margin: 0; }
 /* Feature carousel */
 .carousel { margin: 18px 0 6px; }
 .car-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
@@ -976,7 +987,15 @@ body:has(.deck) .deck-no, body:has(.deck) .deck-ui { display: block; }
 
 <div id="content">Loading…</div>
 </div>
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true" tabindex="-1"><button class="x" type="button" aria-label="Close enlarged image">&times;</button><img alt=""></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true" tabindex="-1">
+<button class="x" type="button" aria-label="Close enlarged image">&times;</button>
+<img alt="">
+<div class="lb-nav" hidden>
+<button class="lb-prev" type="button" aria-label="Previous carousel image">&lsaquo;</button>
+<p class="lb-status" role="status" aria-live="polite" aria-atomic="true"></p>
+<button class="lb-next" type="button" aria-label="Next carousel image">&rsaquo;</button>
+</div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
 <script>
 const sources = {"v1": "# Red\n\n<p class=\"piece-meta\">2023 \u00b7 Autodesk Maya 2023 \u00b7 Arnold</p>\n\n<img class=\"phero\" data-zoom=\"images/00.jpg?v=ead756b0\" src=\"images/00.jpg?v=ead756b0\" alt=\"Red: a cylindrical pendant lamp glowing above a red bench against tiled walls\">\n\n<div class=\"pgal\">\n<img data-zoom=\"images/01.jpg?v=f9aad586\" src=\"images/01.jpg?v=f9aad586\" alt=\"Red: the same lamp against a pale tiled wall, the red confined to the fixtures\">\n<img data-zoom=\"images/02.jpg?v=072fbea1\" src=\"images/02.jpg?v=072fbea1\" alt=\"Red: the room with stools drawn up to long tables\">\n<img data-zoom=\"images/03.jpg?v=b083c205\" src=\"images/03.jpg?v=b083c205\" alt=\"Red: a red booth seating area beside the tables\">\n<img data-zoom=\"images/04.jpg?v=9cbb0e15\" src=\"images/04.jpg?v=9cbb0e15\" alt=\"Red: the counter with red stools along it\">\n<img data-zoom=\"images/05.jpg?v=2f870446\" src=\"images/05.jpg?v=2f870446\" alt=\"Red: the tiled wall and bench beneath the pendant\">\n<img data-zoom=\"images/06.jpg?v=db5b122a\" src=\"images/06.jpg?v=db5b122a\" alt=\"Red: stools and tables filling the frame in red\">\n<img data-zoom=\"images/07.jpg?v=69f4dbe0\" src=\"images/07.jpg?v=69f4dbe0\" alt=\"Red, an untextured grey test render, a single table in empty space\">\n<img data-zoom=\"images/08.jpg?v=1295d9be\" src=\"images/08.jpg?v=1295d9be\" alt=\"Red: a grey blocking pass with the tables and pendants in place\">\n<img data-zoom=\"images/09.jpg?v=5b4ac5d7\" src=\"images/09.jpg?v=5b4ac5d7\" alt=\"Red: the untextured room from the corner\">\n<img data-zoom=\"images/10.jpg?v=533a247b\" src=\"images/10.jpg?v=533a247b\" alt=\"Red: a close grey pass over the table forms\">\n<img data-zoom=\"images/11.jpg?v=cd7111fa\" src=\"images/11.jpg?v=cd7111fa\" alt=\"Red: the grey room with the lamps positioned\">\n<img data-zoom=\"images/12.jpg?v=0f460012\" src=\"images/12.jpg?v=0f460012\" alt=\"Red: the red pendant alone, glowing in darkness\">\n<img data-zoom=\"images/13.jpg?v=9274ccbe\" src=\"images/13.jpg?v=9274ccbe\" alt=\"Red: red frames emerging from a dark room\">\n</div>\n"};
@@ -1456,11 +1475,45 @@ show(location.hash === '#v1' ? 'v1' : 'v2');
 const lb = document.getElementById('lb');
 const lbImg = lb.querySelector('img');
 const lbClose = lb.querySelector('.x');
+const lbNav = lb.querySelector('.lb-nav');
+const lbPrev = lb.querySelector('.lb-prev');
+const lbNext = lb.querySelector('.lb-next');
+const lbStatus = lb.querySelector('.lb-status');
 let zoomOrigin = null;
-function openZoom(image) {
+let zoomImages = [];
+let zoomIndex = 0;
+function showZoomImage() {
+  const image = zoomImages[zoomIndex];
   zoomOrigin = image;
   lbImg.src = image.currentSrc || image.src;
   lbImg.alt = image.alt || '';
+  const caption = image.closest('.car-slide')?.querySelector('.car-cap');
+  lbStatus.textContent = zoomImages.length > 1
+    ? (zoomIndex + 1) + ' / ' + zoomImages.length + (caption ? ' · ' + caption.textContent.trim() : '')
+    : '';
+  lbPrev.disabled = zoomIndex === 0;
+  lbNext.disabled = zoomIndex === zoomImages.length - 1;
+}
+function moveZoom(step) {
+  const nextIndex = zoomIndex + step;
+  if (nextIndex < 0 || nextIndex >= zoomImages.length) return;
+  zoomIndex = nextIndex;
+  showZoomImage();
+  const track = zoomOrigin.closest('.car-track');
+  if (track) {
+    track.scrollTo({ left: zoomIndex * track.clientWidth, behavior: 'instant' });
+  }
+  if ((document.activeElement === lbPrev && lbPrev.disabled) ||
+      (document.activeElement === lbNext && lbNext.disabled)) lbClose.focus();
+}
+function openZoom(image) {
+  const carousel = image.closest('.deck .carousel');
+  zoomImages = carousel ? Array.from(carousel.querySelectorAll('.car-slide img')) : [image];
+  zoomIndex = zoomImages.indexOf(image);
+  const hasGallery = zoomImages.length > 1;
+  lbNav.hidden = !hasGallery;
+  lb.classList.toggle('has-gallery', hasGallery);
+  showZoomImage();
   lb.classList.add('on');
   lb.setAttribute('aria-hidden', 'false');
   lbClose.focus();
@@ -1472,7 +1525,11 @@ function closeZoom() {
   lbImg.removeAttribute('src');
   if (zoomOrigin && zoomOrigin.isConnected) zoomOrigin.focus();
   zoomOrigin = null;
+  zoomImages = [];
+  lbStatus.textContent = '';
 }
+lbPrev.addEventListener('click', function () { moveZoom(-1); });
+lbNext.addEventListener('click', function () { moveZoom(1); });
 content.addEventListener('click', function (e) {
   const t = e.target.closest('img[data-zoom]');
   if (!t) return;
@@ -1487,12 +1544,30 @@ lb.addEventListener('click', function (e) {
 lbImg.addEventListener('click', closeZoom);
 lb.addEventListener('keydown', function (e) {
   if (e.key === 'Tab') {
-    e.preventDefault();
-    lbClose.focus();
+    const buttons = Array.from(lb.querySelectorAll('button')).filter(function (button) {
+      return !button.disabled && !button.closest('[hidden]');
+    });
+    const first = buttons[0], last = buttons[buttons.length - 1];
+    if (e.shiftKey && (document.activeElement === first || document.activeElement === lb)) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && (document.activeElement === last || document.activeElement === lb)) {
+      e.preventDefault();
+      first.focus();
+    }
   }
 });
 document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') closeZoom();
+  if (!lb.classList.contains('on')) return;
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    closeZoom();
+  } else if (!e.metaKey && !e.ctrlKey && !e.altKey && zoomImages.length > 1) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      moveZoom(e.key === 'ArrowLeft' ? -1 : 1);
+    }
+  }
 });
 
 /* Presentation decks. Arrow keys, space, click and swipe page through the

@@ -294,6 +294,17 @@ img[data-zoom] { cursor: zoom-in; }
 .lb img { max-width: 97vw; max-height: 94vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; background: #fff; cursor: zoom-out; }
 .lb .x { position: absolute; top: 18px; right: 24px; color: #fff; font-size: 26px; line-height: 1; opacity: .75; background: none; border: 0; padding: 12px; cursor: pointer; }
 .lb .x:hover, .lb .x:focus-visible { opacity: 1; }
+.lb.has-gallery { flex-direction: column; gap: 16px; padding-top: 64px; }
+.lb.has-gallery img { max-width: 100%; max-height: calc(100vh - 160px); min-height: 0; }
+.lb-nav { flex-shrink: 0; width: 100%; display: flex; align-items: center;
+  justify-content: center; gap: 16px; cursor: default; }
+.lb-nav[hidden] { display: none; }
+.lb-nav button { flex-shrink: 0; width: 44px; height: 44px; border: 1px solid #a4a4a4;
+  border-radius: 50%; background: #252527; color: #fff; font-size: 26px; cursor: pointer; }
+.lb-nav button:disabled { opacity: .35; cursor: default; }
+.lb button:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.lb-status { max-width: 36em; color: #fff; font-size: 14px; line-height: 1.4;
+  text-align: center; margin: 0; }
 /* Feature carousel */
 .carousel { margin: 18px 0 6px; }
 .car-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
@@ -977,7 +988,15 @@ body:has(.deck) .deck-no, body:has(.deck) .deck-ui { display: block; }
 
 <div id="content">Loading…</div>
 </div>
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true" tabindex="-1"><button class="x" type="button" aria-label="Close enlarged image">&times;</button><img alt=""></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true" tabindex="-1">
+<button class="x" type="button" aria-label="Close enlarged image">&times;</button>
+<img alt="">
+<div class="lb-nav" hidden>
+<button class="lb-prev" type="button" aria-label="Previous carousel image">&lsaquo;</button>
+<p class="lb-status" role="status" aria-live="polite" aria-atomic="true"></p>
+<button class="lb-next" type="button" aria-label="Next carousel image">&rsaquo;</button>
+</div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
 <script>
 const sources = {"v1": "# Hiring manager presentation\n\n*Planning doc. Started 2026-10-23. Nothing here is built yet.*\n\n## The brief\n\nTwo case-study decks, roughly 15 minutes each, inside a 45-minute hiring manager\nround. The remaining 15 minutes is them describing the team and the role, plus\nquestions in both directions.\n\nTwo constraints worth stating up front, because they drive every decision below:\n\n<ul class=\"takeaways\">\n  <li><b>This hiring manager is picky about craft.</b> The deck is not a container for the work. It <em>is</em> work, and it will be judged as such: colour, spacing, type, hierarchy, alignment, every slide.</li>\n  <li><b>Fifteen minutes is short.</b> At a comfortable speaking pace that is roughly 12 to 15 slides. It is not enough time to narrate a case study end to end, so each deck has to pick a spine and cut everything that is not on it.</li>\n</ul>\n\n## 1. Format\n\n### The options\n\n| Option | Craft ceiling | Reliability in the room | Build cost | Notes |\n|---|---|---|---|---|\n| **Figma frames + Present** | Highest | High | High | What a design HM expects. Total control. Every slide hand-built. |\n| **Figma Make** | Medium | Medium | Low | Fast, but output reads as generated, and a craft-focused HM may clock it. Risky as the artefact being judged. |\n| **Build into the portfolio site** | High | Highest | Medium | Inherits a design system that is already refined. Static, offline, no cloud dependency. PDF export as backup. |\n| **Keynote / Google Slides** | Medium | Highest | Low | Fastest and safest, hardest to look distinctive. |\n\n### Recommendation: build it into the site\n\nThree reasons, in order of weight.\n\n<ul class=\"takeaways\">\n  <li><b>The design system already exists and is already refined.</b> Type scale, colour, spacing, the pill and tag language, the carousel: all built, all consistent, all yours. A deck built on it inherits that craft rather than re-deciding it slide by slide, which is where hand-built decks usually drift.</li>\n  <li><b>It can be verified rather than eyeballed.</b> Every slide can be rendered and measured: contrast ratios, consistent margins, no overflow at the presenting resolution. That is the same method used on the portfolio itself.</li>\n  <li><b>It is the most reliable thing in the room.</b> Static HTML, runs offline, no account, no loading state, no live-prototype risk. Export to PDF as a second backup.</li>\n</ul>\n\n**This is not building a deck tool from scratch.** The site already has the hard\nparts: a carousel with slides, keyboard navigation, a lightbox, and five\ndistinct page layouts driven by `:has()`. A deck page is one more layout plus\nfull-viewport sizing and arrow-key paging. Roughly a day, not a week.\n\n**The honest counter-argument:** Figma is the tool a design hiring manager\nexpects a designer to present from, and presenting from a browser is slightly\nunusual. The counter to the counter is that it is *your own site*, which makes\nit a deliberate choice rather than an odd one, and it quietly demonstrates the\ndesign-plus-engineering range the About page claims.\n\n**Decision needed from you.** If craft control matters more than build speed and\nyou want it in Figma, that is a defensible call and the slide structures below\nstill apply.\n\n## 2. Which two stories\n\nThe JD analysis already ranks four candidates. Reproduced here with what each\none proves:\n\n| Story | Proves | Risk |\n|---|---|---|\n| **Recruit Portal** | Unifying an ecosystem at the largest scale. Three months of contextual inquiry reframed an enhancement into a two-ATS consolidation. Legacy tool sunset the day it shipped. | Long. Three years is hard to fit in fifteen minutes. |\n| **RP AI** | Agentic UX, which is their explicit JD bullet. The two-tier agency framework. The JD analysis calls this *\"my strongest single answer in the whole loop.\"* | Parked. Did not ship. |\n| **TDE** | Dense operational signals for leadership, and the craft bar. A twenty-column legacy tool became one signal system. | Impact is projected, not measured. The credibility trap flagged in the JD analysis. |\n| **EVA** | Shipped AI with real accountability patterns. ~1.1M invoice emails, MVP in six weeks. | Smaller in scope than the others. |\n\n### The pairing options\n\n<div class=\"decision\">\n  <p><b>Option A, recommended: Recruit Portal then RP AI.</b> One product, two eras. \"Here is the system I built, and here is what I did when AI arrived.\"</p>\n</div>\n\nWhy this pairing is stronger than it first looks: the shared product is a\n**feature, not repetition**. The second deck starts with the audience already\nknowing the domain, the users and the stakes, which buys back three or four\nminutes of setup and lets it go deeper on the agentic framework. It also tells a\ncareer arc rather than two disconnected projects.\n\nCoverage against the JD: internal productivity platforms, unifying ecosystems,\nAI and agentic workflows, trust and control. That is their four headline asks in\ntwo decks.\n\n**Option B: Recruit Portal then TDE.** Two shipped systems. Safer if you think\n\"it didn't ship\" will be held against you, but it drops the agentic story, which\nis the single thing the JD asks for most loudly and the thing you answer best.\n\n**Option C: TDE then RP AI.** Both current, both AI-heavy, strongest craft\nvisuals. Weakest on shipped outcomes: one is projected and the other is parked.\n\n**On RP AI not shipping:** the JD analysis already has the answer, which is that\norg priorities moved from \"speed up time-to-hire\" to \"get better candidates\".\nSaying that plainly, early, reads as confidence. Hiding it until they ask reads\nas the opposite. Put it on a slide.\n\n## 3. Shape of a fifteen-minute deck\n\nNot a template to fill in, a spine to cut against. Roughly one minute per slide.\n\n<div class=\"tl\">\n\n  <div class=\"tl-act\">\n    <p class=\"act-h\">Minutes 0\u20133 \u00b7 Why this was hard</p>\n    <p class=\"act-m\">The setup earns the rest. If they do not feel the problem, nothing after it lands.</p>\n    <div class=\"tl-items\">\n      <div class=\"tl-item\"><span class=\"n hl-red\">Title and one-line thesis</span></div>\n      <div class=\"tl-item\"><span class=\"n hl-red\">The situation, with a number</span></div>\n      <div class=\"tl-item\"><span class=\"n hl-red\">Why the obvious answer was wrong</span></div>\n    </div>\n  </div>\n\n  <div class=\"tl-act\">\n    <p class=\"act-h\">Minutes 3\u20136 \u00b7 What I found</p>\n    <p class=\"act-m\">Research, but only the findings that changed the design. Cut anything that did not.</p>\n    <div class=\"tl-items\">\n      <div class=\"tl-item\"><span class=\"n hl-amber\">Method, one slide, fast</span></div>\n      <div class=\"tl-item\"><span class=\"n hl-amber\">The finding that reframed it</span></div>\n    </div>\n  </div>\n\n  <div class=\"tl-act\">\n    <p class=\"act-h\">Minutes 6\u201312 \u00b7 The design</p>\n    <p class=\"act-m\">The longest stretch, and where a craft-focused HM is actually watching. Show the real artefacts at full size.</p>\n    <div class=\"tl-items\">\n      <div class=\"tl-item\"><span class=\"n hl-purple\">Before and after</span></div>\n      <div class=\"tl-item\"><span class=\"n hl-purple\">Two or three decisions, each with the alternative rejected</span></div>\n      <div class=\"tl-item\"><span class=\"n hl-purple\">The system view, not just screens</span></div>\n    </div>\n  </div>\n\n  <div class=\"tl-act\">\n    <p class=\"act-h\">Minutes 12\u201315 \u00b7 What happened and what I learned</p>\n    <p class=\"act-m\">Outcome first, honestly. Then one lesson, not five.</p>\n    <div class=\"tl-items\">\n      <div class=\"tl-item\"><span class=\"n hl-green\">Result, measured or clearly labelled as projected</span></div>\n      <div class=\"tl-item\"><span class=\"n hl-green\">One thing I would do differently</span></div>\n    </div>\n  </div>\n\n</div>\n\n**The decisions slides are the ones that matter.** A hiring manager at this level\nis not assessing whether you can make a screen look good. They are listening for\nwhether you considered the alternative and can say why you rejected it. Every\ndesign slide should be able to answer \"what else did you try\".\n\n## 4. The craft bar\n\nYour explicit ask, turned into things that can actually be checked.\n\n<ul class=\"takeaways\">\n  <li><b>One type scale, no exceptions.</b> Pick the sizes up front and never nudge a heading to make text fit. If it does not fit, the slide has too much on it.</li>\n  <li><b>One spacing unit.</b> Everything is a multiple of it. Decks drift because slide 9 gets a 22px gap where slide 3 used 24.</li>\n  <li><b>Colour carries meaning or it does not appear.</b> The portfolio already has a working palette, and the TDE signal system is a worked example of exactly this discipline. Reuse it.</li>\n  <li><b>One idea per slide.</b> The fastest way to fix a cramped slide is to split it, not to shrink the type.</li>\n  <li><b>Same anchor on every slide.</b> Title in the same place, image in the same place, caption in the same place. Movement between slides should come from content, not layout.</li>\n  <li><b>Screenshots at full fidelity.</b> Nothing stretched or upscaled, consistent corner radii and shadows. This is the single most common place a deck loses a craft-focused reviewer.</li>\n  <li><b>Check it at presenting resolution</b>, not on a laptop. Measure contrast, confirm nothing overflows, confirm the smallest type is readable from across a room.</li>\n</ul>\n\n## 5. Open questions\n\n<ul class=\"takeaways\">\n  <li><b>Format:</b> build it into the site, or Figma? Recommendation above, but it is your call and it changes the timeline.</li>\n  <li><b>Pairing:</b> Option A (RP then RP AI) or Option B (RP then TDE)?</li>\n  <li><b>Images:</b> the privacy audit is still open on 24 images carrying \"HireIn\", 23 carrying \"Productivity Engineering\", and 12 carrying <code>@linkedin.com</code> addresses. If deck screenshots come from those same sources, that work has to happen first.</li>\n  <li><b>Live or sent ahead:</b> presenting from your own machine, or sending a deck in advance? That changes how much the slides have to carry on their own.</li>\n</ul>\n"};
@@ -1457,11 +1476,45 @@ show(location.hash === '#v1' ? 'v1' : 'v2');
 const lb = document.getElementById('lb');
 const lbImg = lb.querySelector('img');
 const lbClose = lb.querySelector('.x');
+const lbNav = lb.querySelector('.lb-nav');
+const lbPrev = lb.querySelector('.lb-prev');
+const lbNext = lb.querySelector('.lb-next');
+const lbStatus = lb.querySelector('.lb-status');
 let zoomOrigin = null;
-function openZoom(image) {
+let zoomImages = [];
+let zoomIndex = 0;
+function showZoomImage() {
+  const image = zoomImages[zoomIndex];
   zoomOrigin = image;
   lbImg.src = image.currentSrc || image.src;
   lbImg.alt = image.alt || '';
+  const caption = image.closest('.car-slide')?.querySelector('.car-cap');
+  lbStatus.textContent = zoomImages.length > 1
+    ? (zoomIndex + 1) + ' / ' + zoomImages.length + (caption ? ' · ' + caption.textContent.trim() : '')
+    : '';
+  lbPrev.disabled = zoomIndex === 0;
+  lbNext.disabled = zoomIndex === zoomImages.length - 1;
+}
+function moveZoom(step) {
+  const nextIndex = zoomIndex + step;
+  if (nextIndex < 0 || nextIndex >= zoomImages.length) return;
+  zoomIndex = nextIndex;
+  showZoomImage();
+  const track = zoomOrigin.closest('.car-track');
+  if (track) {
+    track.scrollTo({ left: zoomIndex * track.clientWidth, behavior: 'instant' });
+  }
+  if ((document.activeElement === lbPrev && lbPrev.disabled) ||
+      (document.activeElement === lbNext && lbNext.disabled)) lbClose.focus();
+}
+function openZoom(image) {
+  const carousel = image.closest('.deck .carousel');
+  zoomImages = carousel ? Array.from(carousel.querySelectorAll('.car-slide img')) : [image];
+  zoomIndex = zoomImages.indexOf(image);
+  const hasGallery = zoomImages.length > 1;
+  lbNav.hidden = !hasGallery;
+  lb.classList.toggle('has-gallery', hasGallery);
+  showZoomImage();
   lb.classList.add('on');
   lb.setAttribute('aria-hidden', 'false');
   lbClose.focus();
@@ -1473,7 +1526,11 @@ function closeZoom() {
   lbImg.removeAttribute('src');
   if (zoomOrigin && zoomOrigin.isConnected) zoomOrigin.focus();
   zoomOrigin = null;
+  zoomImages = [];
+  lbStatus.textContent = '';
 }
+lbPrev.addEventListener('click', function () { moveZoom(-1); });
+lbNext.addEventListener('click', function () { moveZoom(1); });
 content.addEventListener('click', function (e) {
   const t = e.target.closest('img[data-zoom]');
   if (!t) return;
@@ -1488,12 +1545,30 @@ lb.addEventListener('click', function (e) {
 lbImg.addEventListener('click', closeZoom);
 lb.addEventListener('keydown', function (e) {
   if (e.key === 'Tab') {
-    e.preventDefault();
-    lbClose.focus();
+    const buttons = Array.from(lb.querySelectorAll('button')).filter(function (button) {
+      return !button.disabled && !button.closest('[hidden]');
+    });
+    const first = buttons[0], last = buttons[buttons.length - 1];
+    if (e.shiftKey && (document.activeElement === first || document.activeElement === lb)) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && (document.activeElement === last || document.activeElement === lb)) {
+      e.preventDefault();
+      first.focus();
+    }
   }
 });
 document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') closeZoom();
+  if (!lb.classList.contains('on')) return;
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    closeZoom();
+  } else if (!e.metaKey && !e.ctrlKey && !e.altKey && zoomImages.length > 1) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      moveZoom(e.key === 'ArrowLeft' ? -1 : 1);
+    }
+  }
 });
 
 /* Presentation decks. Arrow keys, space, click and swipe page through the
