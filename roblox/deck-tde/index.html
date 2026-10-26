@@ -903,7 +903,7 @@ body:has(.deck) .rail { display: none; }
 /* Two screenshots stacked in one figure column, for before/after or two
    views of the same legacy tool. */
 .slide-fig.stack { display: flex; flex-direction: column; gap: .85em; }
-.slide-fig.stack > figure { width: fit-content; max-width: 100%; margin: 0 auto; }
+.slide-fig.stack > figure { width: fit-content; max-width: 100%; margin: 0; }
 .slide.s-split:not(.hero-right) .slide-fig.stack img { width: auto; height: auto;
   max-width: 100%;
   max-height: calc((var(--deck-media-height) - .85em) / 2); }
@@ -1710,7 +1710,7 @@ document.addEventListener('keydown', function (e) {
   });
 })();
 </script>
-<meta name="portfolio-build" content="5f946d6ccc6e">
+<meta name="portfolio-build" content="7d9982bc888c">
 <script>
 (function () {
   const buildId = document.querySelector('meta[name="portfolio-build"]').content;
