@@ -910,8 +910,9 @@ body:has(.deck) .rail { display: none; }
 .slide-fig .s-cap { font-size: .875em; color: var(--muted); margin: .75em 0 0; }
 .workshop-carousel .car-slide img { aspect-ratio: 3 / 1; object-fit: contain;
   background: #fff; }
-.availability-frame { width: fit-content; max-width: 100%; margin: 0 auto; }
-.availability-frame .car-cap { margin-left: 0; margin-right: 0; }
+.deck-carousel .carousel-frame { width: fit-content; max-width: 100%; margin: 0 auto; }
+/* Caption length must not widen the frame beyond its fitted screenshot. */
+.deck-carousel .carousel-frame .car-cap { contain: inline-size; }
 .slide .deck-carousel { margin: 0; }
 .deck-carousel .car-slide img { width: auto; height: auto; max-width: 100%;
   max-height: var(--deck-media-height); object-fit: contain; margin: 0 auto; }
