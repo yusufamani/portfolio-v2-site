@@ -709,22 +709,22 @@ body:has(.deck) .rail { display: none; }
   transition: opacity .18s ease; }
 .slide.on { opacity: 1; visibility: visible; }
 
-/* Type scale. Six sizes, no exceptions: anything that does not fit means the
-   slide has too much on it, not that the type should shrink. */
-.slide .s-kick { font-size: .8125em; font-weight: 700; letter-spacing: .14em;
+/* Shared presentation hierarchy: cover, headline, card title, body and caption. */
+.slide .s-kick { font-size: .8125em; line-height: 1.4; font-weight: 700; letter-spacing: .14em;
   text-transform: uppercase; color: var(--muted); margin: 0 0 1.25em; }
 .slide h2 { font-size: 3em; line-height: 1.08; letter-spacing: -.02em;
-  font-weight: 800; margin: 0; padding: 0; border: none; position: static; }
+  font-weight: 800; margin: 0; padding: 0; border: none; position: static; text-wrap: balance; }
 /* The site draws a hairline above every h2. A slide is not an article section. */
 .slide h2::before, .slide h3::before { display: none; content: none; }
-.slide h3 { font-size: 1.75em; line-height: 1.18; letter-spacing: -.01em;
-  font-weight: 700; margin: 0 0 .6em; padding: 0; border: none; }
-.slide p { font-size: 1.125em; line-height: 1.6; margin: .85em 0 0; max-width: 34em; }
+.slide h3 { font-size: 2em; line-height: 1.18; letter-spacing: -.01em;
+  font-weight: 700; margin: 0 0 .6em; padding: 0; border: none; text-wrap: balance; }
+.slide p { font-size: 1.125em; line-height: 1.5; margin: .85em 0 0; max-width: 34em; }
 .slide .s-lead { font-size: 1.5em; line-height: 1.45; color: #3a3a3a; max-width: 28em; }
-.slide .s-note { font-size: .9375em; color: var(--muted); }
+.slide .s-note { font-size: .875em; color: var(--muted); }
 
 /* Layouts. Title, split and full-bleed cover every slide in both decks. */
-.slide.s-title { display: flex; flex-direction: column; justify-content: center; }
+.slide.s-title { display: flex; flex-direction: column; justify-content: flex-start;
+  gap: 1em; padding-top: 8em; }
 /* One measure for the whole block, so heading and body share a right edge and
    the white space reads as composed rather than left over. */
 .slide.s-title > h2, .slide.s-title > h3,
@@ -739,50 +739,52 @@ body:has(.deck) .rail { display: none; }
   align-items: start; gap: .65em; margin: 0; }
 .s-rollout .n { color: #b8bec4; font-size: 1.25em; font-weight: 700;
   line-height: 1.4; }
-.slide .s-rollout .copy { max-width: none; margin: 0; font-size: 1.35em;
+.slide .s-rollout .copy { max-width: none; margin: 0; font-size: 1.25em;
   line-height: 1.45; color: #3a3a3a; }
 .s-rollout .copy b { color: var(--fg); }
 .slide.s-title > .s-validation-grid { max-width: 100%; }
 .s-validation-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25em; margin: 1em 0 0; }
-.s-validation-phase { padding: 1.15em 1.3em; background: #f4f6f7; border-radius: .6em; }
-.slide .s-validation-phase h4 { margin: 0; font-size: 1.1em; line-height: 1.3; }
+.s-validation-phase { padding: 1.25em; background: #f4f6f7; border-radius: .6em; }
+.slide .s-validation-phase h4 { margin: 0; font-size: 1.25em; line-height: 1.3; }
 .slide .s-validation-phase ul.s-list { margin-top: .9em; }
-.slide .s-validation-phase ul.s-list li { font-size: .95em; margin-bottom: .55em; }
-.slide p.s-validation-note { max-width: 100%; margin-top: .85em; font-size: .9em; color: var(--muted); }
+.slide .s-validation-phase ul.s-list li { font-size: 1em; margin-bottom: .55em; }
+.slide p.s-validation-note { max-width: 100%; margin-top: .85em; font-size: .875em; color: var(--muted); }
 .slide.s-title > .s-outcomes { max-width: 100%; }
 .s-outcomes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1em; width: 100%; margin: 1.1em 0 0; align-items: stretch; }
-.s-outcome-card { min-width: 0; padding: 1.1em 1.2em; background: #f4f6f7;
+  gap: 1.25em; width: 100%; margin: 1.1em 0 0; align-items: stretch; }
+.s-outcome-card { min-width: 0; padding: 1.25em; background: #f4f6f7;
   border-radius: .6em; }
 .slide .s-outcome-card .s-outcome-label { margin: 0 0 .85em; font-size: .75em;
   line-height: 1.3; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
   color: var(--muted); }
 .slide .s-outcome-card h4, .slide .s-outcome-card .s-outcome-stat {
-  margin: 0; font-size: 1.35em; font-weight: 700; line-height: 1.3; }
+  margin: 0; font-size: 1.25em; font-weight: 700; line-height: 1.3; }
 .slide .s-outcome-card .s-outcome-stat { display: block; }
 .slide .s-outcome-card > p:not(.s-outcome-label) { margin: .75em 0 0; max-width: none;
-  font-size: .95em; line-height: 1.45; }
+  font-size: 1em; line-height: 1.5; }
 .slide .s-outcome-card .s-impact-caveat { color: var(--muted); font-size: .78em;
   line-height: 1.4; margin-top: -.35em; }
 .slide.s-title > .s-learning-grid { max-width: 100%; }
 .s-learning-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.2em; width: 100%; margin: 1em 0 0; }
-.s-learning-card { padding: 1.2em 1.35em; background: #f4f6f7; border-radius: .6em; }
-.slide .s-learning-card h4 { margin: 0; font-size: 1.2em; line-height: 1.3; }
+  gap: 1.25em; width: 100%; margin: 1em 0 0; }
+.s-learning-card { padding: 1.25em; background: #f4f6f7; border-radius: .6em; }
+.slide .s-learning-card h4 { margin: 0; font-size: 1.25em; line-height: 1.3; }
 .slide .s-learning-card p { max-width: none; margin-top: .7em; font-size: 1em; line-height: 1.5; }
-.slide p.s-learning-takeaway { max-width: 100%; margin-top: 1.1em; font-size: 1.05em;
+.slide p.s-learning-takeaway { max-width: 100%; margin-top: 1.1em; font-size: 1.125em;
   font-weight: 600; color: #3a3a3a; }
 
 /* Cards, for when a list is really a set of separate things rather than a
    sequence. Reads as a diagram instead of prose. */
-.s-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1em 1.25em;
+.s-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25em;
   margin: 1.5em 0 0; padding: 0; list-style: none; max-width: 100%; }
 .s-cards.four { grid-template-columns: repeat(4, 1fr); }
-.s-cards li { margin: 0; padding: 1.15em 1.25em; background: #f4f6f7;
+.s-cards li { margin: 0; padding: 1.25em; background: #f4f6f7;
   border-radius: .6em; }
-.s-cards .t { display: block; font-size: 1.125em; font-weight: 700; line-height: 1.25;
+.s-cards .t { display: block; font-size: 1.25em; font-weight: 700; line-height: 1.3;
   margin: 0 0 .35em; }
+.s-cards.four .t, .s-recipe .t { min-height: 2.6em; }
+.slide h4, .s-cards .t { text-wrap: balance; }
 /* Vendor marks on the tool cards. Real logos, set to a common height with
    automatic width, because the available marks mix square icons with a
    wordmark and forcing them into equal boxes would distort them. */
@@ -792,7 +794,7 @@ body:has(.deck) .rail { display: none; }
 .s-cards .mk i { font-style: normal; display: flex; align-items: center;
   justify-content: center; width: 2.46em; height: 2.46em; border-radius: .35em;
   font-size: .8125em; font-weight: 700; background: #e0e4e7; color: #3d454c; }
-.s-cards .d { display: block; font-size: .9375em; line-height: 1.45; color: #4a5056; }
+.s-cards .d { display: block; font-size: 1em; line-height: 1.5; color: #4a5056; }
 .s-cards.s-recipe { grid-template-columns: repeat(5, minmax(0, 1fr)); width: 100%; }
 .s-recipe .s-recipe-icon { display: block; font-size: 2.5em; line-height: 1.2;
   margin-bottom: .5em; }
@@ -803,13 +805,13 @@ body:has(.deck) .rail { display: none; }
 .s-tl { margin: .7em 0 0; width: 100%; }
 .s-tl .r { display: grid; grid-template-columns: 24em minmax(0, 1fr) 5em;
   align-items: center; gap: .9em; margin: 0 0 .48em; }
-.s-tl .phase { font-size: .9em; font-weight: 600; line-height: 1.25; color: #2b3137; }
+.s-tl .phase { font-size: 1em; font-weight: 600; line-height: 1.25; color: #2b3137; }
 .s-tl .trk { position: relative; height: 1.15em; background: #eef1f3;
   border-radius: .3em; }
 .s-tl .fil { position: absolute; top: 0; bottom: 0; background: #bccbd7;
   min-width: .35em; border-radius: .3em; }
 .s-tl .fil.hot { background: var(--link); }
-.s-tl .dur { font-size: .82em; font-weight: 600; color: #3a3a3a; white-space: nowrap; }
+.s-tl .dur { font-size: .875em; font-weight: 600; color: #3a3a3a; white-space: nowrap; }
 .slide p.s-tl-note { max-width: none; margin: .45em 0 0; font-size: .75em; line-height: 1.3; color: var(--muted); }
 /* Empty image frame for the review-vote visual, to be replaced when supplied. */
 .s-image-placeholder { width: 100%; aspect-ratio: 16 / 10; border: 2px dashed #b8bec4;
@@ -880,7 +882,11 @@ body:has(.deck) .rail { display: none; }
 .s-over .s-kick { margin: 0 0 .6em; }
 .s-over h3 { margin: 0; }
 .s-over p { margin: .6em 0 0; max-width: none; }
-.slide-body { min-width: 0; }
+.slide-body { min-width: 0; display: flex; flex-direction: column; gap: 1em;
+  align-self: start; padding-top: 3.5em; }
+/* Anchor every text group at y=128 on the 1280x720 stage, independent of its length.
+   A shared flex gap also avoids different margin-collapsing behavior in split slides. */
+.slide.s-title > *, .slide.s-split .slide-body > * { margin-top: 0; margin-bottom: 0; }
 .slide-fig { min-width: 0; }
 .slide-fig img { width: 100%; display: block; margin: 0; border: 1px solid var(--rule);
   border-radius: .5em; }
@@ -896,11 +902,14 @@ body:has(.deck) .rail { display: none; }
   object-fit: contain; margin: 0 auto; }
 .availability-frame { width: fit-content; max-width: 100%; margin: 0 auto; }
 .availability-frame .car-cap { margin-left: 0; margin-right: 0; }
-.availability-carousel .car-ctrl { gap: .9em; margin-top: .75em; }
-.availability-carousel .car-btn { width: 2em; height: 2em; font-size: 1em;
+.slide .deck-carousel { margin: 0; }
+.slide .deck-carousel .car-cap { font-size: .875em; line-height: 1.45;
+  margin: .75em 0 0; max-width: none; }
+.deck-carousel .car-ctrl { gap: .9em; margin-top: .75em; }
+.deck-carousel .car-btn { width: 2em; height: 2em; font-size: 1em;
   border-color: #b8bec4; }
-.availability-carousel .car-dots { gap: .5em; }
-.availability-carousel .car-dot { width: .45em; height: .45em; }
+.deck-carousel .car-dots { gap: .5em; }
+.deck-carousel .car-dot { width: .45em; height: .45em; }
 
 /* Stat blocks, for the outcome slides. */
 .s-stats { display: flex; gap: 3em; margin: 1.75em 0 0; padding: 0; list-style: none; }
@@ -916,6 +925,7 @@ body:has(.deck) .rail { display: none; }
 .slide ul.s-list li::before { content: ""; position: absolute; left: 0; top: .6em;
   width: .45em; height: .45em; border-radius: 50%; background: var(--link); }
 .slide ul.s-list li b { font-weight: 700; }
+.slide ul.s-list li:last-child { margin-bottom: 0; }
 .slide ul.s-usecase-list { margin: 1.25em 0 0; padding: 0; list-style: none; }
 .slide .s-usecase-list li { display: flex; align-items: flex-start; gap: .7em;
   margin: 0 0 .65em; font-size: 1.125em; line-height: 1.5; }
@@ -1688,7 +1698,7 @@ document.addEventListener('keydown', function (e) {
   });
 })();
 </script>
-<meta name="portfolio-build" content="f2d448f965f7">
+<meta name="portfolio-build" content="62438a7e0fa6">
 <script>
 (function () {
   const buildId = document.querySelector('meta[name="portfolio-build"]').content;
