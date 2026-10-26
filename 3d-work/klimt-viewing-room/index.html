@@ -895,14 +895,16 @@ body:has(.deck) .rail { display: none; }
 .slide-fig { min-width: 0; }
 .slide-fig img { width: 100%; display: block; margin: 0; border: 1px solid var(--rule);
   border-radius: .5em; }
-.slide-fig > img, .slide.s-full > img { cursor: zoom-in; }
+.slide-fig > img, .slide-fig.stack img, .slide.s-full > img { cursor: zoom-in; }
 .slide-fig.plain img { border: 0; }
 .slide.s-split:not(.hero-right) .slide-fig > img { width: auto; height: auto;
   max-height: var(--deck-media-height); align-self: start; margin: 0 auto; }
 /* Two screenshots stacked in one figure column, for before/after or two
    views of the same legacy tool. */
 .slide-fig.stack { display: flex; flex-direction: column; gap: .85em; }
-.slide.s-split:not(.hero-right) .slide-fig.stack > img {
+.slide-fig.stack > figure { width: fit-content; max-width: 100%; margin: 0 auto; }
+.slide.s-split:not(.hero-right) .slide-fig.stack img { width: auto; height: auto;
+  max-width: 100%;
   max-height: calc((var(--deck-media-height) - .85em) / 2); }
 .slide-fig .s-cap { font-size: .875em; color: var(--muted); margin: .75em 0 0; }
 .workshop-carousel .car-slide img { aspect-ratio: 3 / 1; object-fit: contain;
@@ -1644,7 +1646,7 @@ document.addEventListener('keydown', function (e) {
     else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
     else if (e.key === 'f') { if (!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
   });
-  deck.querySelectorAll('.slide-fig > img, .slide.s-full > img, .slide-fig .car-slide img').forEach(function (image) {
+  deck.querySelectorAll('.slide-fig > img, .slide-fig.stack img, .slide.s-full > img, .slide-fig .car-slide img').forEach(function (image) {
     image.classList.add('deck-zoomable');
     image.tabIndex = 0;
     image.setAttribute('role', 'button');
