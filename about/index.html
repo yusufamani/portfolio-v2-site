@@ -718,6 +718,7 @@ body:has(.deck) .rail { display: none; }
 .slide h2::before, .slide h3::before { display: none; content: none; }
 .slide h3 { font-size: 2em; line-height: 1.18; letter-spacing: -.01em;
   font-weight: 700; margin: 0 0 .6em; padding: 0; border: none; text-wrap: balance; }
+.slide .s-nowrap { white-space: nowrap; }
 .slide p { font-size: 1.125em; line-height: 1.5; margin: .85em 0 0; max-width: 34em; }
 .slide .s-lead { font-size: 1.5em; line-height: 1.45; color: #3a3a3a; max-width: 28em; }
 .slide .s-note { font-size: .875em; color: var(--muted); }
@@ -866,6 +867,7 @@ body:has(.deck) .rail { display: none; }
 .slide.s-split { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5em;
   align-items: center; }
 .slide.s-split.wide-right { grid-template-columns: 0.8fr 1.2fr; }
+.slide.s-split:not(.hero-right) h3 { max-width: 13em; }
 /* Title slide: the product shot carries the slide, so it takes a wider column,
    a tighter gutter and a bleed into the right padding. The text column stays
    wide enough to keep the headline at three lines. */
