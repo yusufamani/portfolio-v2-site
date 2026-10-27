@@ -6,6 +6,7 @@ Disallow: /linkedin-brand-insights/
 Disallow: /recruit-portal-ai/
 Disallow: /recruit-portal/
 Disallow: /roblox/
+Disallow: /roblox/deck-rp/
 Disallow: /roblox/deck-rpai/
 Disallow: /roblox/deck-tde/
 Disallow: /roblox/jd-analysis/

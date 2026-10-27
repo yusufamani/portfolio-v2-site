@@ -1,0 +1,1714 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yusuf Amani · Yusuf Amani</title>
+<meta name="description" content="Recruit Portal: the system that runs Engineering hiring at LinkedIn.">
+<link rel="canonical" href="https://yusufamani.com/roblox/deck-rp/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Yusuf Amani">
+<meta property="og:title" content="Yusuf Amani · Yusuf Amani">
+<meta property="og:description" content="Recruit Portal: the system that runs Engineering hiring at LinkedIn.">
+<meta property="og:url" content="https://yusufamani.com/roblox/deck-rp/">
+<meta property="og:image" content="https://yusufamani.com/images/hero-art.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Yusuf Amani · Yusuf Amani">
+<meta name="twitter:description" content="Recruit Portal: the system that runs Engineering hiring at LinkedIn.">
+<meta name="twitter:image" content="https://yusufamani.com/images/hero-art.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#fceee3">
+<style>
+:root {
+  --fg: #1a1a1a;
+  --muted: #6b6b6b;
+  --rule: #e6e6e6;
+  --link: #0a66c2;
+  --bg: #ffffff;
+  --code-bg: #f6f8fa;
+  --quote: #f9f9fb;
+  --quote-bar: #0a66c2;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif; line-height: 1.6; }
+.shell { max-width: 760px; margin: 0 auto; padding: 0 24px 96px; }
+/* The header bar spans the full viewport so its background covers the
+   full-bleed hero behind it when pinned; the nav inside stays aligned to the
+   same 1072px column as everything else. Spacing is margin, not padding, so
+   that when the bar is sticky only the nav pins rather than ~146px of
+   surrounding whitespace. */
+.sitehead-wrap { margin: 36px 0 42px; padding: 12px 24px; }
+.sitehead { max-width: 1072px; margin: 0 auto; }
+/* Sticky everywhere except pages with h2 section headings, which are themselves
+   `position: sticky; top: 0` and would collide. See has_sticky_sections(). */
+body.sticky-nav .sitehead-wrap { position: sticky; top: 0; z-index: 50; background: var(--bg); }
+/* Hero greeting. Sentence case, so the tracking goes slightly negative;
+   the +.6px it had was there to open up all-caps. */
+.intro-greeting { font-size: 42px; font-weight: 800; line-height: 1.1; letter-spacing: -.5px; margin: 0 0 18px; padding: 0; border: none; }
+.navrow { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px 34px; }
+/* Wordmark: the hero treatment at nav scale. Text rather than an image so it
+   stays crisp at any density and remains selectable and translatable. */
+.wordmark { display: inline-flex; align-items: center; gap: 10px;
+  font-size: 20px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase;
+  color: var(--fg); text-decoration: none; line-height: 1; white-space: nowrap; margin-right: 8px; }
+/* The planet lifted from the hero render, mirrored so its ring tilts the other
+   way. Decorative only: the wordmark text carries the meaning. */
+.wm-planet { width: 31px; height: auto; display: block; flex: none; }
+.wordmark:hover { text-decoration: none; color: var(--fg); opacity: .72; }
+.tabs { display: flex; flex-wrap: wrap; gap: 34px; margin: 0; border-bottom: none; }
+.tabs a { padding: 0; margin: 0; font-size: 15px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: #aaa; border-bottom: none; text-decoration: none; transition: color .14s ease; }
+.tabs a:hover { text-decoration: none; color: var(--fg); }
+.tabs a.active { color: var(--fg); border-bottom: none; }
+.crumbs { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+.crumbs a { color: var(--muted); }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1, h2, h3, h4 { line-height: 1.25; }
+h1 { font-size: 32px; margin: 0 0 8px; }
+/* Section rule bleeds 24px into the gutters so a section break reads louder than a paragraph break.
+   Sticky: each h2 pins only within its own .sec wrapper, so headings never stack at top:0. */
+h2 { font-size: 24px; letter-spacing: -0.35px; margin: 52px -24px 0; padding: 19px 24px 15px;
+  position: sticky; top: 0; z-index: 5; background: var(--bg); }
+h2::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--rule); }
+.sec:first-of-type h2 { margin-top: 34px; padding-top: 0; }
+.sec:first-of-type h2::before { display: none; }
+h3 { font-size: 17px; margin: 28px 0 8px; }
+h3 .sub { font-weight: 400; }
+h4 { font-size: 15px; margin: 20px 0 6px; }
+p { margin: 12px 0; }
+em { color: var(--muted); }
+hr { border: none; border-top: 1px solid var(--rule); margin: 32px 0; }
+ul, ol { padding-left: 22px; }
+li { margin: 4px 0; }
+blockquote {
+  background: var(--quote);
+  border-left: 3px solid var(--quote-bar);
+  margin: 16px 0;
+  padding: 12px 18px;
+  border-radius: 0 6px 6px 0;
+  color: #2a2a2a;
+}
+blockquote p { margin: 6px 0; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { background: #fafafa; font-weight: 600; }
+table.tiers { table-layout: fixed; }
+table.tiers col:nth-child(1) { width: 22%; }
+table.tiers col:nth-child(2) { width: 78%; }
+table.tiers td ul { margin: 0; padding-left: 1.1em; }
+table.tiers td li { margin: 0 0 2px; }
+table.tiers td li:last-child { margin-bottom: 0; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; background: var(--code-bg); padding: 2px 5px; border-radius: 3px; }
+pre code { display: block; padding: 12px; overflow-x: auto; }
+img { max-width: 100%; height: auto; border-radius: 4px; margin: 12px 0; }
+.idx ul { list-style: none; padding: 0; }
+.idx li { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.idx li:last-child { border: none; }
+/* Version toggle (AI original vs human refinement) */
+.vtoggle { display: inline-flex; border: 1px solid var(--rule); border-radius: 9px; padding: 3px; gap: 3px; margin: 0 0 26px; background: #f6f7f8; }
+.vtoggle button { font: inherit; font-size: 13px; font-weight: 600; padding: 7px 15px; border: none; background: none; border-radius: 6px; color: var(--muted); cursor: pointer; transition: all .12s ease; }
+.vtoggle button:hover { color: var(--fg); }
+.vtoggle button.on { background: var(--bg); color: var(--link); box-shadow: 0 1px 3px rgba(0,0,0,.10); }
+/* Title card — section 1 holds the opening view, so section 2 needs a scroll */
+.title-card { min-height: 26vh; display: flex; flex-direction: column; justify-content: center; }
+.title-card h1 { font-size: 46px; margin: 0 0 18px; letter-spacing: -0.6px; }
+h1.with-mark { display: flex; align-items: center; gap: 15px; }
+h1.with-mark img { width: 40px; height: 40px; border-radius: 8px; flex: 0 0 auto; }
+.lede { font-size: 20px; line-height: 1.5; color: var(--muted); margin: 0; max-width: 640px; }
+/* Hero bleeds to the shell edges, matching the section rule, so it reads as the page's anchor image.
+   The laptop mockup carries its own frame and shadow, so .hero adds no chrome of its own. */
+.hero { margin: 24px -24px 34px; }
+.hero img { display: block; width: 100%; margin: 0; cursor: zoom-in; }
+/* Fact bar — role / timeline */
+.factbar { display: flex; flex-wrap: wrap; gap: 40px; margin: 0 0 34px; padding: 20px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.fact { flex: 1 1 0; min-width: 150px; display: flex; flex-direction: column; gap: 5px; }
+.fact .k { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
+.fact .v { font-size: 15px; color: var(--fg); }
+/* borderless variant — for use inside a section, where rules read as breaks */
+.factbar.bare { border: none; padding: 0; margin: 18px 0 22px; }
+/* Hover/focus tooltip — used for the estimated user count */
+.tip { position: relative; cursor: help; }
+.tip .tip-t { border-bottom: 1px dotted #9aa3ab; }
+.tip .tip-i { display: inline-block; width: 13px; height: 13px; line-height: 12px; margin-left: 5px;
+  border: 1px solid #9aa3ab; border-radius: 50%; font-size: 9.5px; font-weight: 700; font-style: normal;
+  font-family: Georgia, serif; text-align: center; color: #8d969e; vertical-align: 1px; }
+.tip:hover .tip-i, .tip:focus .tip-i, .tip:focus-within .tip-i { border-color: var(--fg); color: var(--fg); }
+.tip .tip-b { visibility: hidden; opacity: 0; position: absolute; left: 0; top: calc(100% + 8px); z-index: 40;
+  width: 300px; background: #22282d; color: #eef1f3; font-size: 12.5px; line-height: 1.5; font-weight: 400;
+  text-transform: none; letter-spacing: 0; padding: 10px 13px; border-radius: 7px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.22); transition: opacity .14s ease; }
+.tip .tip-b::before { content: ''; position: absolute; left: 14px; top: -5px; width: 10px; height: 10px; background: #22282d; transform: rotate(45deg); }
+.tip:hover .tip-b, .tip:focus .tip-b, .tip:focus-within .tip-b { visibility: visible; opacity: 1; }
+/* last fact sits at the right edge — anchor its tooltip right so it can't overflow */
+.fact:last-child .tip-b { left: auto; right: 0; }
+.fact:last-child .tip-b::before { left: auto; right: 14px; }
+/* Below ~560px the fact bar wraps and the last fact jumps to the left margin, so a
+   right-anchored 300px tooltip hangs off the left edge. Anchor left instead. */
+@media (max-width: 560px) {
+  .tip .tip-b, .fact:last-child .tip-b { left: 0; right: auto; width: min(300px, calc(100vw - 48px)); }
+  .tip .tip-b::before, .fact:last-child .tip-b::before { left: 14px; right: auto; }
+}
+/* no label — the value stands alone */
+.fact.nolabel .k { display: none; }
+/* Phase chip — signals the focus of each section */
+.chip { display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 5px; letter-spacing: .1px; margin: -4px 0 16px; }
+.chip-research { background: #e6f5e6; color: #1a6b37; }
+.chip-design { background: #fdeaea; color: #a32a2e; }
+.chip-align { background: #e7f0fa; color: #0a4e96; }
+/* Phase header framework — title · [chip + timeline on one line] · what */
+.phead { display: flex; align-items: center; flex-wrap: wrap; gap: 13px; margin: 0 0 11px; }
+.phead .chip { margin: 0; }
+.phead .when { font-size: 13.5px; color: var(--muted); }
+.what { font-size: 15.5px; line-height: 1.55; color: #3a3a3a; margin: 0; }
+.todo { color: #a8a8a8; font-style: italic; }
+/* Punch line — short declarative statement that carries a section */
+.punch { font-size: 19px; line-height: 1.45; font-weight: 600; color: var(--fg); margin: 26px 0 18px; letter-spacing: -0.2px; }
+.punch.sm { font-size: 17px; letter-spacing: 0; }
+.qt { font-style: italic; color: #8a8a8a; }
+.sidenote { font-size: 15px; line-height: 1.62; color: #8a8a8a; border-left: 2px solid var(--rule); padding-left: 15px; margin: 20px 0 0; }
+.sidenote b { color: var(--fg); font-weight: 600; }
+/* Role chips */
+.roles { display: flex; flex-wrap: wrap; gap: 9px; margin: 18px 0 8px; }
+.role { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--rule); border-radius: 999px; padding: 8px 16px 8px 13px; font-size: 14px; background: #fff; }
+.role .e { font-size: 22px; line-height: 1; }
+.role .d { color: var(--muted); font-size: 13px; }
+/* Process flow */
+.flow { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 10px; }
+.flow .step { flex: 1 1 120px; background: #f6f8fa; border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; }
+.flow .step .n { display: block; font-size: 11px; font-weight: 700; color: var(--link); letter-spacing: .5px; margin-bottom: 5px; }
+.flow .step .t { display: block; font-size: 13.5px; font-weight: 600; line-height: 1.35; }
+.flow .step .sub { display: block; font-size: 12px; font-weight: 400; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+/* .icons — emoji markers instead of 01/02 numbers */
+.flow.icons .step .n { font-size: 21px; line-height: 1; margin-bottom: 8px; }
+/* Diagnostic block — symptom = cost equations beside the user's unspoken questions */
+.diag { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px; margin: -8px 0 6px; }
+.diag .eq:first-child, .diag .says p:first-child { margin-top: 0; }
+.diag .eqs { flex: 1.3 1 370px; }
+.diag .eq { font-size: 16px; font-weight: 600; margin: 14px 0; letter-spacing: -0.1px; white-space: nowrap; }
+.diag .eq .ic { font-size: 15px; margin-right: 9px; }
+.diag .eq .up { color: #e5484d; font-weight: 700; }
+.diag .says { flex: 1 1 240px; margin: 0; }
+.diag .says p { font-size: 16px; font-style: italic; color: #5a5a5a; margin: 14px 0; }
+.imgnote { font-size: 12.5px; color: #a0a0a0; margin: 8px 0 0; }
+/* Roadmap timeline — the two-act table of contents */
+.tl { margin: 22px 0 4px; }
+.tl-act { margin: 0 0 38px; }
+.tl-act:last-child { margin-bottom: 8px; }
+.tl-act .act-h { font-size: 20px; font-weight: 700; margin: 0 0 3px; letter-spacing: -0.3px; }
+.tl-act .act-m { font-size: 13px; color: var(--muted); margin: 0 0 16px; }
+.tl-items { position: relative; margin: 0 0 0 7px; }
+.tl-item { position: relative; padding: 0 0 22px 30px; border-left: 2px solid #1a1a1a; }
+.tl-item::before { content: ''; position: absolute; left: -2px; top: 10px; width: 15px; height: 2px; background: #1a1a1a; }
+/* line starts at the first tick and stops at the last one */
+.tl-item:first-child { border-left-color: transparent; }
+.tl-item:first-child::after { content: ''; position: absolute; left: -2px; top: 10px; bottom: 0; width: 2px; background: #1a1a1a; }
+.tl-item:last-child { padding-bottom: 0; border-left-color: transparent; }
+.tl-item:last-child::after { content: ''; position: absolute; left: -2px; top: 0; height: 12px; width: 2px; background: #1a1a1a; }
+.tl-item .n { font-size: 15.5px; font-weight: 600; padding: 3px 9px; border-radius: 5px; }
+.tl-item .d { display: block; font-size: 13px; color: var(--muted); margin-top: 6px; padding-left: 9px; }
+.tl-foot { font-size: 12.5px; color: #a0a0a0; margin: 14px 0 0 37px; }
+.tl + p { margin-top: 40px; }
+/* UX method cards */
+.methods { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0 10px; }
+.method { flex: 1 1 195px; border: 1px solid var(--rule); border-radius: 10px; padding: 15px 18px 16px; background: #fff; }
+.method .e { font-size: 16px; margin-right: 8px; }
+.method .t { font-size: 15.5px; font-weight: 700; }
+.method .s { display: block; font-size: 13px; color: var(--muted); line-height: 1.5; margin-top: 7px; }
+/* Research question list */
+.qs { list-style: none; padding: 0; margin: 14px 0 4px; }
+.qs li { font-size: 17.5px; color: #4a4a4a; line-height: 1.45; margin: 10px 0; padding-left: 24px; position: relative; }
+.qs li::before { content: '—'; position: absolute; left: 0; color: #c4c4c4; }
+/* Method list — compact two-column activity inventory */
+.mlabel { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin: 24px 0 12px; }
+.mlist { list-style: none; padding: 0; margin: 0; column-count: 2; column-gap: 18px; counter-reset: ml; }
+.mlist.one { column-count: 1; }
+.mlist li { display: flex; gap: 5px; font-size: 13px; line-height: 1.5; margin: 0 0 10px; break-inside: avoid; }
+.mlist li::before { counter-increment: ml; content: counter(ml, decimal-leading-zero); flex: 0 0 auto; font-size: 10.5px; font-weight: 700; color: #c2c2c2; letter-spacing: 0; padding-top: 2px; }
+.mlist .t { font-weight: 600; }
+.mlist .s { color: var(--muted); }
+/* Finding groups — column flow so short cards don't leave dead space */
+.findings { column-count: 2; column-gap: 12px; margin: 16px 0 16px; }
+.fgroup { border: 1px solid var(--rule); border-radius: 10px; padding: 14px 18px 15px; background: #fff; break-inside: avoid; margin: 0 0 12px; }
+.fgroup .h { font-size: 13.5px; font-weight: 700; margin: 0 0 9px; }
+.fgroup ul { margin: 0; padding-left: 16px; }
+.fgroup li { font-size: 13.5px; line-height: 1.5; margin: 6px 0; color: #3d3d3d; }
+.fgroup.wide { margin: 0 0 12px; }
+.fgroup.wide ul { column-count: 2; column-gap: 26px; }
+.fgroup.wide li { break-inside: avoid; }
+/* exactly three peers read better side by side than balanced across two columns */
+.findings.three { column-count: 3; }
+@media (max-width: 860px) { .findings.three { column-count: 2; } }
+@media (max-width: 620px) { .findings.three { column-count: 1; } }
+/* .even — equal-height cards in one row; grid, not column-flow */
+.findings.even { column-count: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.findings.even .fgroup { margin: 0; }
+.fgroup p.t { font-size: 13.5px; line-height: 1.5; margin: 0; color: #3d3d3d; }
+@media (max-width: 860px) { .findings.even { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .findings.even { grid-template-columns: 1fr; } }
+/* Takeaway summary — the few points that must land */
+.takeaways { list-style: none; padding: 0; margin: 16px 0 0; counter-reset: tk; }
+.takeaways li { font-size: 15px; line-height: 1.6; margin: 0 0 14px; color: #3a3a3a; position: relative; padding-left: 38px; }
+.takeaways li::before { counter-increment: tk; content: counter(tk, decimal-leading-zero); position: absolute; left: 0; top: 2px; font-size: 13px; font-weight: 700; color: #bdbdbd; letter-spacing: .5px; }
+.takeaways li b { color: var(--fg); }
+.takeaways.goals { margin: 10px 0 0; }
+.takeaways.goals li { margin: 0 0 7px; }
+/* A list split around an inserted quote keeps one running count. */
+.takeaways.cont { counter-reset: none; }
+.takeaways.steps li { padding-left: 23px; text-indent: -23px; }
+.takeaways.steps li::before { content: none; }
+/* .tools — right-aligned tool column, so the fragmentation is scannable */
+.takeaways.tools li { padding-right: 160px; }
+.takeaways.tools li em { position: absolute; right: 0; top: 3px; width: 150px; text-align: right; font-style: normal; font-size: 12.5px; color: var(--muted); }
+@media (max-width: 760px) { .takeaways.tools li { padding-right: 0; } .takeaways.tools li em { position: static; display: block; width: auto; text-align: left; margin-top: 2px; } }
+h2 + .mlabel { margin-top: 14px; }
+/* Disclosure */
+.det { margin: 10px 0 0; }
+.det > summary { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; color: var(--link); padding: 2px 0; list-style: none; }
+.det > summary::-webkit-details-marker { display: none; }
+.det > summary::before { content: '▸'; font-size: 10px; }
+.det[open] > summary::before { content: '▾'; }
+.det > summary:hover { text-decoration: underline; }
+.det[open] > summary { margin-bottom: 2px; }
+/* Decision / outcome callout */
+.decision { border-left: 3px solid var(--link); background: #f2f7fc; border-radius: 0 8px 8px 0; padding: 16px 22px 17px; margin: 16px 0 0; }
+.decision p { margin: 0; font-size: 15px; line-height: 1.6; }
+.decision .nxt { margin-top: 13px; font-size: 14px; font-weight: 600; color: var(--link); }
+/* Study detail cards (inside the methods disclosure) */
+.studies { margin: 14px 0 0; }
+.study { display: flex; flex-wrap: wrap; gap: 22px; background: #f7f8f9; border-radius: 12px; padding: 18px 22px 20px; margin: 0 0 12px; }
+.study:last-child { margin-bottom: 0; }
+.study-txt { flex: 1 1 320px; }
+.study-txt img { width: 100%; border-radius: 6px; margin: 12px 0 0; border: 1px solid #e3e3e3; cursor: zoom-in; }
+.study-img { flex: 0 1 290px; align-self: flex-start; }
+.study-img img { width: 100%; border-radius: 6px; margin: 0; border: 1px solid #e3e3e3; }
+.study-img img + img { margin-top: 10px; }
+img[data-zoom] { cursor: zoom-in; }
+/* Lightbox */
+.lb { position: fixed; inset: 0; background: rgba(12,12,14,.93); display: none; align-items: center; justify-content: center; z-index: 999; cursor: zoom-out; padding: 24px; }
+.lb.on { display: flex; }
+.lb img { max-width: 97vw; max-height: 94vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; background: #fff; cursor: zoom-out; }
+.lb .x { position: absolute; top: 18px; right: 24px; color: #fff; font-size: 26px; line-height: 1; opacity: .75; background: none; border: 0; padding: 12px; cursor: pointer; }
+.lb .x:hover, .lb .x:focus-visible { opacity: 1; }
+.lb.has-gallery { flex-direction: column; gap: 16px; padding-top: 64px; }
+.lb.has-gallery img { max-width: 100%; max-height: calc(100vh - 160px); min-height: 0; }
+.lb-nav { flex-shrink: 0; width: 100%; display: flex; align-items: center;
+  justify-content: center; gap: 16px; cursor: default; }
+.lb-nav[hidden] { display: none; }
+.lb-nav button { flex-shrink: 0; width: 44px; height: 44px; border: 1px solid #a4a4a4;
+  border-radius: 50%; background: #252527; color: #fff; font-size: 26px; cursor: pointer; }
+.lb-nav button:disabled { opacity: .35; cursor: default; }
+.lb button:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.lb-status { max-width: 36em; color: #fff; font-size: 14px; line-height: 1.4;
+  text-align: center; margin: 0; }
+/* Feature carousel */
+.carousel { margin: 18px 0 6px; }
+.car-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
+.car-track::-webkit-scrollbar { display: none; }
+.car-slide { flex: 0 0 100%; scroll-snap-align: center; margin: 0; padding: 0 1px; }
+.car-slide img, .shot img { width: 100%; display: block; border: 1px solid var(--rule); border-radius: 8px; margin: 0; }
+.car-scroll { max-height: 532px; overflow-y: auto; border: 1px solid var(--rule); border-radius: 8px; }
+.car-scroll img { border: 0; border-radius: 0; }
+.shot { margin: 16px 0 0; }
+.shot img { cursor: zoom-in; }
+.car-ph { width: 100%; aspect-ratio: 16/9; border: 1px dashed #cfcfcf; border-radius: 8px; background: #fafafa; display: flex; align-items: center; justify-content: center; color: #b0b0b0; font-size: 13px; }
+.car-slide .car-cap, .shot .car-cap, .car-cap { font-size: 14px; line-height: 1.55; color: #3d3d3d; margin: 13px 2px 0; }
+.car-slide .car-cap b, .shot .car-cap b, .car-cap b { color: var(--fg); }
+.car-slide .car-q, .shot .car-q { font-size: 13.5px; line-height: 1.55; color: var(--muted); font-style: italic; margin: 9px 2px 0; padding-left: 12px; border-left: 2px solid var(--rule); }
+.car-slide .car-win, .shot .car-win, .car-win { font-size: 14px; line-height: 1.55; color: #1c5c33; background: #eef7f0; border-radius: 6px; padding: 10px 14px; margin: 11px 2px 0; }
+.car-slide .car-win b, .shot .car-win b, .car-win b { color: #11331f; }
+.car-slide .car-prob, .shot .car-prob { font-size: 14px; line-height: 1.55; color: #8a2c2f; background: #fdeeee; border-radius: 6px; padding: 10px 14px; margin: 11px 2px 0; }
+.car-slide .car-prob b, .shot .car-prob b { color: #5e1517; }
+.car-slide .car-learn, .shot .car-learn { font-size: 14px; line-height: 1.55; color: #1f4a6b; background: #eef4f9; border-radius: 6px; padding: 10px 14px; margin: 11px 2px 0; }
+.car-slide .car-learn b { color: #0f2b47; }
+/* Scrollable image viewport — lets a tall artifact be explored in place */
+.scrollbox { max-height: 430px; overflow-y: auto; border: 1px solid var(--rule); border-radius: 8px; background: #eceef0; }
+.scrollbox img { width: 100%; display: block; border: none; border-radius: 0; margin: 0; }
+.scrollbox::-webkit-scrollbar { width: 10px; }
+.scrollbox::-webkit-scrollbar-thumb { background: #c6c9cc; border-radius: 6px; border: 2px solid #eceef0; }
+.scrollbox::-webkit-scrollbar-thumb:hover { background: #adb1b5; }
+/* Section rail — sits in the left gutter, needs >=1280px. Active state uses weight/opacity,
+   never hue, so it can't collide with the red/blue/green semantic system. */
+.rail { position: fixed; top: 50%; transform: translateY(-50%);
+  left: calc(50vw - 380px - 236px); width: 216px; z-index: 4;
+  max-height: 78vh; overflow-y: auto; }
+.rail-h { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px;
+  color: #b4b4b4; margin: 0 0 11px; }
+.rail ol { list-style: none; margin: 0; padding: 0; counter-reset: rl; }
+.rail li { margin: 0 0 2px; }
+.rail a { display: flex; gap: 8px; font-size: 13px; line-height: 1.35; padding: 4px 0;
+  color: var(--fg); opacity: .4; text-decoration: none; transition: opacity .15s ease; }
+.rail a::before { counter-increment: rl; content: counter(rl, decimal-leading-zero);
+  flex: 0 0 auto; font-size: 10px; font-weight: 700; color: #c2c2c2; padding-top: 2px; }
+.rail a:hover { opacity: .85; text-decoration: underline; text-underline-offset: 3px; }
+.rail a.on { opacity: 1; font-weight: 600; }
+.rail a.on::before { color: var(--link); }
+@media (max-width: 1279px) { .rail { display: none; } }
+.scrollhint { font-size: 12px; color: #a0a0a0; margin: 7px 2px 0; }
+/* Stacked user quotes — one per line, body scale */
+.quotes { margin: 13px 0 0; padding-left: 14px; border-left: 2px solid var(--rule); }
+.quotes p { font-size: 15.5px; line-height: 1.5; font-style: italic; color: #5a5a5a; margin: 0 0 9px; }
+.quotes p:last-child { margin-bottom: 0; }
+.fnote { font-size: 12.5px; line-height: 1.55; color: #7a7a7a; margin: 12px 0 0; padding-left: 12px; border-left: 2px solid var(--rule); }
+.fnote b { color: #5a5a5a; font-weight: 600; }
+/* Live modal — a scrollable region positioned over the modal in a screenshot */
+.uishot { position: relative; line-height: 0; }
+.uishot > img { width: 100%; display: block; border: 1px solid var(--rule); border-radius: 8px; margin: 0; }
+.uishot .modalscroll {
+  position: absolute; left: 34.00%; top: 13.61%; width: 45.77%; height: 70.96%;
+  overflow-y: auto; background: #fff; scrollbar-width: thin;
+}
+.uishot .modalscroll img { width: 100%; display: block; border: none; border-radius: 0; margin: 0; }
+.uishot .modalscroll::-webkit-scrollbar { width: 9px; }
+.uishot .modalscroll::-webkit-scrollbar-thumb { background: #c9ccd0; border-radius: 6px; border: 2px solid #fff; }
+.uishot .modalscroll::-webkit-scrollbar-thumb:hover { background: #aeb2b7; }
+.car-ctrl { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 14px; }
+.car-btn { width: 29px; height: 29px; border: 1px solid var(--rule); background: #fff; border-radius: 50%; cursor: pointer; font-size: 15px; line-height: 1; color: var(--fg); display: flex; align-items: center; justify-content: center; padding: 0; }
+.car-btn:hover:not([disabled]) { background: #f6f8fa; }
+.car-btn[disabled] { opacity: .28; cursor: default; }
+.car-dots { display: flex; gap: 7px; }
+.car-dot { width: 7px; height: 7px; border-radius: 50%; background: #d6d6d6; border: none; padding: 0; cursor: pointer; }
+.car-dot.on { background: var(--link); }
+
+/* Interactive prototype — a working rebuild of the My Tasks dashboard */
+.proto { --pblue: #2d64bc; --phead: #f2f8fe; --pfoot: #ecf3f9; --pline: #e4e7ea; --pside: #2d3d49; margin: 16px 0 0; }
+.proto.wide { width: min(1040px, calc(100vw - 40px)); margin-left: 50%; transform: translateX(-50%); }
+.proto-app { display: flex; background: #f5f6f8; border: 1px solid var(--pline); border-radius: 10px; overflow: hidden; font-size: 13px; color: #1a1a1a; }
+.proto-side { flex: 0 0 164px; background: var(--pside); color: #e8ecef; padding: 13px 0 0; display: flex; flex-direction: column; }
+.proto-brand { font-size: 15px; font-weight: 600; padding: 0 14px 13px; display: flex; align-items: center; gap: 3px; }
+.proto-brand i { background: #fff; color: var(--pside); border-radius: 3px; font-style: normal; font-weight: 700; font-size: 12px; padding: 0 3px; }
+.proto-ssearch { display: flex; align-items: center; gap: 8px; background: #526775; color: #d4dbe1; margin: 0 11px 10px; padding: 7px 11px; border-radius: 16px; font-size: 12px; }
+.proto-nav { list-style: none; margin: 0; padding: 0; flex: 1; }
+.proto-nav li { display: flex; align-items: center; gap: 9px; padding: 8px 13px; font-size: 12.5px; white-space: nowrap; color: #d7dde2; cursor: default; }
+.proto-nav li.on { background: #3668f6; color: #fff; font-weight: 600; }
+.proto-nav .cv { margin-left: auto; opacity: .75; }
+.proto-user { display: flex; align-items: center; gap: 8px; padding: 11px 13px; border-top: 1px solid rgba(255,255,255,.12); font-size: 11.5px; }
+.proto-av { width: 24px; height: 24px; border-radius: 50%; background: #6b7a86; color: #fff; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+.proto-user .nm { line-height: 1.25; }
+.proto-user .rl { color: #a9b4bd; font-size: 10.5px; }
+.proto-main { flex: 1; min-width: 0; padding: 14px; }
+.proto-h1 { font-size: 19px; font-weight: 700; color: #294974; margin: 0 0 13px; letter-spacing: -.2px; }
+.proto-topsearch { display: flex; align-items: center; gap: 9px; background: #fff; border: 1px solid #d4d8dc; border-radius: 6px; padding: 9px 13px; color: #8a97a5; font-size: 12.5px; margin: 0 0 13px; }
+.proto-cols { display: flex; gap: 13px; align-items: flex-start; flex-wrap: wrap; }
+.proto-colmain { flex: 1 1 400px; min-width: 0; }
+.proto-cal { flex: 0 1 272px; min-width: 0; background: #fff; border: 1px solid var(--pline); border-radius: 8px; padding: 13px; }
+.proto-cal h5 { font-size: 13.5px; font-weight: 700; margin: 0 0 12px; border: none; padding: 0; }
+.proto-calnav { display: flex; align-items: center; justify-content: space-between; margin: 0 0 9px; font-size: 13px; font-weight: 600; }
+.proto-calnav span { color: var(--pblue); font-size: 15px; }
+.proto-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; font-size: 11.5px; }
+.proto-grid .dw { color: #6b7785; padding: 3px 0 5px; }
+.proto-grid .d { padding: 5px 0; border-radius: 5px; }
+.proto-grid .d.mut { color: #b6bcc3; }
+.proto-grid .d.today { background: #3668f6; color: #fff; font-weight: 600; }
+.proto-calsep { height: 3px; width: 40px; background: #d3d8dd; border-radius: 2px; margin: 13px auto 11px; }
+.proto-cal h6 { font-size: 12.5px; font-weight: 700; margin: 0 0 9px; }
+.proto-ev { border: 1px solid var(--pline); border-left: 3px solid #3668f6; border-radius: 6px; padding: 9px 11px; margin: 0 0 8px; }
+.proto-ev .en { font-weight: 700; font-size: 12.5px; }
+.proto-ev .er { color: var(--pblue); text-decoration: underline; font-size: 11.5px; display: block; margin: 2px 0 4px; }
+.proto-ev .ed { color: #6b7785; font-size: 11px; line-height: 1.45; }
+.proto-ev .ea { display: flex; gap: 14px; justify-content: flex-end; margin-top: 7px; color: var(--pblue); font-size: 11.5px; font-weight: 600; }
+.proto-nav .nd { width: 13px; height: 13px; border: 1.6px solid currentColor; border-radius: 3px; opacity: .75; flex: 0 0 13px; }
+.proto-nav li.on .nd { opacity: 1; }
+.proto-ssearch .ic, .proto-topsearch .ic { width: 13px; height: 13px; flex: 0 0 13px; }
+.proto-nav .cv svg { width: 11px; height: 11px; display: block; }
+.proto-card { background: #fff; border: 1px solid var(--pline); border-radius: 8px; font-size: 13px; color: #1a1a1a; }
+.proto-head { display: flex; align-items: center; gap: 10px; background: var(--phead); padding: 11px 14px; border-bottom: 1px solid var(--pline); position: relative; }
+.proto-title { font-weight: 700; flex: 1; }
+.proto-ctl { display: flex; align-items: center; gap: 5px; background: none; border: none; font: inherit; font-size: 12.5px; color: #5a6778; padding: 4px 7px; border-radius: 5px; cursor: pointer; }
+.proto-ctl:hover { background: #e3edf9; color: #1a1a1a; }
+.proto-ctl.on { background: #dbe8f8; color: var(--pblue); font-weight: 600; }
+.proto-ctl .ic { width: 13px; height: 13px; display: block; }
+.proto-rows { list-style: none; margin: 0; padding: 0; }
+.proto-row { border-bottom: 1px solid #eef0f2; }
+.proto-row:last-child { border-bottom: none; }
+.proto-top { display: flex; align-items: center; gap: 10px; padding: 11px 14px; cursor: pointer; }
+.proto-row:hover .proto-top { background: #fafbfc; }
+.proto-row.open .proto-top { background: var(--phead); }
+.proto-row.open { background: var(--phead); }
+.proto-txt { flex: 1; line-height: 1.45; }
+.proto-txt a { color: var(--pblue); text-decoration: underline; }
+.proto-flag { width: 14px; flex: 0 0 14px; color: var(--pblue); opacity: 0; }
+.proto-flag.on { opacity: 1; }
+.proto-date { flex: 0 0 auto; color: #3d3d3d; font-size: 12.5px; min-width: 52px; text-align: right; }
+.proto-chev { flex: 0 0 auto; color: #8a97a5; transition: transform .16s ease; }
+.proto-row.open .proto-chev { transform: rotate(180deg); }
+.proto-body { display: none; padding: 2px 14px 14px 14px; }
+.proto-row.open .proto-body { display: block; }
+.proto-meta { display: flex; gap: 54px; margin: 0 0 12px; }
+.proto-meta div { font-size: 12.5px; }
+.proto-meta .k { color: #6b7785; margin-bottom: 3px; }
+.proto-note { display: flex; align-items: flex-end; gap: 14px; }
+.proto-note .nt { flex: 1; }
+.proto-note .k { color: #6b7785; font-size: 12.5px; margin-bottom: 4px; }
+.proto-act { display: flex; align-items: center; gap: 10px; }
+.proto-ibtn { background: none; border: none; padding: 3px; color: #5a6778; cursor: pointer; border-radius: 4px; line-height: 0; }
+.proto-ibtn .ic { width: 15px; height: 15px; display: block; }
+.proto-flag .ic { width: 14px; height: 14px; display: block; }
+.proto-ibtn:hover { background: #e3edf9; color: #1a1a1a; }
+.proto-ibtn.on { color: var(--pblue); }
+.proto-approve { background: #1a7f37; color: #fff; border: none; border-radius: 5px; padding: 7px 15px; font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.proto-approve:hover { background: #166c2e; }
+.proto-datechip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid #c3c9d0; border-radius: 5px; padding: 4px 8px; background: #fff; font: inherit; font-size: 12.5px; cursor: pointer; }
+.proto-datechip:hover { border-color: var(--pblue); }
+.proto-datechip .x { color: #fff; background: #8a97a5; border-radius: 50%; width: 14px; height: 14px; line-height: 14px; text-align: center; font-size: 10px; }
+.proto-foot { display: flex; align-items: center; justify-content: flex-end; gap: 12px; background: var(--pfoot); padding: 9px 14px; font-size: 12px; color: #4a5560; }
+.proto-pop { position: absolute; top: 100%; z-index: 20; background: #fff; border: 1px solid var(--pline); border-radius: 7px; box-shadow: 0 6px 22px rgba(0,0,0,.14); padding: 12px 4px 8px; min-width: 210px; margin-top: 4px; }
+.proto-pop h4 { font-size: 12.5px; font-weight: 600; margin: 0 0 8px; padding: 0 13px; border: none; }
+.proto-opt { display: flex; align-items: flex-start; gap: 10px; padding: 7px 13px; cursor: pointer; font-size: 12.5px; line-height: 1.35; }
+.proto-opt:hover { background: #f3f6fa; }
+.proto-opt input { margin: 1px 0 0; accent-color: var(--pblue); }
+.proto-pop.dates { min-width: 128px; padding: 6px 0; }
+.proto-pop.dates .proto-opt { padding: 6px 15px; }
+.proto-empty { padding: 26px 14px; text-align: center; color: #8a97a5; font-size: 12.5px; }
+.proto-hint { font-size: 12px; color: #8a8a8a; margin: 9px 2px 0; }
+.proto-hint b { color: #5a5a5a; font-weight: 600; }
+.study .st { font-size: 16px; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.2px; }
+.study .sd { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+.study p { font-size: 14px; line-height: 1.6; margin: 0 0 9px; color: #3d3d3d; }
+.study ul { margin: 6px 0 0; padding-left: 18px; }
+.study li { font-size: 14px; line-height: 1.55; margin: 4px 0; color: #3d3d3d; }
+/* Scannable highlighted headings */
+h2.hl, h3.hl { border-top: none; padding: 8px 14px; border-radius: 6px; border-left: 4px solid; }
+h2.hl { margin-top: 44px; }
+.hl-blue   { background: #e7f0fa; border-color: #0a66c2; }
+.hl-purple { background: #f1e9fb; border-color: #8250df; }
+.hl-amber  { background: #fdf2da; border-color: #c98a0a; }
+.hl-orange { background: #fdeee1; border-color: #d9730d; }
+.hl-teal   { background: #dff3f0; border-color: #0d9488; }
+.hl-green  { background: #e6f5e6; border-color: #2da44e; }
+.hl-indigo { background: #e8eafc; border-color: #4f46e5; }
+.hl-slate  { background: #eef0f2; border-color: #57606a; }
+.hl-pink   { background: #fbe7f1; border-color: #d6336c; }
+.hl-red    { background: #fdeaea; border-color: #e5484d; }
+
+/* Touch devices only: enlarge tap targets to meet WCAG 2.5.8. Scoped to
+   `pointer: coarse` so mouse/desktop rendering is untouched. Where the visual
+   size matters (carousel dots), the hit area is expanded with a transparent
+   pseudo-element rather than by resizing the control. */
+@media (pointer: coarse) {
+  .tabs { gap: 26px 30px; }
+  .tabs a { padding: 10px 0; }
+  /* 14.5px text is ~22px tall; 6px padding clears the 24px tap target without
+     the boxes meeting, since the flex row gap is 12px. */
+  .about-links a { padding: 6px 0; }
+  .car-dots { gap: 20px; }
+  .car-dot { position: relative; }
+  .car-dot::after { content: ""; position: absolute; inset: -13px -9px; }
+  .car-btn { width: 40px; height: 40px; font-size: 18px; }
+  .proto-ctl { padding: 9px 11px; }
+  .cbtn { padding: 13px 22px; }
+  .arch-btn { padding: 15px 16px; }
+}
+
+/* ---------- Mobile menu ----------
+   Below 760px the five links no longer fit beside the wordmark (they need
+   ~643px on their own), so they collapse behind a toggle and open as a
+   full-screen panel. This block sits after the `pointer: coarse` rules above
+   on purpose: both set `.tabs`, and on a touch phone this one has to win. */
+.navtoggle { display: none; background: none; border: 0; padding: 10px; margin: -10px;
+  cursor: pointer; flex-direction: column; gap: 5px; z-index: 101; }
+.navtoggle span { display: block; width: 23px; height: 2px; background: var(--fg); border-radius: 2px;
+  transition: transform .22s ease, opacity .16s ease; }
+
+@media (max-width: 760px) {
+  .navtoggle { display: inline-flex; }
+  /* flex-wrap must be reset: the base .tabs rule sets `wrap`, and with
+     column direction a short viewport pushes the last link into a second
+     column instead of scrolling. */
+  .tabs { position: fixed; inset: 0; z-index: 100; background: var(--bg); display: none;
+    flex-direction: column; flex-wrap: nowrap; justify-content: center; align-items: center;
+    gap: 30px; margin: 0; padding: 72px 24px; overflow-y: auto; }
+  .tabs a { font-size: 19px; letter-spacing: 1.7px; padding: 10px 14px; }
+  body.nav-open { overflow: hidden; }
+  body.nav-open .tabs { display: flex; }
+  body.nav-open .navtoggle { position: fixed; top: 30px; right: 24px; }
+  /* bars are 2px with a 5px gap, so each end bar travels 7px to meet in the middle */
+  body.nav-open .navtoggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  body.nav-open .navtoggle span:nth-child(2) { opacity: 0; }
+  body.nav-open .navtoggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+.archive { margin: 40px 0 0; }
+.arch-btn { font: inherit; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 9px; width: 100%; text-align: left; padding: 13px 16px; border: 1px solid var(--rule); border-radius: 10px; background: #f6f7f8; color: var(--fg); cursor: pointer; transition: background .12s ease, border-color .12s ease; }
+.arch-btn:hover { background: #eef0f2; border-color: #d7d7d7; }
+.arch-form { display: none; gap: 8px; margin-top: 10px; }
+.archive.asking .arch-form { display: flex; }
+.arch-in { font: inherit; font-size: 14px; flex: 1; padding: 9px 13px; border: 1px solid var(--rule); border-radius: 8px; background: var(--bg); color: var(--fg); }
+.arch-in:focus { outline: none; border-color: var(--link); box-shadow: 0 0 0 3px rgba(10,102,194,.12); }
+.arch-go { font: inherit; font-size: 14px; font-weight: 600; padding: 9px 18px; border: 1px solid var(--link); border-radius: 8px; background: var(--link); color: #fff; cursor: pointer; }
+.arch-go:hover { background: #085aad; }
+.arch-err { margin: 8px 0 0; font-size: 13px; color: #e5484d; display: none; }
+.archive.bad .arch-err { display: block; }
+.archive.bad .arch-in { border-color: #e5484d; }
+.arch-body { display: none; margin-top: 6px; }
+.archive.open .arch-body { display: block; }
+.archive.open .arch-btn { background: #e6f5e6; border-color: #2da44e; }
+@keyframes archShake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.archive.bad .arch-form { animation: archShake .22s ease; }.internal { margin-top: 22px; padding-top: 14px; border-top: 1px dashed var(--rule); }
+.internal > p { margin: 0 0 8px; font-size: 13px; color: var(--muted); }
+.internal ul { margin: 0; }
+.internal li { font-size: 14px; }
+.internal a { color: var(--muted); }
+.internal a:hover { color: var(--link); }/* ---------- Home page: intro, work cards, about, contact ---------- */
+.shell:has(.work) { max-width: 1120px; }
+/* About moved to its own page; it uses the same two-column grid as the
+   home page's section did, so it needs the same width to hold the
+   portrait column and keep the margin decorations outside the text. */
+.shell:has(.about) { max-width: 1120px; }
+/* Full-bleed hero. The artwork's left third is flat cream, so the copy sits in
+   that zone and the band's background-color continues it seamlessly to the
+   viewport edge. Below 1260px the art can no longer clear the copy, so the two
+   stack instead of overlapping.
+   The 105% size overfills the band rather than letterboxing it, which also
+   hides the seam where the image meets the band colour. Anchored to `bottom`,
+   not `center`: the artwork runs flush to the bottom edge of the render with
+   no clear space, while the top third is empty, so the whole overflow has to
+   be taken off the top or the desk gets clipped. 110% is the ceiling: past
+   that the copy starts overlapping the artwork at 1265px, the narrowest width
+   that still uses this overlapping layout. */
+.hero-band { margin: -22px calc(50% - 50vw) 64px; padding: 76px 0; background: #fceee3 url("/images/hero-art.jpg") right bottom / auto 105% no-repeat; display: flex; align-items: center; min-height: clamp(540px, 40vw, 920px); }
+.hero-inner { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.hero-copy { max-width: 540px; }
+.hero-art { display: none; border-radius: 14px; }
+.intro { margin: 4px 0 60px; max-width: 680px; }
+.intro-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+.intro-lede { font-size: 24px; line-height: 1.5; color: #3a3a3a; margin: 0 0 22px; }
+.intro-links { font-size: 14.5px; color: var(--muted); margin: 0; }
+.intro-links a { font-weight: 600; }
+.intro-links span { margin: 0 9px; color: #cfcfcf; }
+
+.sech { font-size: 12px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin: 0 0 22px; padding: 0 0 12px; border-bottom: 1px solid var(--rule); }
+
+.work { display: flex; flex-direction: column; gap: 96px; margin: 0 0 120px; }
+.wcard { display: grid; grid-template-columns: 1.08fr 1fr; border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; text-decoration: none; color: inherit; background: var(--bg); transition: box-shadow .22s ease, transform .22s ease, border-color .22s ease; }
+.wcard:hover { border-color: #d4d4d4; box-shadow: 0 12px 34px rgba(0,0,0,.10); transform: translateY(-3px); }
+.wcard-alt { grid-template-columns: 1fr 1.08fr; }
+.wcard-alt .wcard-img { order: 2; }
+.wcard-img { overflow: hidden; background: #f1f3f5; }
+.wcard-img img { display: block; width: 100%; height: 100%; aspect-ratio: 16 / 10; object-fit: cover; margin: 0; transition: transform .5s ease; }
+.wcard:hover .wcard-img img { transform: scale(1.045); }
+.wcard-body { padding: 30px 32px; display: flex; flex-direction: column; justify-content: center; }
+.wcard-meta { font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.wcard-body h3 { font-size: 23px; line-height: 1.22; letter-spacing: -.3px; margin: 0 0 10px; border: none; padding: 0; }
+.wcard-line { font-size: 15px; line-height: 1.55; color: #3d3d3d; margin: 0 0 16px; }
+.wcard-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px; }
+.wtag { font-size: 11.5px; font-weight: 600; padding: 3px 9px; border-radius: 5px; background: #f1f3f5; color: #51585f; }
+.wcard-cta { font-size: 13.5px; font-weight: 600; color: var(--link); margin-top: auto; }
+.wcard:hover .wcard-cta { text-decoration: underline; }
+
+.about { position: relative; display: grid; grid-template-columns: 1fr 330px; gap: 48px; align-items: start; margin: 0 0 72px; }
+.about p { font-size: 15.5px; line-height: 1.68; }
+.about p:first-child { margin-top: 0; }
+.about-photo img { display: block; width: 100%; border-radius: 14px; margin: 0; }
+.about-facts { margin: 20px 0 0; padding: 18px 20px; background: #f8f9fa; border-radius: 12px; }
+.about-facts p { margin: 0 0 8px; font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.about-facts ul { margin: 0; padding-left: 18px; }
+.about-facts li { font-size: 14px; line-height: 1.5; margin: 0 0 5px; }
+/* Grouped bullets. Four short scannable lists replace the five prose
+   paragraphs the page used to open with. Two columns on desktop so the page
+   does not become one long ribbon; the label matches Skills and Tools. */
+.about-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 44px; margin: 30px 0 0; }
+.about-group p { margin: 0 0 10px; font-size: 11.5px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); }
+.about-group ul { margin: 0; padding-left: 18px; }
+.about-group li { font-size: 14.5px; line-height: 1.56; margin: 0 0 7px; }
+.about-group li:last-child { margin-bottom: 0; }
+@media (max-width: 620px) { .about-groups { grid-template-columns: 1fr; gap: 24px; } }
+/* Skills, mirrored from the résumé's Core Skills. Uses the same neutral pill as
+   the work-card tags so it reads as the site's existing tag language, and the
+   same label style as Fast facts. */
+.about-skills { margin: 28px 0 0; }
+.about-skills p { margin: 0 0 11px; font-size: 11.5px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); }
+.about-skills ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; }
+.about-skills li { font-size: 13px; font-weight: 600; padding: 5px 11px; border-radius: 6px;
+  background: #f1f3f5; color: #51585f; margin: 0; line-height: 1.4; }
+/* Social links: they live with the bio now, so they carry labels rather than
+   being icon-only the way they were in the header. */
+.about-links { display: flex; flex-wrap: wrap; gap: 12px 26px; margin: 28px 0 0; }
+.about-links a { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px;
+  color: var(--muted); text-decoration: none; transition: color .14s ease; }
+.about-links a:hover { color: var(--fg); }
+.about-links svg { display: block; width: 16px; height: 16px; fill: currentColor; flex: none; }
+/* Objects lifted from the hero render, scattered in the margins beside About.
+   Purely decorative: aria-hidden and pointer-events none, so they are invisible
+   to assistive tech and never intercept a click. They sit outside .about, so
+   they only appear once the viewport is wide enough to hold them without
+   causing a horizontal scrollbar. */
+.deco { position: absolute; display: block; pointer-events: none; user-select: none; z-index: 0; }
+.deco img { display: block; width: 100%; height: auto; margin: 0; animation: decoFloat 7s ease-in-out infinite; }
+.deco-rocket { width: 70px; top: -22px; right: -96px; transform: rotate(-10deg); }
+.deco-cross  { width: 44px; top: 76px; left: -92px; transform: rotate(10deg); }
+.deco-ring   { width: 58px; top: 330px; left: -96px; transform: rotate(-7deg); }
+.deco-cross img { animation-delay: -2.3s; }
+.deco-ring img  { animation-delay: -4.6s; }
+@keyframes decoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@media (prefers-reduced-motion: reduce) { .deco img { animation: none; } }
+/* Below 1280px the page margins are too narrow to hold anything (the content
+   box is 1072px, so a 1150px viewport leaves only 39px a side). Rather than
+   hide the objects there, they regroup into the empty space under Fast Facts,
+   which exists at every desktop width because the text column is always the
+   taller of the two. */
+@media (max-width: 1279px) {
+  .deco { top: auto; left: auto; bottom: 0; }
+  .deco-rocket { width: 54px; right: 208px; bottom: 16px; transform: rotate(-10deg); }
+  .deco-ring   { width: 44px; right: 120px; bottom: 0; transform: rotate(-7deg); }
+  .deco-cross  { width: 36px; right: 42px; bottom: 26px; transform: rotate(10deg); }
+}
+/* Single column: the right-hand column is gone, so there is nowhere to put them. */
+@media (max-width: 880px) { .deco { display: none; } }
+
+.contact { margin: 0 0 40px; }
+.contact-lede { font-size: 17px; line-height: 1.6; color: #3a3a3a; margin: 0 0 22px; max-width: 560px; }
+.cbtns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cbtn { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; padding: 11px 20px; border-radius: 9px; border: 1px solid var(--rule); background: var(--bg); color: var(--fg); text-decoration: none; transition: background .15s ease, border-color .15s ease; }
+.cbtn:hover { background: #f6f7f8; border-color: #d4d4d4; }
+.cbtn-primary { background: var(--link); border-color: var(--link); color: #fff; }
+.cbtn-primary:hover { background: #085aad; border-color: #085aad; }
+
+@media (max-width: 1260px) {
+  .hero-band { display: block; min-height: 0; padding: 60px 0 0; background-image: none; }
+  .hero-copy { max-width: 620px; }
+  .hero-art { display: block; width: 100%; margin: 44px 0 0; }
+}
+@media (max-width: 880px) {
+  .wcard, .wcard-alt { grid-template-columns: 1fr; }
+  .wcard-alt .wcard-img { order: 0; }
+  /* Stacked cards are already tall, so the desktop gap would read as a break
+     between sections rather than spacing within one. */
+  .work { gap: 64px; margin: 0 0 88px; }
+  .about { grid-template-columns: 1fr; gap: 30px; }
+  .about-photo { max-width: 300px; }
+  .intro-greeting { font-size: 34px; }
+  .intro-lede { font-size: 20px; }
+}/* ---------- Presentation decks ----------
+   Slides are authored against a fixed 1280x720 stage and the whole stage is
+   scaled by one root font-size, so every slide is pixel-identical on a laptop,
+   a projector and in the PDF export. Nothing reflows, nothing drifts.
+   Everything inside a slide is sized in em, so one number controls the lot. */
+.shell:has(.deck) { max-width: none; padding: 0; margin: 0; }
+body:has(.deck) { overflow: hidden; background: #0f1419; }
+/* Every piece of site chrome is hidden in a deck, on screen and in print. */
+body:has(.deck) .sitehead-wrap,
+body:has(.deck) .crumbs,
+body:has(.deck) .foot,
+body:has(.deck) .rail { display: none; }
+
+.deck { position: fixed; inset: 0; display: flex; align-items: center;
+  justify-content: center; background: #0f1419; }
+
+/* 16:9 box that fits the viewport; 1em == 16px when the stage is 1280 wide. */
+.slide { position: absolute; box-sizing: border-box; overflow: hidden;
+  --deck-media-height: 24em;
+  width: min(100vw, 177.7778vh); height: min(56.25vw, 100vh);
+  font-size: calc(min(100vw, 177.7778vh) * 0.0125);
+  background: #fff; color: var(--fg);
+  padding: 4.5em 5em; opacity: 0; visibility: hidden;
+  transition: opacity .18s ease; }
+.slide.on { opacity: 1; visibility: visible; }
+
+/* Shared presentation hierarchy: cover, headline, card title, body and caption. */
+.slide .s-kick { font-size: .8125em; line-height: 1.4; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted); margin: 0 0 1.25em; }
+.slide h2 { font-size: 3em; line-height: 1.08; letter-spacing: -.02em;
+  font-weight: 800; margin: 0; padding: 0; border: none; position: static; text-wrap: balance; }
+/* The site draws a hairline above every h2. A slide is not an article section. */
+.slide h2::before, .slide h3::before { display: none; content: none; }
+.slide h3 { font-size: 2em; line-height: 1.18; letter-spacing: -.01em;
+  font-weight: 700; margin: 0 0 .6em; padding: 0; border: none; text-wrap: pretty; }
+.slide .s-nowrap { white-space: nowrap; }
+.slide p { font-size: 1.125em; line-height: 1.5; margin: .85em 0 0; max-width: 34em; }
+.slide .s-lead { font-size: 1.5em; line-height: 1.45; color: #3a3a3a; max-width: 28em; }
+.slide .s-note { font-size: .875em; color: var(--muted); }
+
+/* Layouts. Title, split and full-bleed cover every slide in both decks. */
+.slide.s-title { display: flex; flex-direction: column; justify-content: flex-start;
+  gap: 1em; padding-top: 8em; }
+.slide.s-title > p { max-width: 100%; }
+.slide.s-title > ul { max-width: 72%; }
+.slide.s-title > .s-lead { max-width: 100%; }
+/* Numbered rollout milestones, with quiet numerals and a clear reading rhythm. */
+.slide.s-title > ol.s-rollout { max-width: 100%; }
+.s-rollout { display: grid; gap: 1.35em; margin: 1.25em 0 0; padding: 0;
+  list-style: none; }
+.s-rollout li { display: grid; grid-template-columns: 2.2em minmax(0, 1fr);
+  align-items: start; gap: .65em; margin: 0; }
+.s-rollout .n { color: #b8bec4; font-size: 1.25em; font-weight: 700;
+  line-height: 1.4; }
+.slide .s-rollout .copy { max-width: none; margin: 0; font-size: 1.25em;
+  line-height: 1.45; color: #3a3a3a; }
+.s-rollout .copy b { color: var(--fg); }
+.slide.s-title > .s-validation-grid { max-width: 100%; }
+.s-validation-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25em; margin: 1em 0 0; }
+.s-validation-phase { padding: 1.25em; background: #f4f6f7; border-radius: .6em; }
+.slide .s-validation-phase h4 { margin: 0; font-size: 1.25em; line-height: 1.3; }
+.slide .s-validation-phase ul.s-list { margin-top: .9em; }
+.slide .s-validation-phase ul.s-list li { font-size: 1em; margin-bottom: .55em; }
+.slide p.s-validation-note { max-width: 100%; margin-top: .85em; font-size: .875em; color: var(--muted); }
+.slide.s-title > .s-outcomes { max-width: 100%; }
+.s-outcomes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25em; width: 100%; margin: 1.1em 0 0; align-items: stretch; }
+.s-outcome-card { min-width: 0; padding: 1.25em; background: #f4f6f7;
+  border-radius: .6em; }
+.slide .s-outcome-card .s-outcome-label { margin: 0 0 .85em; font-size: .75em;
+  line-height: 1.3; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); }
+.slide .s-outcome-card h4, .slide .s-outcome-card .s-outcome-stat {
+  margin: 0; font-size: 1.25em; font-weight: 700; line-height: 1.3; }
+.slide .s-outcome-card .s-outcome-stat { display: block; }
+.slide .s-outcome-card > p:not(.s-outcome-label) { margin: .75em 0 0; max-width: none;
+  font-size: 1em; line-height: 1.5; }
+.slide .s-outcome-card .s-impact-caveat { color: var(--muted); font-size: .78em;
+  line-height: 1.4; margin-top: -.35em; }
+.slide.s-title > .s-learning-grid { max-width: 100%; }
+.s-learning-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25em; width: 100%; margin: 1em 0 0; }
+.s-learning-card { padding: 1.25em; background: #f4f6f7; border-radius: .6em; }
+.slide .s-learning-card h4 { margin: 0; font-size: 1.25em; line-height: 1.3; }
+.slide .s-learning-card p { max-width: none; margin-top: .7em; font-size: 1em; line-height: 1.5; }
+.slide p.s-learning-takeaway { max-width: 100%; margin-top: 1.1em; font-size: 1.125em;
+  font-weight: 600; color: #3a3a3a; }
+
+/* Cards, for when a list is really a set of separate things rather than a
+   sequence. Reads as a diagram instead of prose. */
+.s-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25em;
+  margin: 1.5em 0 0; padding: 0; list-style: none; max-width: 100%; }
+.s-cards.four { grid-template-columns: repeat(4, 1fr); }
+.s-cards li { margin: 0; padding: 1.25em; background: #f4f6f7;
+  border-radius: .6em; }
+.s-cards .t { display: block; font-size: 1.25em; font-weight: 700; line-height: 1.3;
+  margin: 0 0 .35em; }
+.s-cards.four .t, .s-recipe .t { min-height: 2.6em; }
+.slide h4, .s-cards .t { text-wrap: balance; }
+/* Vendor marks on the tool cards. Real logos, set to a common height with
+   automatic width, because the available marks mix square icons with a
+   wordmark and forcing them into equal boxes would distort them. */
+.s-cards .mk { display: flex; align-items: center; gap: .7em; height: 2.05em;
+  margin: 0 0 .8em; }
+.s-cards .mk img { height: 2.05em; width: auto; display: block; }
+.s-cards .mk i { font-style: normal; display: flex; align-items: center;
+  justify-content: center; width: 2.46em; height: 2.46em; border-radius: .35em;
+  font-size: .8125em; font-weight: 700; background: #e0e4e7; color: #3d454c; }
+.s-cards .d { display: block; font-size: 1em; line-height: 1.5; color: #4a5056; }
+.s-cards.s-recipe { grid-template-columns: repeat(5, minmax(0, 1fr)); width: 100%; }
+.s-recipe .s-recipe-icon { display: block; font-size: 2.5em; line-height: 1.2;
+  margin-bottom: .5em; }
+/* Cards are a diagram, so they take the full stage rather than the text measure. */
+.slide.s-title > ul.s-cards { max-width: 100%; }
+/* Cycle timeline. Bars preserve the phases' relative timing and overlap;
+   each row names the tools and gives its duration without showing dates. */
+.s-tl { margin: .7em 0 0; width: 100%; }
+.s-tl .r { display: grid; grid-template-columns: 24em minmax(0, 1fr) 5em;
+  align-items: center; gap: .9em; margin: 0 0 .48em; }
+.s-tl .phase { font-size: 1em; font-weight: 600; line-height: 1.25; color: #2b3137; }
+.s-tl .trk { position: relative; height: 1.15em; background: #eef1f3;
+  border-radius: .3em; }
+.s-tl .fil { position: absolute; top: 0; bottom: 0; background: #bccbd7;
+  min-width: .35em; border-radius: .3em; }
+.s-tl .fil.hot { background: var(--link); }
+.s-tl .dur { font-size: .875em; font-weight: 600; color: #3a3a3a; white-space: nowrap; }
+.slide p.s-tl-note { max-width: none; margin: .45em 0 0; font-size: .75em; line-height: 1.3; color: var(--muted); }
+/* Empty image frame for the review-vote visual, to be replaced when supplied. */
+.s-image-placeholder { width: 100%; aspect-ratio: 16 / 10; border: 2px dashed #b8bec4;
+  border-radius: .5em; display: flex; align-items: center; justify-content: center;
+  color: var(--muted); background: #f7f8f9; }
+.s-image-placeholder span { font-size: .9em; }
+/* Equation line. The operators are muted so the three phrases read as the
+   content and the plus and equals read as structure, not words. */
+/* Full width, because an equation that wraps mid-statement stops reading as
+   one. */
+.slide p.s-eq { max-width: none; }
+.s-eq i { font-style: normal; font-weight: 400; color: var(--muted);
+  padding: 0 .2em; }
+
+/* Structure diagram. Two stacked layers with a labelled connector: what the
+   workflow layer holds, and what the record layer underneath it is. */
+.s-diag { margin: 1.3em 0 0; max-width: 100%; }
+/* Every p inside the diagram opts out of the slide's paragraph rhythm, which
+   would otherwise stack .85em gaps inside the boxes and overflow the stage. */
+.s-diag p { margin: 0; max-width: none; font-size: 1em; line-height: 1.3; }
+.s-diag .lyr { border: 1px solid var(--rule); border-radius: .55em; padding: .85em 1.1em;
+  background: #fff; }
+/* Modifier is namespaced because a bare .work is the homepage work-card rule,
+   whose flex gap and bottom margin would otherwise pull this box apart. */
+.s-diag .lyr.is-work { background: #eef5fb; border-color: #cbdff0; }
+/* The record layer holds one line, so it would otherwise read as a thin strip
+   under a tall box. Given a floor it reads as a base, without the dead space
+   that matching the work layer's height would create. */
+.s-diag .lyr:not(.is-work) { min-height: 7.4em; display: flex;
+  flex-direction: column; justify-content: center; }
+.s-diag .lbl { font-size: .6875em; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin: 0 0 .5em; }
+.s-diag .nm { font-size: 1.125em; font-weight: 700; line-height: 1.15; }
+/* Vendor mark sits on the name line. Inline-block rather than flex so the
+   name and its qualifier keep normal text wrapping. */
+.s-diag .nm img { height: 1.5em; width: auto; vertical-align: -.22em;
+  margin-right: .45em; display: inline-block; border: 0; }
+.s-diag .nm span { font-weight: 400; color: #4a5056; }
+.s-diag .chips { display: flex; flex-wrap: wrap; gap: .35em; margin: .65em 0 0; }
+.s-diag .chips i { font-style: normal; font-size: .75em; font-weight: 600;
+  padding: .3em .7em; border-radius: .3em; background: #dbe8f4; color: #2d4559;
+  line-height: 1.3; }
+.s-diag .join { display: flex; align-items: center; gap: .6em; margin: 1em 0 1em 1.25em;
+  font-size: .75em; color: var(--muted); }
+.s-diag .join::before { content: ""; width: 2px; height: 2.1em; background: #cfd6dc;
+  border-radius: 1px; }
+/* In a split the diagram sits in a narrower column, so it reads as two cards
+   rather than two full-width bars. Deeper padding keeps the record layer from
+   collapsing into a sliver. */
+.slide-fig .s-diag { margin: 0 auto; max-width: 19em; }
+.slide-fig .s-diag .lyr { padding: 1.15em 1.25em; }
+.slide.s-split { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5em;
+  align-items: center; }
+.slide.s-split.wide-right { grid-template-columns: 0.8fr 1.2fr; }
+/* Title slide: the product shot carries the slide, so it takes a wider column,
+   a tighter gutter and a bleed into the right padding. The text column stays
+   wide enough to keep the headline at three lines. */
+.slide.s-split.hero-right { grid-template-columns: 0.87fr 1.13fr; gap: 2em; }
+.slide.s-split.hero-right .slide-fig { margin-right: -3.25em; }
+.slide.s-full { padding: 0; display: block; position: relative; }
+.slide.s-full img { width: 100%; height: 100%; object-fit: cover; margin: 0;
+  border: none; border-radius: 0; }
+/* Caption panel for a full-bleed slide. Sits on an opaque card rather than a
+   scrim, so contrast is guaranteed regardless of what is behind it. */
+.s-over { position: absolute; left: 3.5em; bottom: 3.5em; max-width: 30em;
+  background: #fff; border-radius: .6em; padding: 1.6em 1.8em;
+  box-shadow: 0 .5em 2em rgba(15,20,25,.18); }
+.s-over .s-kick { margin: 0 0 .6em; }
+.s-over h3 { margin: 0; }
+.s-over p { margin: .6em 0 0; max-width: none; }
+.slide-body { min-width: 0; display: flex; flex-direction: column; gap: 1em;
+  align-self: start; padding-top: 3.5em; }
+.slide.s-split:not(.hero-right) { padding-top: 8em; align-items: start; }
+.slide.s-split:not(.hero-right) .slide-body { padding-top: 0; }
+/* Match the headline after the kicker's line box and the shared text gap. */
+.slide.s-split:not(.hero-right) .slide-fig { align-self: start;
+  margin-top: calc(.8125em * 1.4 + 1em); }
+/* Anchor every text group at y=128 on the 1280x720 stage, independent of its length.
+   A shared flex gap also avoids different margin-collapsing behavior in split slides. */
+.slide.s-title > *, .slide.s-split .slide-body > * { margin-top: 0; margin-bottom: 0; }
+.slide.s-split .slide-body > * { max-width: 100%; }
+.slide-fig { min-width: 0; }
+.slide-fig img { width: 100%; display: block; margin: 0; border: 1px solid var(--rule);
+  border-radius: .5em; }
+.slide-fig > img, .slide-fig.stack img, .slide.s-full > img { cursor: zoom-in; }
+.slide-fig.plain img { border: 0; }
+.slide.s-split:not(.hero-right) .slide-fig > img { width: auto; height: auto;
+  max-height: var(--deck-media-height); align-self: start; margin: 0 auto; }
+/* Two screenshots stacked in one figure column, for before/after or two
+   views of the same legacy tool. */
+.slide-fig.stack { display: flex; flex-direction: column; gap: .85em; }
+.slide-fig.stack > figure { width: fit-content; max-width: 100%; margin: 0; }
+.slide.s-split:not(.hero-right) .slide-fig.stack img { width: auto; height: auto;
+  max-width: 100%;
+  max-height: calc((var(--deck-media-height) - .85em) / 2); }
+.slide-fig .s-cap { font-size: .875em; color: var(--muted); margin: .75em 0 0; }
+.workshop-carousel .car-slide img { aspect-ratio: 3 / 1; object-fit: contain;
+  background: #fff; }
+.deck-carousel .carousel-frame { width: fit-content; max-width: 100%; margin: 0 auto; }
+/* Caption length must not widen the frame beyond its fitted screenshot. */
+.deck-carousel .carousel-frame .car-cap { contain: inline-size; }
+.slide .deck-carousel { margin: 0; }
+.deck-carousel .car-slide img { width: auto; height: auto; max-width: 100%;
+  max-height: var(--deck-media-height); object-fit: contain; margin: 0 auto; }
+.slide .deck-carousel .car-cap { font-size: .875em; line-height: 1.45;
+  margin: .75em 0 0; max-width: none; }
+.deck-carousel .car-ctrl { gap: .9em; margin-top: .75em; }
+.deck-carousel .car-btn { width: 2em; height: 2em; font-size: 1em;
+  border-color: #b8bec4; }
+.deck-carousel .car-dots { gap: .5em; }
+.deck-carousel .car-dot { width: .45em; height: .45em; }
+
+/* Stat blocks, for the outcome slides. */
+.s-stats { display: flex; gap: 3em; margin: 1.75em 0 0; padding: 0; list-style: none; }
+.s-stats li { margin: 0; }
+.s-stats .n { display: block; font-size: 2.75em; font-weight: 800; line-height: 1;
+  letter-spacing: -.02em; }
+.s-stats .l { display: block; font-size: .875em; color: var(--muted); margin: .5em 0 0;
+  max-width: 11em; line-height: 1.45; }
+
+.slide ul.s-list { margin: 1.25em 0 0; padding: 0; list-style: none; }
+.slide ul.s-list li { font-size: 1.125em; line-height: 1.5; margin: 0 0 .8em;
+  padding-left: 1.4em; position: relative; }
+.slide ul.s-list li::before { content: ""; position: absolute; left: 0; top: .6em;
+  width: .45em; height: .45em; border-radius: 50%; background: var(--link); }
+.slide ul.s-list li b { font-weight: 700; }
+.slide ul.s-list li:last-child { margin-bottom: 0; }
+.slide ul.s-usecase-list { margin: 1.25em 0 0; padding: 0; list-style: none; }
+.slide .s-usecase-list li { display: flex; align-items: flex-start; gap: .7em;
+  margin: 0 0 .65em; font-size: 1.125em; line-height: 1.5; }
+.s-usecase-list .sq { flex: none; width: .62em; height: .62em; margin-top: .42em;
+  border-radius: 50%; }
+.s-usecase-list .info { background: #e3b341; }
+.s-usecase-list .action { background: #d94b4b; }
+.s-usecase-list .promo { background: #32865a; }
+
+/* Deck chrome: slide number and progress. Deliberately quiet. */
+/* Chrome sits on top of white slides, so it is dark rather than light. */
+.deck-ui { position: fixed; left: 0; right: 0; bottom: 0; height: 3px;
+  background: rgba(15,20,25,.10); z-index: 5; }
+.deck-ui i { display: block; height: 100%; background: var(--link); width: 0;
+  transition: width .2s ease; }
+.deck-no { position: fixed; right: 1.4rem; bottom: 1.3rem; z-index: 6;
+  font-size: 12px; font-weight: 600; letter-spacing: .08em; color: #9aa3ab; }
+body:has(.deck) .deck-no, body:has(.deck) .deck-ui { display: block; }
+.tde-footer { position: absolute; left: 1.75em; right: 1.75em; bottom: 1.15em;
+  display: flex; align-items: center; justify-content: flex-start; gap: .65em; z-index: 4;
+  color: #0a3158; }
+.tde-footer-logo { display: block; width: 1.5em; height: 1.5em; flex: none; }
+.tde-footer-right { display: flex; align-items: center; }
+.tde-footer-note { font-size: .65em; line-height: 1.2; font-weight: 600; }
+
+/* PDF export. One slide per landscape page, every slide visible, no chrome.
+   Chrome's print-to-PDF at 1280x720 produces a deck that matches the screen. */
+@page { size: 1280px 720px; margin: 0; }
+@media print {
+  body:has(.deck) { overflow: visible; background: #fff; }
+  .deck { position: static; display: block; background: #fff; }
+  .slide { position: static; opacity: 1; visibility: visible; transition: none;
+    width: 1280px; height: 720px; font-size: 16px; page-break-after: always;
+    break-after: page; }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+  .deck-ui, .deck-no, .crumbs, .sitehead-wrap, .foot { display: none !important; }
+  .tde-footer { right: 2em; }
+  /* The shell's own padding would otherwise add a trailing blank page. */
+  .shell:has(.deck) { padding: 0 !important; margin: 0 !important; }
+  html, body { margin: 0 !important; padding: 0 !important; }
+}
+
+/* ---------- 3D work gallery ---------- */
+.shell:has(.gal) { max-width: 1120px; }
+.gal { display: grid; grid-template-columns: repeat(2, 1fr); gap: 38px 30px; margin: 0 0 64px; }
+.gitem { display: block; margin: 0; text-decoration: none; color: inherit; }
+.gitem img { display: block; width: 100%; margin: 0; border-radius: 10px; background: #f1f3f5; transition: transform .4s ease, box-shadow .2s ease; }
+.gitem:hover img { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,.13); }
+.gcap { margin: 13px 2px 0; }
+.gcap b { display: block; font-size: 16px; letter-spacing: -.1px; }
+.gitem:hover .gcap b { text-decoration: underline; }
+.gcap span { display: block; font-size: 13px; color: var(--muted); margin-top: 3px; }
+.gcap em { display: block; font-size: 14px; line-height: 1.55; color: #4a4a4a; margin-top: 7px; font-style: normal; }
+@media (max-width: 880px) { .gal { grid-template-columns: 1fr; gap: 30px; } }/* ---------- 3D piece detail pages ---------- */
+.shell:has(.pgal), .shell:has(.phero) { max-width: 1120px; }
+.piece-meta { font-size: 13.5px; color: var(--muted); margin: -4px 0 20px; }
+.piece-skills { font-size: 13.5px; line-height: 1.6; color: #5a5a5a; margin: 0 0 26px; padding: 14px 18px; background: #f8f9fa; border-radius: 10px; }
+.phero { display: block; width: 100%; margin: 0 0 14px; border-radius: 12px; background: #f1f3f5; cursor: zoom-in; }
+.pgal { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 0 0 56px; }
+.pgal img { display: block; width: 100%; margin: 0; border-radius: 10px; background: #f1f3f5; cursor: zoom-in; }
+@media (max-width: 880px) { .pgal { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body class="">
+<div class="sitehead-wrap">
+<div class="sitehead"><div class="navrow"><a class="wordmark" href="/"><img class="wm-planet" src="/images/logo-planet.png" alt="" aria-hidden="true"><span>Yusuf Amani</span></a><button class="navtoggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sitenav"><span></span><span></span><span></span></button><div class="tabs" id="sitenav"><a href="/" class="active">UX Work</a><a href="/3d-work/">3D Work</a><a href="/about/">About</a><a href="/#contact">Contact</a><a href="/resume/">Resume</a></div></div></div>
+</div>
+<div class="shell">
+<div class="crumbs"><a href="/">linkedin</a> · <a href="/roblox/">roblox</a> · deck-rp</div>
+
+<div id="content">Loading…</div>
+</div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true" tabindex="-1">
+<button class="x" type="button" aria-label="Close enlarged image">&times;</button>
+<img alt="">
+<div class="lb-nav" hidden>
+<button class="lb-prev" type="button" aria-label="Previous carousel image">&lsaquo;</button>
+<p class="lb-status" role="status" aria-live="polite" aria-atomic="true"></p>
+<button class="lb-next" type="button" aria-label="Next carousel image">&rsaquo;</button>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+<script>
+const sources = {"v1": "<div class=\"deck\">\n\n<div class=\"slide s-split hero-right\">\n<div class=\"slide-body\">\n<p class=\"s-kick\">Case study 03 \u00b7 LinkedIn \u00b7 2021\u20132024</p>\n<h2>Designing one connected hiring experience</h2>\n<p class=\"s-lead\">Recruit Portal: the system that runs Engineering hiring at LinkedIn.</p>\n<p class=\"s-note\">Yusuf Amani \u00b7 Sole designer \u00b7 October 2021\u2013August 2024</p>\n</div>\n<div class=\"slide-fig plain\">\n<img src=\"/recruit-portal/images/rp-hero-laptop.png?v=63e50fa2\" alt=\"Recruit Portal's hiring dashboard displayed on a laptop\">\n</div>\n</div>\n\n<div class=\"slide s-split wide-right\">\n<div class=\"slide-body\">\n<p class=\"s-kick\">The problem</p>\n<h3>A tool built feature by feature, not around the work</h3>\n<ul class=\"s-list\">\n<li>The legacy Engineering ATS had never had a formal UX evaluation.</li>\n<li>One-off features accumulated without a coherent experience.</li>\n<li>Hiring teams filled the gaps with Outlook, Excel, and Word.</li>\n</ul>\n</div>\n<div class=\"slide-fig\">\n<img src=\"/recruit-portal/images/rp-legacy-tool.png?v=cdb5f9f9\" alt=\"The legacy Engineering applicant tracking system before the redesign\">\n</div>\n</div>\n\n<div class=\"slide s-title\">\n<p class=\"s-kick\">The complexity</p>\n<h3>Seven roles, different jobs and handoffs</h3>\n<ul class=\"s-cards four\">\n<li><span class=\"t\">Find and coordinate</span><span class=\"d\">Sourcers, Recruiters, and Schedulers move candidates through the process.</span></li>\n<li><span class=\"t\">Assess and hire</span><span class=\"d\">Interviewers and Hiring Managers evaluate candidates and build teams.</span></li>\n<li><span class=\"t\">Review the decision</span><span class=\"d\">Review Councils bring the feedback together and decide.</span></li>\n<li><span class=\"t\">Run the operation</span><span class=\"d\">TA Ops supports the hiring system and its processes.</span></li>\n</ul>\n<p class=\"s-eq\">Initial contact <i>\u2192</i> Resume review <i>\u2192</i> Interviews <i>\u2192</i> Decision <i>\u2192</i> Offer</p>\n</div>\n\n<div class=\"slide s-title\">\n<p class=\"s-kick\">The goals</p>\n<h3>Make hiring easier to move forward</h3>\n<ol class=\"s-rollout\">\n<li><span class=\"n\">01</span><p class=\"copy\"><b>Find the right candidates.</b> Make past candidates discoverable and search more useful.</p></li>\n<li><span class=\"n\">02</span><p class=\"copy\"><b>Make the next action clear.</b> Bring tasks and pipeline visibility into the tool.</p></li>\n<li><span class=\"n\">03</span><p class=\"copy\"><b>Connect the journey.</b> Consolidate the workflow across two ATSs and reduce dead time.</p></li>\n</ol>\n</div>\n\n<div class=\"slide s-title\">\n<p class=\"s-kick\">My scope</p>\n<h3>Three years, one product</h3>\n<div class=\"s-tl\" role=\"img\" aria-label=\"Overlapping Recruit Portal workstreams from October 2021 to August 2024: contextual inquiry October 2021 to January 2022; vision January to March 2022; search and filter February to June 2022; homepage July to December 2022; information architecture October to November 2022; end-to-end flow December 2022 to August 2024.\">\n<div class=\"r\"><span class=\"phase\">Contextual inquiry</span><div class=\"trk\"><span class=\"fil\" style=\"left:0%;width:11.43%\"></span></div><span class=\"dur\">2021\u201322</span></div>\n<div class=\"r\"><span class=\"phase\">Vision and alignment</span><div class=\"trk\"><span class=\"fil\" style=\"left:8.57%;width:8.57%\"></span></div><span class=\"dur\">2022</span></div>\n<div class=\"r\"><span class=\"phase\">Search and filter</span><div class=\"trk\"><span class=\"fil\" style=\"left:11.43%;width:14.29%\"></span></div><span class=\"dur\">2022</span></div>\n<div class=\"r\"><span class=\"phase\">Homepage and task management</span><div class=\"trk\"><span class=\"fil\" style=\"left:25.71%;width:17.14%\"></span></div><span class=\"dur\">2022</span></div>\n<div class=\"r\"><span class=\"phase\">Information architecture</span><div class=\"trk\"><span class=\"fil\" style=\"left:34.29%;width:5.71%\"></span></div><span class=\"dur\">2022</span></div>\n<div class=\"r\"><span class=\"phase\">End-to-end consolidation</span><div class=\"trk\"><span class=\"fil hot\" style=\"left:40%;width:60%\"></span></div><span class=\"dur\">2022\u201324</span></div>\n</div>\n<p class=\"s-tl-note\">Workstreams overlapped. The end-to-end phase ran December 2022\u2013August 2024.</p>\n</div>\n\n<div class=\"slide s-split wide-right\">\n<div class=\"slide-body\">\n<p class=\"s-kick\">Contextual inquiry</p>\n<h3>Start with how hiring actually happens</h3>\n<ul class=\"s-list\">\n<li>Interviewed and observed the people doing the work.</li>\n<li>Synthesized roles, tasks, dashboards, and communication needs.</li>\n<li>Compared the internal tools, Smart Recruiters, and Monday.com.</li>\n</ul>\n</div>\n<div class=\"slide-fig\">\n<div class=\"carousel deck-carousel\">\n<div class=\"car-track\" role=\"region\" aria-label=\"Contextual inquiry: personas and desk research\">\n<div class=\"car-slide\"><div class=\"carousel-frame\">\n<img src=\"/recruit-portal/images/rp-zoom-personas.png?v=ade7a90f\" alt=\"Research synthesis of hiring roles, their work, and their needs\">\n<p class=\"car-cap\">Understand each role before designing the shared system.</p>\n</div></div>\n<div class=\"car-slide\"><div class=\"carousel-frame\">\n<img src=\"/recruit-portal/images/rp-zoom-desk-research.png?v=6675a6e9\" alt=\"Research mapping the existing hiring process and the handoffs between roles\">\n<p class=\"car-cap\">Map the existing handoffs before proposing a new workflow.</p>\n</div></div>\n</div>\n<div class=\"car-ctrl\">\n<button class=\"car-btn car-prev\" type=\"button\" aria-label=\"Previous image\">&lsaquo;</button>\n<div class=\"car-dots\"></div>\n<button class=\"car-btn car-next\" type=\"button\" aria-label=\"Next image\">&rsaquo;</button>\n</div>\n</div>\n</div>\n</div>\n\n<div class=\"slide s-title\">\n<p class=\"s-kick\">What research revealed</p>\n<h3>Four problems shaped the roadmap</h3>\n<ul class=\"s-cards four\">\n<li><span class=\"t\">Good candidates disappeared</span><span class=\"d\">Past near-miss candidates were difficult to find and re-engage.</span></li>\n<li><span class=\"t\">The pipeline was invisible</span><span class=\"d\">Teams couldn't easily see requisition health or what needed attention.</span></li>\n<li><span class=\"t\">Work escaped the system</span><span class=\"d\">Missing bulk actions, templates, and messaging pushed work into other tools.</span></li>\n<li><span class=\"t\">People were left out</span><span class=\"d\">Candidates and managers were excluded from parts of the process.</span></li>\n</ul>\n</div>\n\n<div class=\"slide s-split wide-right\">\n<div class=\"slide-body\">\n<p class=\"s-kick\">Vision and prioritization</p>\n<h3>Align on a future, then choose where to start</h3>\n<ul class=\"s-list\">\n<li>Used mid-fidelity concepts to make the future tangible.</li>\n<li>Aligned with PM, Engineering, and UX through showcases.</li>\n<li>Prioritized search and filter with users and partners.</li>\n</ul>\n</div>\n<div class=\"slide-fig\">\n<div class=\"carousel deck-carousel\">\n<div class=\"car-track\" role=\"region\" aria-label=\"Future-state concepts used for alignment\">\n<div class=\"car-slide\"><div class=\"carousel-frame\">\n<img src=\"/recruit-portal/images/rp-zoom-req-health.png?v=4f42513a\" alt=\"Mid-fidelity concept for viewing requisition health and pipeline stages\">\n<p class=\"car-cap\">Vision concept: see the health of each requisition.</p>\n</div></div>\n<div class=\"car-slide\"><div class=\"carousel-frame\">\n<img src=\"/recruit-portal/images/rp-zoom-source-past.png?v=7aa73757\" alt=\"Mid-fidelity concept for finding and re-engaging past candidates\">\n<p class=\"car-cap\">Vision concept: bring past candidates back into view.</p>\n</div></div>\n</div>\n<div class=\"car-ctrl\">\n<button class=\"car-btn car-prev\" type=\"button\" aria-label=\"Previous image\">&lsaquo;</button>\n<div class=\"car-dots\"></div>\n<button class=\"car-btn car-next\" type=\"button\" aria-label=\"Next image\">&rsaquo;</button>\n</div>\n</div>\n</div>\n</div>\n\n<div class=\"slide s-split wide-right\">\n<div class=\"slide-body\">\n<p class=\"s-kick\">Search and filter \u00b7 Research</p>\n<h3>More filters weren't the whole answer</h3>\n<ul class=\"s-list\">\n<li>10 existing filters plus 11 requested: 21 to evaluate.</li>\n<li>A card sort identified seven frequently used criteria.</li>\n<li>Score and Track mattered, but were missing.</li>\n</ul>\n</div>\n<div class=\"slide-fig\">\n<div class=\"carousel deck-carousel\">\n<div class=\"car-track\" role=\"region\" aria-label=\"Search and filter: the original experience and card-sort evidence\">\n<div class=\"car-slide\"><div class=\"carousel-frame\">\n<img src=\"/recruit-portal/images/rp-zoom-sf-before.png?v=4a5a5734\" alt=\"Original candidate search and filter interface\">\n<p class=\"car-cap\">The starting point: existing filters didn't match the work.</p>\n</div></div>\n<div class=\"car-slide\"><div class=\"carousel-frame\">\n<img src=\"/recruit-portal/images/rp-zoom-sf-cardsort-results.png?v=2dc37e23\" alt=\"Card-sort results highlighting seven frequently used candidate-search criteria\">\n<p class=\"car-cap\">The card sort made the priorities visible.</p>\n</div></div>\n</div>\n<div class=\"car-ctrl\">\n<button class=\"car-btn car-prev\" type=\"button\" aria-label=\"Previous image\">&lsaquo;</button>\n<div class=\"car-dots\"></div>\n<button class=\"car-btn car-next\" type=\"button\" aria-label=\"Next image\">&rsaquo;</button>\n</div>\n</div>\n</div>\n</div>\n\n<div class=\"slide s-split wide-right\">\n<div class=\"slide-body\">\n<p class=\"s-kick\">Search and filter \u00b7 Design</p>\n<h3>Keep frequent filters close, the rest available</h3>\n<ul class=\"s-list\">\n<li>Bring the high-use criteria forward, including Score and Track.</li>\n<li>Make applied values and active filters visible.</li>\n<li>Group the remaining criteria in All filters.</li>\n</ul>\n</div>\n<div class=\"slide-fig\">\n<div class=\"carousel deck-carousel\">\n<div class=\"car-track\" role=\"region\" aria-label=\"Progressive disclosure in the redesigned search and filter experience\">\n<div class=\"car-slide\"><div class=\"carousel-frame\">\n<img src=\"/recruit-portal/images/rp-zoom-sf-search-ui.png?v=36492ce7\" alt=\"Redesigned search interface with frequently used filters across the top\">\n<p class=\"car-cap\">State and status combine into Stage in the primary controls.</p>\n</div></div>\n<div class=\"car-slide\"><div class=\"carousel-frame\">\n<img src=\"/recruit-portal/images/rp-zoom-sf-active-filters.png?v=9884585a\" alt=\"Active filters displaying their applied values and selected state\">\n<p class=\"car-cap\">Show what is applied, not just where to click.</p>\n</div></div>\n<div class=\"car-slide\"><div class=\"carousel-frame\">\n<img src=\"/recruit-portal/images/rp-zoom-sf-all-filters.png?v=9f3631bc\" alt=\"All filters modal grouping the less frequently used search criteria\">\n<p class=\"car-cap\">Less frequent criteria stay available without crowding the page.</p>\n</div></div>\n</div>\n<div class=\"car-ctrl\">\n<button class=\"car-btn car-prev\" type=\"button\" aria-label=\"Previous image\">&lsaquo;</button>\n<div class=\"car-dots\"></div>\n<button class=\"car-btn car-next\" type=\"button\" aria-label=\"Next image\">&rsaquo;</button>\n</div>\n</div>\n</div>\n</div>\n\n<div class=\"slide s-split wide-right\">\n<div class=\"slide-body\">\n<p class=\"s-kick\">Information architecture</p>\n<h3>Test the architecture against growth</h3>\n<ul class=\"s-list\">\n<li>Compared top navigation with a collapsible side rail.</li>\n<li>Balanced power-user speed with new-user clarity.</li>\n<li>Chose side navigation, submenus, and modal filters.</li>\n</ul>\n</div>\n<div class=\"slide-fig\">\n<div class=\"carousel deck-carousel\">\n<div class=\"car-track\" role=\"region\" aria-label=\"Information architecture alternatives and the chosen direction\">\n<div class=\"car-slide\"><div class=\"carousel-frame\">\n<img src=\"/recruit-portal/images/rp-zoom-nav.png?v=3097c343\" alt=\"Top navigation and side navigation alternatives\">\n<p class=\"car-cap\">Compare the navigation models.</p>\n</div></div>\n<div class=\"car-slide\"><div class=\"carousel-frame\">\n<img src=\"/recruit-portal/images/rp-zoom-scale.png?v=16064912\" alt=\"Navigation alternatives tested against a growing set of product areas\">\n<p class=\"car-cap\">A navigation model has to survive more features.</p>\n</div></div>\n<div class=\"car-slide\"><div class=\"carousel-frame\">\n<img src=\"/recruit-portal/images/rp-zoom-abfilters.png?v=19724a36\" alt=\"Design comparison of filter-bar and filter-modal approaches\">\n<p class=\"car-cap\">Compare filter speed with clarity through design feedback.</p>\n</div></div>\n<div class=\"car-slide\"><div class=\"carousel-frame\">\n<img src=\"/recruit-portal/images/rp-zoom-ia-winner.png?v=3b9ee340\" alt=\"Selected side navigation and submenu architecture\">\n<p class=\"car-cap\">The chosen direction: side navigation and submenus.</p>\n</div></div>\n</div>\n<div class=\"car-ctrl\">\n<button class=\"car-btn car-prev\" type=\"button\" aria-label=\"Previous image\">&lsaquo;</button>\n<div class=\"car-dots\"></div>\n<button class=\"car-btn car-next\" type=\"button\" aria-label=\"Next image\">&rsaquo;</button>\n</div>\n</div>\n</div>\n</div>\n\n<div class=\"slide s-split wide-right\">\n<div class=\"slide-body\">\n<p class=\"s-kick\">Homepage \u00b7 Co-design</p>\n<h3>Design the work, not just the dashboard</h3>\n<ul class=\"s-list\">\n<li>Mapped responsibilities, tasks, and pain points with Product.</li>\n<li>Brought PM, the Engineering Manager, and a power user into a design studio.</li>\n<li>Prioritized features and rough mockups together.</li>\n</ul>\n</div>\n<div class=\"slide-fig\">\n<img src=\"/recruit-portal/images/rp-zoom-hp-studio.png?v=49a6818c\" alt=\"Homepage design studio combining partner input, feature priorities, and rough mockups\">\n</div>\n</div>\n\n<div class=\"slide s-split wide-right\">\n<div class=\"slide-body\">\n<p class=\"s-kick\">Homepage \u00b7 Design</p>\n<h3>See what to do, and do it in one place</h3>\n<ul class=\"s-list\">\n<li>My Tasks brings hiring actions, priorities, and due dates together.</li>\n<li>An interview calendar keeps upcoming commitments in view.</li>\n<li>Validated the homepage with three power users.</li>\n</ul>\n</div>\n<div class=\"slide-fig\">\n<img src=\"/recruit-portal/images/rp-zoom-mytasks.png?v=f304c920\" alt=\"My Tasks homepage with actionable hiring tasks, priorities, due dates, and an interview calendar\">\n</div>\n</div>\n\n<div class=\"slide s-split wide-right\">\n<div class=\"slide-body\">\n<p class=\"s-kick\">End-to-end \u00b7 The problem</p>\n<h3>Two ATSs and 57 days to hire</h3>\n<p>Nine redundant features spanned requisitions, candidates, scheduling, evaluation, and offers.</p>\n<ul class=\"s-list\">\n<li>Seven interviews across Recruiting and HR Ops investigated the dead time.</li>\n<li>Delays clustered around scheduling, external trackers, and manual advancement.</li>\n</ul>\n<p class=\"s-note\">57 days was the application-to-hire baseline, not a measured improvement.</p>\n</div>\n<div class=\"slide-fig\">\n<img src=\"/recruit-portal/images/rp-zoom-e2e-insights.png?v=eed9b4e1\" alt=\"Research insights identifying scheduling delays, fragmented tracking, and manual work\">\n</div>\n</div>\n\n<div class=\"slide s-split wide-right\">\n<div class=\"slide-body\">\n<p class=\"s-kick\">End-to-end \u00b7 Design</p>\n<h3>Map the handoffs before drawing the screens</h3>\n<ul class=\"s-list\">\n<li>Connected seven roles and two candidate tracks across the systems.</li>\n<li>Defined flows with Product, the Program Manager, and power users.</li>\n<li>Used Simpsons personas to make the board a shared language.</li>\n</ul>\n</div>\n<div class=\"slide-fig\">\n<img src=\"/recruit-portal/images/rp-zoom-e2e-designing.png?v=fa6f11d6\" alt=\"End-to-end design board connecting candidate tracks, scheduling, evaluation, review councils, exceptions, and dashboards\">\n</div>\n</div>\n\n<div class=\"slide s-split wide-right\">\n<div class=\"slide-body\">\n<p class=\"s-kick\">End-to-end \u00b7 The core flow</p>\n<h3>One candidate, every handoff</h3>\n<ul class=\"s-list\">\n<li>Designed scheduling and evaluation for Engineering and non-Engineering candidates.</li>\n<li>Made the Recruiter, Scheduler, and Interviewer handoffs explicit.</li>\n<li>Engineering uses pre-populated scheduling; the other track uses a configured interview team.</li>\n</ul>\n</div>\n<div class=\"slide-fig\">\n<img src=\"/recruit-portal/images/rp-zoom-e2e-lenny.png?v=6ca51f40\" alt=\"An Engineering candidate's scheduling and evaluation journey across Recruiter, Scheduler, and Interviewer handoffs\">\n</div>\n</div>\n\n<div class=\"slide s-title\">\n<p class=\"s-kick\">End-to-end \u00b7 Beyond the happy path</p>\n<h3>Every handoff needs a state and a way forward</h3>\n<ul class=\"s-cards four\">\n<li><span class=\"t\">Review councils</span><span class=\"d\">Create, schedule, review feedback, vote, and decide. Account for rescheduling too.</span></li>\n<li><span class=\"t\">Scheduling exceptions</span><span class=\"d\">Cancel, reschedule, replace an interviewer, handle a no-show or insufficient availability.</span></li>\n<li><span class=\"t\">Workflow states</span><span class=\"d\">Needs scheduling, awaiting availability, upcoming interviews, and coordinator assignment.</span></li>\n<li><span class=\"t\">Role-specific views</span><span class=\"d\">Tailor dashboards and actions to the person responsible for the next step.</span></li>\n</ul>\n</div>\n\n<div class=\"slide s-title\">\n<p class=\"s-kick\">Pre-launch refinement</p>\n<h3>Make the details ready for release</h3>\n<p>April\u2013August 2024: refined designs with stakeholder sign-off.</p>\n<ul class=\"s-cards\">\n<li><span class=\"t\">Scheduling</span><span class=\"d\">Interviewer matching logic, duration, availability overrides, additional slots, and candidate timezone preferences.</span></li>\n<li><span class=\"t\">Dashboards and assessment</span><span class=\"d\">Saved filters, sorting, tailored dashboards, multiple evaluation rounds, bulk disposition, and HackerRank access.</span></li>\n</ul>\n</div>\n\n<div class=\"slide s-title\">\n<p class=\"s-kick\">Validation and collaboration</p>\n<h3>Bring users and decision-makers into the work</h3>\n<ul class=\"s-cards\">\n<li><span class=\"t\">A standing power-user network</span><span class=\"d\">Five recruiter sessions for search and filter. Three power users for the homepage. Compared design options with engineers and power users.</span></li>\n<li><span class=\"t\">Alignment built through the work</span><span class=\"d\">Updated mocks live in working sessions and stayed involved through engineering review. VP of Engineering Recruiting approval in October 2023; leadership alignment the following month.</span></li>\n</ul>\n</div>\n\n<div class=\"slide s-title\">\n<p class=\"s-kick\">What happened</p>\n<h3>It shipped. The legacy tool retired that day.</h3>\n<ul class=\"s-cards\">\n<li><span class=\"t\">Connected systems</span><span class=\"d\">Recruit Portal integrates with the non-Engineering ATS and Workday, connecting the hiring workflow.</span></li>\n<li><span class=\"t\">Scheduling inside the tool</span><span class=\"d\">Interviewers set the days and times they are available, addressing the mis-scheduling that triggered re-scheduling loops.</span></li>\n<li><span class=\"t\">Consistent evaluation</span><span class=\"d\">Feedback and ratings live in one place and lock on submission. Managers assign interviewer skills and modules.</span></li>\n<li><span class=\"t\">Thousands of users</span><span class=\"d\">Recruiters, Schedulers, Interviewers, Hiring Managers, Review Councils, and TA Ops use the system.</span></li>\n</ul>\n<p class=\"s-note\">15k\u201325k is an estimate of all-time provisioned users, not active users. No measured time-to-hire reduction is claimed.</p>\n</div>\n\n<div class=\"slide s-title\">\n<p class=\"s-kick\">What I learned</p>\n<h3>The senior contribution was staying in the work</h3>\n<ul class=\"s-cards\">\n<li><span class=\"t\">Co-design, don't just seek approval</span><span class=\"d\">Bring senior partners into working sessions so decisions are grounded in shared evidence.</span></li>\n<li><span class=\"t\">Design continues through implementation</span><span class=\"d\">Pair with engineers on trade-offs, rework mocks, and check builds against design intent.</span></li>\n<li><span class=\"t\">Keep a standing user network</span><span class=\"d\">Long-term recruiter and scheduler relationships make feedback faster and more candid.</span></li>\n<li><span class=\"t\">Let the work compound</span><span class=\"d\">Research, trust, and a consistent design language grow through sustained ownership, not a single sprint.</span></li>\n</ul>\n</div>\n\n</div>\n"};
+marked.setOptions({ gfm: true, breaks: false });
+const content = document.getElementById('content');
+const fallbackTitle = "index";
+
+function show(v) {
+  if (!sources[v]) v = 'v1';
+  content.innerHTML = marked.parse(sources[v]);
+  wrapSections();
+  syncCounts();
+  document.querySelectorAll('.vtoggle button').forEach(function (b) {
+    b.classList.toggle('on', b.dataset.v === v);
+    b.setAttribute('aria-selected', b.dataset.v === v ? 'true' : 'false');
+  });
+  /* title is set statically at build time */
+  if (sources.v2) {
+    history.replaceState(null, '', location.pathname + (v === 'v1' ? '#v1' : ''));
+  }
+  initCarousels();
+  initProtos();
+  initArchive();
+  buildRail();
+  scrollToHash();
+}
+
+let railObserver = null;
+
+// "See all N findings" is recounted from the list itself, so the number can
+// never drift when items are added or removed. The markdown keeps a correct
+// number as the fallback if this never runs.
+function syncCounts() {
+  content.querySelectorAll('details summary').forEach(function (s) {
+    const m = s.textContent.match(/^(\s*See all\s+)(\d+)(\s+.+)$/);
+    if (!m) return;
+    const n = s.parentElement.querySelectorAll('li').length;
+    if (n > 0 && String(n) !== m[2]) s.textContent = m[1] + n + m[3];
+  });
+}
+
+function buildRail() {  document.querySelectorAll('.rail').forEach(function (r) { r.remove(); });
+  if (railObserver) { railObserver.disconnect(); railObserver = null; }
+
+  const secs = [...content.querySelectorAll('.sec')];
+  if (secs.length < 4) return;
+
+  const rail = document.createElement('nav');
+  rail.className = 'rail';
+  rail.setAttribute('aria-label', 'Sections');
+  let html = '<p class="rail-h">On this page</p><ol>';
+  secs.forEach(function (sec, i) {
+    const h = sec.querySelector('h2');
+    const id = 'sec-' + (h.textContent.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-') || i);
+    sec.id = id;
+    html += '<li><a href="#' + id + '">' + h.textContent.trim() + '</a></li>';
+  });
+  rail.innerHTML = html + '</ol>';
+  document.body.appendChild(rail);
+
+  const links = [...rail.querySelectorAll('a')];
+  links.forEach(function (a, i) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      secs[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(null, '', location.pathname + location.hash);
+    });
+  });
+
+  // with sticky h2s the pinned heading is ground truth, so the rail switches
+  // exactly when a section reaches the top rather than at a reading line
+  function sync() {
+    const line = 1;
+    let active = 0;
+    secs.forEach(function (sec, i) {
+      if (sec.getBoundingClientRect().top <= line) active = i;
+    });
+    // a short final section can never cross the line, so own the page bottom
+    const left = document.documentElement.scrollHeight - innerHeight - scrollY;
+    if (left <= 2) active = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === active); });
+  }
+  let tick = false;
+  addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { sync(); tick = false; });
+  }, { passive: true });
+  addEventListener('resize', sync, { passive: true });
+  sync();
+}
+
+function wrapSections() {
+  let cur = null;
+  [...content.children].forEach(function (el) {
+    if (el.tagName === 'H2') {
+      cur = document.createElement('section');
+      cur.className = 'sec';
+      content.insertBefore(cur, el);
+      cur.appendChild(el);
+    } else if (cur) {
+      cur.appendChild(el);
+    }
+  });
+}
+
+function initCarousels() {
+  document.querySelectorAll('.carousel').forEach(function (c) {
+    const track = c.querySelector('.car-track');
+    const slides = c.querySelectorAll('.car-slide');
+    const dots = c.querySelector('.car-dots');
+    const prev = c.querySelector('.car-prev');
+    const next = c.querySelector('.car-next');
+    if (!track || !slides.length || !dots) return;
+
+    dots.innerHTML = '';
+    slides.forEach(function (s, i) {
+      const b = document.createElement('button');
+      b.className = 'car-dot' + (i === 0 ? ' on' : '');
+      b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      b.addEventListener('click', function () { go(i); });
+      dots.appendChild(b);
+    });
+
+    function idx() { return Math.round(track.scrollLeft / track.clientWidth); }
+    function go(i) { track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' }); }
+    function sync() {
+      const i = idx();
+      dots.querySelectorAll('.car-dot').forEach(function (d, j) { d.classList.toggle('on', j === i); });
+      if (prev) prev.disabled = i <= 0;
+      if (next) next.disabled = i >= slides.length - 1;
+    }
+    if (prev) prev.addEventListener('click', function () { go(idx() - 1); });
+    if (next) next.addEventListener('click', function () { go(idx() + 1); });
+    track.addEventListener('scroll', sync, { passive: true });
+    sync();
+  });
+}
+
+const PROTO_ROWS = [
+  {t:'Schedule <a>John Smith</a>’s RPS interview for <a>SWE requisition 100</a>', f:1, d:'Dec 13', k:'rps'},
+  {t:'Approve - <a>Software engineer - Anti-abuse platform</a> job description', f:0, d:'Dec 14', k:'jd'},
+  {t:'Review <a>Brooke Baker</a>’s resume', f:1, d:'Dec 15', k:'resume'},
+  {t:'Request expression of interest from <a>Tanner Smith</a>', f:0, d:'Dec 15', k:'eoi'},
+  {t:'<a>Leah Johnson</a> requires notification', f:0, d:'Dec 15', k:'notify'},
+  {t:'Approve - <a>UX engineer - productivity engineering</a> job description', f:1, d:'Dec 16', k:'jd'},
+  {t:'Resolve hold on <a>Leah George</a>’s account', f:1, d:'Dec 17', k:'hold'},
+  {t:'<a>Kat Robinson</a>’s requires notification', f:0, d:'Dec 17', k:'notify'}
+];
+const PROTO_TYPES = [
+  {k:'rps',    l:'RPS schedules'},
+  {k:'fb',     l:'Provide interview feedback'},
+  {k:'jd',     l:'Job descriptions requiring approval'},
+  {k:'eoi',    l:'Request Expression of interest'},
+  {k:'notify', l:'Candidates requiring notification'},
+  {k:'hold',   l:'Holds to resolve'}
+];
+const PROTO_DATES = ['Today', 'Tomorrow', '3 days', '1 week', '1 month', 'Custom'];
+const PROTO_IC = {
+  filter: '<svg class="ic" viewBox="0 0 16 16" fill="currentColor"><path d="M1 2h14l-5.5 6.5V14l-3-1.6V8.5z"/></svg>',
+  flag:   '<svg class="ic" viewBox="0 0 16 16" fill="currentColor"><path d="M3 1v14h1.6V9.4h7.2L10 5.6l1.8-3.8H4.6V1z"/></svg>',
+  sort:   '<svg class="ic" viewBox="0 0 16 16" fill="currentColor"><path d="M1 3h14v1.6H1zM1 7.2h10v1.6H1zM1 11.4h6V13H1z"/></svg>',
+  chev:   '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg>',
+  trash:  '<svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M6 1h4v1.2h3.6v1.4H2.4V2.2H6zM3.4 5h9.2l-.7 9.2a.9.9 0 01-.9.8H5a.9.9 0 01-.9-.8z"/></svg>',
+  search: '<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4L14 14"/></svg>'
+};
+
+const PROTO_NAV = [
+  ['My Dashboard', 1, 1], ['Recruiting', 0, 1], ['Schedules', 0, 0], ['Offers', 0, 0],
+  ['Employees', 0, 1], ['Reports', 0, 1], ['Jobs', 0, 0], ['Admin', 0, 1],
+  ['Help', 0, 1], ['Settings', 0, 0]
+];
+const PROTO_CAL = [
+  ['29',1],['30',1],['31',1],['1',0],['2',0],['3',0],['4',0],
+  ['5',0],['6',0],['7',0],['8',0],['9',0],['10',0],['11',0],
+  ['12',0],['13',0],['14',2],['15',0],['16',0],['17',0],['18',0],
+  ['19',0],['20',0],['21',0],['22',0],['23',0],['24',0],['25',0],
+  ['26',0],['27',0],['28',0],['29',0],['30',0]
+];
+
+function protoChrome(cardHtml) {
+  const nav = PROTO_NAV.map(function (n) {
+    return '<li' + (n[1] ? ' class="on"' : '') + '><span class="nd"></span>' + n[0] +
+           (n[2] ? '<span class="cv">' + PROTO_IC.chev + '</span>' : '') + '</li>';
+  }).join('');
+  const grid = ['S','M','T','W','T','F','S'].map(function (d) { return '<div class="dw">' + d + '</div>'; }).join('') +
+    PROTO_CAL.map(function (d) {
+      return '<div class="d' + (d[1] === 1 ? ' mut' : d[1] === 2 ? ' today' : '') + '">' + d[0] + '</div>';
+    }).join('');
+  const ev = [1,2,3].map(function () {
+    return '<div class="proto-ev">' +
+      '<div class="en">Krissy Jamerson</div>' +
+      '<span class="er">SWE - LinkedIn Marketing Solutions</span>' +
+      '<div class="ed">Tue May 31, 2022<br>9am–10am (PST) | Zoom</div>' +
+      '<div class="ea"><span>Cancel</span><span>Send good luck</span></div>' +
+    '</div>';
+  }).join('');
+
+  return '<div class="proto-app">' +
+    '<aside class="proto-side">' +
+      '<div class="proto-brand">Hire<i>in</i></div>' +
+      '<div class="proto-ssearch">' + PROTO_IC.search + 'Search</div>' +
+      '<ul class="proto-nav">' + nav + '</ul>' +
+      '<div class="proto-user"><span class="proto-av">SJ</span>' +
+        '<span class="nm">Steve Jameson<br><span class="rl">Recruiter</span></span></div>' +
+    '</aside>' +
+    '<div class="proto-main">' +
+      '<div class="proto-h1">My Dashboard</div>' +
+      '<div class="proto-topsearch">' + PROTO_IC.search + 'Search…</div>' +
+      '<div class="proto-cols">' +
+        '<div class="proto-colmain">' + cardHtml + '</div>' +
+        '<div class="proto-cal">' +
+          '<h5>Interview Calendar</h5>' +
+          '<div class="proto-calnav"><span>‹</span>June 2022<span>›</span></div>' +
+          '<div class="proto-grid">' + grid + '</div>' +
+          '<div class="proto-calsep"></div>' +
+          '<h6>Today’s interview schedule</h6>' + ev +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+// The archive gate is a tidiness feature, not security. Every case study's
+// markdown is already in the page source and each one is still reachable by its
+// own URL. This keeps the home page to three pieces without deleting the rest.
+// Markdown is rendered client-side, so the browser's native jump to "#about"
+// fires before that element exists. Re-run it once the markup is in place.
+function scrollToHash() {
+  const h = location.hash;
+  if (!h || h.length < 2 || h === '#v1') return;
+  let t = null;
+  try { t = document.querySelector(h); } catch (e) { return; }
+  if (t) t.scrollIntoView();
+}
+
+function initArchive() {
+  content.querySelectorAll('.archive').forEach(function (a) {
+    const btn = a.querySelector('.arch-btn');
+    const input = a.querySelector('.arch-in');
+    const go = a.querySelector('.arch-go');
+    const ic = a.querySelector('.arch-ic');
+    if (!btn || !input || !go) return;
+    const want = Number(a.dataset.k || 0);
+
+    function hash(s) {
+      let x = 5381;
+      s = String(s).trim().toLowerCase();
+      for (let i = 0; i < s.length; i++) x = ((x << 5) + x + s.charCodeAt(i)) >>> 0;
+      return x;
+    }
+    function remember(v) {
+      try { v ? sessionStorage.setItem('archOpen', '1') : sessionStorage.removeItem('archOpen'); } catch (e) {}
+    }
+    function openUp() {
+      a.classList.add('open');
+      a.classList.remove('asking', 'bad');
+      if (ic) ic.textContent = '\u{1F513}';
+      btn.setAttribute('aria-expanded', 'true');
+    }
+    function shut() {
+      a.classList.remove('open', 'asking', 'bad');
+      if (ic) ic.textContent = '\u{1F512}';
+      btn.setAttribute('aria-expanded', 'false');
+    }
+
+    let was = false;
+    try { was = sessionStorage.getItem('archOpen') === '1'; } catch (e) {}
+    if (was) openUp();
+
+    btn.addEventListener('click', function () {
+      if (a.classList.contains('open')) { shut(); remember(false); return; }
+      a.classList.toggle('asking');
+      a.classList.remove('bad');
+      if (a.classList.contains('asking')) input.focus();
+    });
+
+    function tryKey() {
+      if (hash(input.value) === want) {
+        input.value = '';
+        remember(true);
+        openUp();
+      } else {
+        a.classList.remove('bad');
+        void a.offsetWidth;
+        a.classList.add('bad');
+        input.select();
+      }
+    }
+    go.addEventListener('click', tryKey);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); tryKey(); }
+      else a.classList.remove('bad');
+    });
+  });
+}
+
+function initProtos() {
+  document.querySelectorAll('.proto[data-proto]').forEach(function (host) {
+    if (host.dataset.built) return;
+    host.dataset.built = '1';
+
+    const rows = PROTO_ROWS.map(function (r) { return Object.assign({}, r); });
+    const state = { types: [], sort: null, priority: false, open: -1, pop: null };
+
+    const card =
+      '<div class="proto-card">' +
+        '<div class="proto-head">' +
+          '<span class="proto-title">My Tasks</span>' +
+          '<button class="proto-ctl" data-pop="type">' + PROTO_IC.filter + 'Task type</button>' +
+          '<button class="proto-ctl" data-pop="prio">' + PROTO_IC.flag + 'Priority</button>' +
+          '<button class="proto-ctl" data-pop="sort">' + PROTO_IC.sort + 'Sort</button>' +
+        '</div>' +
+        '<ul class="proto-rows"></ul>' +
+        '<div class="proto-foot"><span>Rows per page: 10</span></div>' +
+      '</div>';
+    host.innerHTML = (host.dataset.chrome === 'card' ? card : protoChrome(card)) +
+      (host.dataset.hint === '0' ? '' :
+        '<p class="proto-hint">Live rebuild — <b>click a task</b> to expand it, then try <b>Task type</b>, <b>Priority</b>, <b>Sort</b>, or the <b>due date</b> inside an open task.</p>');
+
+    const head = host.querySelector('.proto-head');
+    const list = host.querySelector('.proto-rows');
+
+    function visible() {
+      let v = rows.map(function (r, i) { return { r: r, i: i }; });
+      if (state.types.length) v = v.filter(function (o) { return state.types.indexOf(o.r.k) > -1; });
+      if (state.priority) v = v.filter(function (o) { return o.r.f; });
+      if (state.sort) {
+        const dir = state.sort === 'old' ? 1 : -1;
+        v.sort(function (a, b) { return (a.i - b.i) * dir; });
+      }
+      return v;
+    }
+
+    function draw() {
+      const v = visible();
+      if (!v.length) { list.innerHTML = '<li class="proto-empty">No tasks match these filters.</li>'; return; }
+      list.innerHTML = v.map(function (o) {
+        const r = o.r, open = state.open === o.i;
+        return '<li class="proto-row' + (open ? ' open' : '') + '" data-i="' + o.i + '">' +
+          '<div class="proto-top">' +
+            '<span class="proto-txt">' + r.t.replace(/<a>/g, '<a href="#" onclick="return false">') + '</span>' +
+            '<span class="proto-flag' + (r.f ? ' on' : '') + '">' + PROTO_IC.flag + '</span>' +
+            (open ? '<button class="proto-datechip" data-pop="date">' + r.d + ' <span class="x">×</span></button>'
+                  : '<span class="proto-date">' + r.d + '</span>') +
+            '<span class="proto-chev">' + PROTO_IC.chev + '</span>' +
+          '</div>' +
+          '<div class="proto-body">' +
+            '<div class="proto-meta">' +
+              '<div><div class="k">Hiring Manager</div>Lisa Johnson</div>' +
+              '<div><div class="k">Age</div>27 days</div>' +
+            '</div>' +
+            '<div class="proto-note">' +
+              '<div class="nt"><div class="k">Note</div>Please complete this task before Monday of next week!</div>' +
+              '<div class="proto-act">' +
+                '<button class="proto-ibtn" data-act="del" title="Delete task">' + PROTO_IC.trash + '</button>' +
+                '<button class="proto-ibtn' + (r.f ? ' on' : '') + '" data-act="flag" title="Prioritize task">' + PROTO_IC.flag + '</button>' +
+                '<button class="proto-approve" data-act="done">Approve</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</li>';
+      }).join('');
+    }
+
+    function closePop() {
+      const p = host.querySelector('.proto-pop');
+      if (p) p.remove();
+      state.pop = null;
+    }
+
+    function openPop(btn, kind) {
+      closePop();
+      state.pop = kind;
+      const p = document.createElement('div');
+      p.className = 'proto-pop' + (kind === 'date' ? ' dates' : '');
+      if (kind === 'type') {
+        p.innerHTML = '<h4>Task type filters</h4>' + PROTO_TYPES.map(function (t) {
+          return '<label class="proto-opt"><input type="checkbox" data-k="' + t.k + '"' +
+                 (state.types.indexOf(t.k) > -1 ? ' checked' : '') + '>' + t.l + '</label>';
+        }).join('');
+      } else if (kind === 'sort') {
+        p.innerHTML = '<h4>Sort tasks</h4>' +
+          '<label class="proto-opt"><input type="checkbox" data-s="new"' + (state.sort === 'new' ? ' checked' : '') + '>New to old</label>' +
+          '<label class="proto-opt"><input type="checkbox" data-s="old"' + (state.sort === 'old' ? ' checked' : '') + '>Old to new</label>';
+      } else {
+        p.innerHTML = PROTO_DATES.map(function (d) {
+          return '<div class="proto-opt" data-d="' + d + '">' + d + '</div>';
+        }).join('');
+      }
+      const anchor = kind === 'date' ? btn.closest('.proto-row') : head;
+      anchor.style.position = 'relative';
+      anchor.appendChild(p);
+      const off = btn.getBoundingClientRect().left - anchor.getBoundingClientRect().left;
+      p.style.left = Math.max(4, Math.min(off, anchor.clientWidth - 220)) + 'px';
+      if (kind === 'date') p.style.top = (btn.offsetTop + btn.offsetHeight + 2) + 'px';
+    }
+
+    host.addEventListener('click', function (e) {
+      const ctl = e.target.closest('[data-pop]');
+      if (ctl) {
+        e.stopPropagation();
+        const kind = ctl.dataset.pop;
+        if (kind === 'prio') {
+          closePop();
+          state.priority = !state.priority;
+          ctl.classList.toggle('on', state.priority);
+          draw();
+          return;
+        }
+        if (state.pop === kind) { closePop(); return; }
+        openPop(ctl, kind);
+        return;
+      }
+
+      const opt = e.target.closest('.proto-opt');
+      if (opt) {
+        e.stopPropagation();
+        if (opt.dataset.d) {
+          const row = opt.closest('.proto-row');
+          rows[+row.dataset.i].d = opt.dataset.d;
+          closePop(); draw();
+          return;
+        }
+        const box = opt.querySelector('input');
+        if (!box) return;
+        setTimeout(function () {
+          if (box.dataset.k) {
+            const k = box.dataset.k, at = state.types.indexOf(k);
+            if (box.checked && at < 0) state.types.push(k);
+            if (!box.checked && at > -1) state.types.splice(at, 1);
+            host.querySelector('[data-pop="type"]').classList.toggle('on', state.types.length > 0);
+          } else {
+            state.sort = box.checked ? box.dataset.s : null;
+            opt.parentNode.querySelectorAll('input').forEach(function (o) { if (o !== box) o.checked = false; });
+            host.querySelector('[data-pop="sort"]').classList.toggle('on', !!state.sort);
+          }
+          draw();
+        }, 0);
+        return;
+      }
+
+      const act = e.target.closest('[data-act]');
+      if (act) {
+        e.stopPropagation();
+        const i = +act.closest('.proto-row').dataset.i;
+        if (act.dataset.act === 'flag') rows[i].f = rows[i].f ? 0 : 1;
+        else { rows.splice(i, 1); state.open = -1; }
+        closePop(); draw();
+        return;
+      }
+
+      const top = e.target.closest('.proto-top');
+      if (top) {
+        const i = +top.closest('.proto-row').dataset.i;
+        state.open = state.open === i ? -1 : i;
+        closePop(); draw();
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (state.pop && !host.contains(e.target)) closePop();
+    });
+
+    draw();
+  });
+}
+
+document.querySelectorAll('.vtoggle button').forEach(function (b) {
+  b.addEventListener('click', function () { show(b.dataset.v); });
+});
+
+// The refined version is the finished case study, so it is the default; the
+// AI original stays reachable at #v1 for comparison.
+show(location.hash === '#v1' ? 'v1' : 'v2');
+
+const lb = document.getElementById('lb');
+const lbImg = lb.querySelector('img');
+const lbClose = lb.querySelector('.x');
+const lbNav = lb.querySelector('.lb-nav');
+const lbPrev = lb.querySelector('.lb-prev');
+const lbNext = lb.querySelector('.lb-next');
+const lbStatus = lb.querySelector('.lb-status');
+let zoomOrigin = null;
+let zoomImages = [];
+let zoomIndex = 0;
+function showZoomImage() {
+  const image = zoomImages[zoomIndex];
+  zoomOrigin = image;
+  lbImg.src = image.currentSrc || image.src;
+  lbImg.alt = image.alt || '';
+  const caption = image.closest('.car-slide')?.querySelector('.car-cap');
+  lbStatus.textContent = zoomImages.length > 1
+    ? (zoomIndex + 1) + ' / ' + zoomImages.length + (caption ? ' · ' + caption.textContent.trim() : '')
+    : '';
+  lbPrev.disabled = zoomIndex === 0;
+  lbNext.disabled = zoomIndex === zoomImages.length - 1;
+}
+function moveZoom(step) {
+  const nextIndex = zoomIndex + step;
+  if (nextIndex < 0 || nextIndex >= zoomImages.length) return;
+  zoomIndex = nextIndex;
+  showZoomImage();
+  const track = zoomOrigin.closest('.car-track');
+  if (track) {
+    track.scrollTo({ left: zoomIndex * track.clientWidth, behavior: 'instant' });
+  }
+  if ((document.activeElement === lbPrev && lbPrev.disabled) ||
+      (document.activeElement === lbNext && lbNext.disabled)) lbClose.focus();
+}
+function openZoom(image) {
+  const carousel = image.closest('.deck .carousel');
+  zoomImages = carousel ? Array.from(carousel.querySelectorAll('.car-slide img')) : [image];
+  zoomIndex = zoomImages.indexOf(image);
+  const hasGallery = zoomImages.length > 1;
+  lbNav.hidden = !hasGallery;
+  lb.classList.toggle('has-gallery', hasGallery);
+  showZoomImage();
+  lb.classList.add('on');
+  lb.setAttribute('aria-hidden', 'false');
+  lbClose.focus();
+}
+function closeZoom() {
+  if (!lb.classList.contains('on')) return;
+  lb.classList.remove('on');
+  lb.setAttribute('aria-hidden', 'true');
+  lbImg.removeAttribute('src');
+  if (zoomOrigin && zoomOrigin.isConnected) zoomOrigin.focus();
+  zoomOrigin = null;
+  zoomImages = [];
+  lbStatus.textContent = '';
+}
+lbPrev.addEventListener('click', function () { moveZoom(-1); });
+lbNext.addEventListener('click', function () { moveZoom(1); });
+content.addEventListener('click', function (e) {
+  const t = e.target.closest('img[data-zoom]');
+  if (!t) return;
+  /* An image inside a link is a thumbnail for that link, not something to
+     zoom. Opening the lightbox here would fire alongside the navigation. */
+  if (t.closest('a')) return;
+  openZoom(t);
+});
+lb.addEventListener('click', function (e) {
+  if (e.target === lb || e.target === lbClose) closeZoom();
+});
+lbImg.addEventListener('click', closeZoom);
+lb.addEventListener('keydown', function (e) {
+  if (e.key === 'Tab') {
+    const buttons = Array.from(lb.querySelectorAll('button')).filter(function (button) {
+      return !button.disabled && !button.closest('[hidden]');
+    });
+    const first = buttons[0], last = buttons[buttons.length - 1];
+    if (e.shiftKey && (document.activeElement === first || document.activeElement === lb)) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && (document.activeElement === last || document.activeElement === lb)) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+});
+document.addEventListener('keydown', function (e) {
+  if (!lb.classList.contains('on')) return;
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    closeZoom();
+  } else if (!e.metaKey && !e.ctrlKey && !e.altKey && zoomImages.length > 1) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      moveZoom(e.key === 'ArrowLeft' ? -1 : 1);
+    }
+  }
+});
+
+/* Presentation decks. Arrow keys, space, click and swipe page through the
+   slides; the URL hash keeps a slide shareable and survives a reload, which
+   matters if a browser restarts mid-interview. */
+(function () {
+  const deck = document.querySelector('.deck');
+  if (!deck) return;
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  if (!slides.length) return;
+  if (deck.classList.contains('tde-branded')) {
+    slides.forEach(function (slide) {
+      const footer = document.createElement('div');
+      footer.className = 'tde-footer';
+      footer.innerHTML = '<img class="tde-footer-logo" src="/images/logos/linkedin.svg" alt="LinkedIn">'
+        + '<div class="tde-footer-right"><span class="tde-footer-note">PROPRIETARY + CONFIDENTIAL</span></div>';
+      slide.appendChild(footer);
+    });
+  }
+
+  const bar = document.createElement('div');
+  bar.className = 'deck-ui'; bar.innerHTML = '<i></i>';
+  const no = document.createElement('div');
+  no.className = 'deck-no';
+  no.setAttribute('aria-live', 'polite');
+  document.body.appendChild(bar); document.body.appendChild(no);
+  const fill = bar.querySelector('i');
+
+  let i = Math.max(0, Math.min(slides.length - 1,
+    (parseInt(location.hash.replace('#s', ''), 10) || 1) - 1));
+
+  function go(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, k) { s.classList.toggle('on', k === i); });
+    no.textContent = (i + 1) + ' / ' + slides.length;
+    fill.style.width = ((i + 1) / slides.length * 100) + '%';
+    history.replaceState(null, '', location.pathname + '#s' + (i + 1));
+  }
+  go(i);
+
+  document.addEventListener('keydown', function (e) {
+    if (lb.classList.contains('on')) return;
+    const zoomTarget = e.target.closest && e.target.closest('.deck-zoomable');
+    if (zoomTarget && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      openZoom(zoomTarget);
+      return;
+    }
+    if (e.target.closest && e.target.closest('.carousel')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(i + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(i - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); go(0); }
+    else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
+    else if (e.key === 'f') { if (!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+  });
+  deck.querySelectorAll('.slide-fig > img, .slide-fig.stack img, .slide.s-full > img, .slide-fig .car-slide img').forEach(function (image) {
+    image.classList.add('deck-zoomable');
+    image.tabIndex = 0;
+    image.setAttribute('role', 'button');
+    image.setAttribute('aria-haspopup', 'dialog');
+    image.setAttribute('aria-label', 'Enlarge image: ' + (image.alt || 'slide image'));
+    image.title = 'Click to enlarge';
+  });
+  /* Click the right two-thirds to advance, the left third to go back, so a
+     mis-click during a presentation is recoverable rather than disruptive. */
+  deck.addEventListener('click', function (e) {
+    const zoomTarget = e.target.closest('.deck-zoomable');
+    if (zoomTarget) {
+      e.preventDefault();
+      openZoom(zoomTarget);
+      return;
+    }
+    if (e.target.closest('.carousel')) return;
+    go(e.clientX < window.innerWidth / 3 ? i - 1 : i + 1);
+  });
+  let x0 = null;
+  deck.addEventListener('touchstart', function (e) {
+    x0 = e.target.closest('.carousel') ? null : e.touches[0].clientX;
+  }, { passive: true });
+  deck.addEventListener('touchend', function (e) {
+    if (lb.classList.contains('on')) { x0 = null; return; }
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) go(dx < 0 ? i + 1 : i - 1);
+    x0 = null;
+  });
+})();
+
+/* Mobile menu. Below 760px the links live behind the toggle and open as a
+   full-screen panel; above it this code never fires because the button is
+   display:none and cannot be clicked. */
+(function () {
+  const btn = document.querySelector('.navtoggle');
+  const nav = document.getElementById('sitenav');
+  if (!btn || !nav) return;
+  function setOpen(open) {
+    document.body.classList.toggle('nav-open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  btn.addEventListener('click', function () {
+    setOpen(!document.body.classList.contains('nav-open'));
+  });
+  /* Any link closes it, including the in-page About/Contact anchors, which
+     would otherwise scroll behind a panel that is still covering the screen. */
+  nav.addEventListener('click', function (e) {
+    if (e.target.closest('a')) setOpen(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  /* Rotating to landscape can cross the breakpoint while the panel is open,
+     which would leave the scroll lock on a desktop-width layout. */
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 760) setOpen(false);
+  });
+})();
+</script>
+</body>
+</html>
