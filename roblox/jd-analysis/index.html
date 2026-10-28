@@ -823,6 +823,23 @@ body:has(.deck) .rail { display: none; }
   min-width: .35em; border-radius: .3em; }
 .s-tl .fil.hot { background: var(--link); }
 .s-tl .dur { font-size: .875em; font-weight: 600; color: #3a3a3a; white-space: nowrap; }
+.s-workstreams .r { grid-template-columns: 16em minmax(0, 1fr) 18em;
+  gap: .75em; margin-bottom: .625em; }
+.s-workstreams .r:last-child { margin-bottom: 0; }
+.s-workstreams .phase { display: flex; align-items: center; gap: .5em;
+  padding: .375em .5em; border-radius: .35em; }
+.s-workstreams .fil.hl-red { background: #e5484d; }
+.s-workstreams .fil.hl-orange { background: #d9730d; }
+.s-workstreams .fil.hl-slate { background: #57606a; }
+.s-workstreams .fil.hl-green { background: #2da44e; }
+.s-workstreams .fil.hl-amber { background: #c98a0a; }
+.s-workstreams .fil.hl-blue { background: #0a66c2; }
+.slide .methods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1em; }
+.slide .method { padding: .875em 1em; border-radius: .5em; }
+.slide .method .e { font-size: 1.25em; margin-right: .4em; }
+.slide .method .t { font-size: 1.25em; }
+.slide .method .s { font-size: 1em; margin-top: .375em; }
 .slide p.s-tl-note { max-width: none; margin: .45em 0 0; font-size: .75em; line-height: 1.3; color: var(--muted); }
 /* Empty image frame for the review-vote visual, to be replaced when supplied. */
 .s-image-placeholder { width: 100%; aspect-ratio: 16 / 10; border: 2px dashed #b8bec4;
