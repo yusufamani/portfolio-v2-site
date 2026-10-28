@@ -1548,7 +1548,7 @@ function showZoomImage() {
   lbImg.alt = image.alt || '';
   const caption = image.closest('.car-slide')?.querySelector('.car-cap');
   lbStatus.textContent = zoomImages.length > 1
-    ? (zoomIndex + 1) + ' / ' + zoomImages.length + (caption ? ' · ' + caption.textContent.trim() : '')
+    ? (zoomIndex + 1) + ' / ' + zoomImages.length + (caption ? ' · ' + caption.innerText.replace(/\s+/g, ' ').trim() : '')
     : '';
   lbPrev.disabled = zoomIndex === 0;
   lbNext.disabled = zoomIndex === zoomImages.length - 1;
@@ -1746,7 +1746,7 @@ document.addEventListener('keydown', function (e) {
   });
 })();
 </script>
-<meta name="portfolio-build" content="d3a665c04fa2">
+<meta name="portfolio-build" content="4c780fcce8cb">
 <script>
 (function () {
   const buildId = document.querySelector('meta[name="portfolio-build"]').content;

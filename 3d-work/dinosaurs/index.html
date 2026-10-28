@@ -1547,7 +1547,7 @@ function showZoomImage() {
   lbImg.alt = image.alt || '';
   const caption = image.closest('.car-slide')?.querySelector('.car-cap');
   lbStatus.textContent = zoomImages.length > 1
-    ? (zoomIndex + 1) + ' / ' + zoomImages.length + (caption ? ' · ' + caption.textContent.trim() : '')
+    ? (zoomIndex + 1) + ' / ' + zoomImages.length + (caption ? ' · ' + caption.innerText.replace(/\s+/g, ' ').trim() : '')
     : '';
   lbPrev.disabled = zoomIndex === 0;
   lbNext.disabled = zoomIndex === zoomImages.length - 1;
