@@ -729,7 +729,19 @@ body:has(.deck) .rail { display: none; }
   gap: 1em; padding-top: 8em; }
 .slide.s-title > p { max-width: 100%; }
 .slide.s-title > ul { max-width: 72%; }
+.slide.s-title > ul.s-list { max-width: 100%; }
 .slide.s-title > .s-lead { max-width: 100%; }
+.slide .flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: .75em; }
+.slide .flow .step { padding: 1em; border-radius: .5em; }
+.slide .flow .step .n { font-size: .875em; line-height: 1.4;
+  letter-spacing: .04em; margin-bottom: .5em; }
+.slide .flow .step .t { font-size: 1.25em; line-height: 1.3; }
+.slide .flow .step .sub { font-size: 1em; line-height: 1.5; margin-top: .5em; }
+.slide .roles { gap: .5em; }
+.slide .role { gap: .5em; padding: .5em .875em; font-size: 1em;
+  line-height: 1.4; }
+.slide .role .e { font-size: 1.5em; }
 /* Numbered rollout milestones, with quiet numerals and a clear reading rhythm. */
 .slide.s-title > ol.s-rollout { max-width: 100%; }
 .s-rollout { display: grid; gap: 1.35em; margin: 1.25em 0 0; padding: 0;
@@ -1710,7 +1722,7 @@ document.addEventListener('keydown', function (e) {
   });
 })();
 </script>
-<meta name="portfolio-build" content="4c76033d5334">
+<meta name="portfolio-build" content="314a7495a8ae">
 <script>
 (function () {
   const buildId = document.querySelector('meta[name="portfolio-build"]').content;
