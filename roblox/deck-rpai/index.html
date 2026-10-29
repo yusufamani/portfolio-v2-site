@@ -959,6 +959,27 @@ body:has(.deck) .rail { display: none; }
 .deck-carousel .car-dots { gap: .5em; }
 .deck-carousel .car-dot { width: .45em; height: .45em; }
 
+/* Opt-in roomier media layouts for the RP and TDE presentation decks. */
+.deck.media-forward .slide.s-split.wide-right {
+  --deck-media-height: 28em;
+  grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr);
+  gap: 1.5em; padding-right: 2em; padding-bottom: 3em;
+}
+.deck.media-forward .slide.s-split.wide-right > .slide-fig { margin-top: 0; }
+.deck.media-forward .slide.s-split.wide-right:has(> .slide-fig > img) {
+  --deck-media-height: 30em;
+}
+.deck.media-forward.tde-branded .slide.s-split.wide-right {
+  grid-template-columns: minmax(0, .6fr) minmax(0, 1.4fr);
+}
+.deck.media-forward .slide.s-title:has(> .slide-fig, > [data-zoom-gallery]) {
+  padding-top: 5em;
+}
+.deck.media-forward .slide.s-title > .slide-fig,
+.deck.media-forward .slide.s-title > [data-zoom-gallery] {
+  margin-left: -3em; margin-right: -3em;
+}
+
 /* Stat blocks, for the outcome slides. */
 .s-stats { display: flex; gap: 3em; margin: 1.75em 0 0; padding: 0; list-style: none; }
 .s-stats li { margin: 0; }
