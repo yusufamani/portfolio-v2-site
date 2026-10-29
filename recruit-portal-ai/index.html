@@ -748,7 +748,7 @@ body:has(.deck) .rail { display: none; }
   list-style: none; }
 .s-rollout li { display: grid; grid-template-columns: 2.2em minmax(0, 1fr);
   align-items: start; gap: .65em; margin: 0; }
-.s-rollout .n { color: #b8bec4; font-size: 1.25em; font-weight: 700;
+.s-rollout .n { color: var(--muted); font-size: 1.25em; font-weight: 700;
   line-height: 1.4; }
 .slide .s-rollout .copy { max-width: none; margin: 0; font-size: 1.25em;
   line-height: 1.45; color: #3a3a3a; }
@@ -935,7 +935,8 @@ body:has(.deck) .rail { display: none; }
 .slide.s-split:not(.hero-right) .slide-fig.stack img { width: auto; height: auto;
   max-width: 100%;
   max-height: calc((var(--deck-media-height) - .85em) / 2); }
-.slide-fig .s-cap { font-size: .875em; color: var(--muted); margin: .75em 0 0; }
+.slide-fig .s-cap { font-size: .875em; line-height: 1.45; color: #3d3d3d;
+  margin: .75em 0 0; }
 .slide-fig .diag { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
   gap: 1em; }
 .slide-fig .diag .eq, .slide-fig .diag .says p { font-size: 1em;
@@ -978,6 +979,10 @@ body:has(.deck) .rail { display: none; }
 .deck.media-forward .slide.s-title > .slide-fig,
 .deck.media-forward .slide.s-title > [data-zoom-gallery] {
   margin-left: -3em; margin-right: -3em;
+}
+.deck.rp-deck .slide-body > .s-methods { margin-top: 1em; }
+.deck.rp-deck :is(.slide-body, .s-title) > .s-kick:not(:first-child) {
+  margin-top: 1.25em;
 }
 
 /* Stat blocks, for the outcome slides. */
