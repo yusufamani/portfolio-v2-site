@@ -1547,9 +1547,15 @@ function showZoomImage() {
   lbImg.src = image.currentSrc || image.src;
   lbImg.alt = image.alt || '';
   const caption = image.closest('.car-slide')?.querySelector('.car-cap');
-  lbStatus.textContent = zoomImages.length > 1
-    ? (zoomIndex + 1) + ' / ' + zoomImages.length + (caption ? ' · ' + caption.innerText.replace(/\s+/g, ' ').trim() : '')
-    : '';
+  const captionText = caption ? caption.innerText.replace(/\s+/g, ' ').trim() : '';
+  const hasGallery = zoomImages.length > 1;
+  lbStatus.textContent = hasGallery
+    ? (zoomIndex + 1) + ' / ' + zoomImages.length + (captionText ? ' · ' + captionText : '')
+    : captionText;
+  lbNav.hidden = !hasGallery && !captionText;
+  lbPrev.hidden = !hasGallery;
+  lbNext.hidden = !hasGallery;
+  lb.classList.toggle('has-gallery', !lbNav.hidden);
   lbPrev.disabled = zoomIndex === 0;
   lbNext.disabled = zoomIndex === zoomImages.length - 1;
 }
@@ -1569,9 +1575,6 @@ function openZoom(image) {
   const carousel = image.closest('.deck .carousel');
   zoomImages = carousel ? Array.from(carousel.querySelectorAll('.car-slide img')) : [image];
   zoomIndex = zoomImages.indexOf(image);
-  const hasGallery = zoomImages.length > 1;
-  lbNav.hidden = !hasGallery;
-  lb.classList.toggle('has-gallery', hasGallery);
   showZoomImage();
   lb.classList.add('on');
   lb.setAttribute('aria-hidden', 'false');
@@ -1746,7 +1749,7 @@ document.addEventListener('keydown', function (e) {
   });
 })();
 </script>
-<meta name="portfolio-build" content="4c780fcce8cb">
+<meta name="portfolio-build" content="13965675ed19">
 <script>
 (function () {
   const buildId = document.querySelector('meta[name="portfolio-build"]').content;
