@@ -1546,7 +1546,8 @@ function showZoomImage() {
   zoomOrigin = image;
   lbImg.src = image.currentSrc || image.src;
   lbImg.alt = image.alt || '';
-  const caption = image.closest('.car-slide')?.querySelector('.car-cap');
+  const caption = image.closest('.car-slide')?.querySelector('.car-cap')
+    || image.closest('[data-zoom-gallery] .slide-fig')?.querySelector('.s-cap');
   const captionText = caption ? caption.innerText.replace(/\s+/g, ' ').trim() : '';
   const hasGallery = zoomImages.length > 1;
   lbStatus.textContent = hasGallery
@@ -1572,8 +1573,8 @@ function moveZoom(step) {
       (document.activeElement === lbNext && lbNext.disabled)) lbClose.focus();
 }
 function openZoom(image) {
-  const carousel = image.closest('.deck .carousel');
-  zoomImages = carousel ? Array.from(carousel.querySelectorAll('.car-slide img')) : [image];
+  const gallery = image.closest('.deck .carousel, .deck [data-zoom-gallery]');
+  zoomImages = gallery ? Array.from(gallery.querySelectorAll('.car-slide img, .slide-fig > img')) : [image];
   zoomIndex = zoomImages.indexOf(image);
   showZoomImage();
   lb.classList.add('on');
